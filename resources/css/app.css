@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .bg-overlay {
+        @apply relative;
+    }
+
+    .bg-overlay::before {
+        @apply absolute top-0 left-0 w-full h-full rounded-3xl bg-gradient-to-r from-[#679f69]/100 to-[#dcebb5]/60;
+    }
+}
