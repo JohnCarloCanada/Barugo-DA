@@ -4,7 +4,7 @@
     </x-slot:title>
 
 
-    <section class="w-full h-screen bg-gradient-to-r from-[#81b277] to-[#dfedb7] flex items-center justify-center">
+    <section class="w-full min-h-screen bg-gradient-to-r from-[#81b277] to-[#dfedb7] flex items-center justify-center py-10">
 
         <section class="w-[min(100%,900px)] custom-bg bg-overlay before:z-10 rounded-3xl mx-5 lg:mx-0 flex flex-col items-center justify-center sm:flex-row">
             <section class="w-full flex flex-col items-center justify-center px-5 py-5 sm:py-5 z-[20]">
