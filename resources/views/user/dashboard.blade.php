@@ -3,13 +3,9 @@
         User Dashboard
     </x-slot:title>
 
-    <h1>Dashboard</h1>
-
-    <form action="{{ route('logout')}}" method="post">
-        @csrf
-
-        <div>
-            <input type="submit" value="logout">
-        </div>
-    </form>
+    <x-sidebar type="dashboard"/>
+    
+    <section>Main Content</section>
+    
+    @vite('resources/js/sideBarMenu.js')
 </x-app>

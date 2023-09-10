@@ -10,4 +10,28 @@
     .bg-overlay::before {
         @apply absolute top-0 left-0 w-full h-full rounded-3xl bg-gradient-to-r from-[#679f69]/100 to-[#dcebb5]/60;
     }
+
+    .isActive {
+        @apply h-screen w-56 bg-[#679f69] flex flex-col items-start justify-start p-4 relative;
+    }
+
+    .isHidden {
+        @apply w-16;
+    }
+
+    .isHidden .hide {
+        @apply hidden;
+    }
+
+    .isHidden .sizeIfHidden {
+        @apply h-8 w-8;
+    }
+
+    .isHidden .rotateReverse {
+        @apply rotate-0;
+    }
+
+    .isHidden .logout {
+        @apply rounded-full;
+    }
 }
