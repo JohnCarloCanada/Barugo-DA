@@ -34,7 +34,7 @@
                     </div>
 
                     <div class="w-full flex items-center justify-center sm:justify-start">
-                        <input class="px-8 py-1 bg-[#fbad1b] text-white font-bold cursor-pointer" type="submit" value="Login">
+                        <input aria-label="Login" class="px-8 py-1 bg-[#fbad1b] text-white font-bold cursor-pointer" type="submit" value="Login">
                     </div>
                 </form>
             </section>

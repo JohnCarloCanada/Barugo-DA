@@ -23,8 +23,9 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
 });
 
-Route::prefix('/user')->middleware(['auth', 'verified'])->group(function() {
+Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(function() {
     Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+    Route::get('/managed', [UserController::class, 'managed'])->name('user.managed');
 });
 
 Route::redirect('/', '/login');
