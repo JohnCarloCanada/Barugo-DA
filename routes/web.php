@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ManagedController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +26,10 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
 
 Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(function() {
     Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
-    Route::get('/managed', [UserController::class, 'managed'])->name('user.managed');
+
+    Route::resource('managed', ManagedController::class)->only([
+        'index', 'create', 'store'
+    ]);
 });
 
 Route::redirect('/', '/login');

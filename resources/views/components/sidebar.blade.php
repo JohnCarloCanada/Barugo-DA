@@ -26,7 +26,7 @@
                 </a>
             </li>
             <li class="{{$type == 'managed farmers' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
-                <a aria-label="Go to managed farmers" class="{{$type == 'managed farmers' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('user.managed')}}">
+                <a aria-label="Go to managed farmers" class="{{$type == 'managed farmers' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('managed.index')}}">
                     <img aria-hidden="true" class="w-5 h-5" src="{{asset('images/icons/people.png')}}" alt="">
                     <p class="hide">Managed Farmers</p>
                 </a>
