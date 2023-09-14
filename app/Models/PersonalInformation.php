@@ -9,6 +9,35 @@ class PersonalInformation extends Model
 {
     use HasFactory;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'RSBSA_No',
+        'Surname',
+        'First_Name',
+        'Middle_Name',
+        'Extension',
+        'Address',
+        'Mobile_No',
+        'Sex',
+        'Date_of_birth',
+        'Religion',
+        'Civil_Status',
+        'Name_of_Spouse',
+        'Highest_education_qualification',
+        'Main_livelihood',
+    ];
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'personal_informations';
+
 
     /**
      * The primary key associated with the table.

@@ -19,5 +19,35 @@
                 </ul>
             </div>
         </section>
+        <section class="w-[100%,900px] mx-auto bg-white rounded-lg">
+            <table class="w-full mt-5 text-center">
+                <thead>
+                    <tr>
+                        <th class="">RSBSA No.</th>
+                        <th class="">Surname</th>
+                        <th class="">Address</th>
+                        <th class="">Mobile No.</th>
+                        <th class="">Main Livelihood</th>
+                        <th class="">Operation</th>
+                    </tr>
+                </thead>
+        
+                <tbody>
+                    @foreach ($PersonalInformations as $PersonalInformation)
+                        <tr class="pt-10">
+                            <td>{{$PersonalInformation->RSBSA_No}}</td>
+                            <td>{{$PersonalInformation->Surname}}</td>
+                            <td>{{$PersonalInformation->Address}}</td>
+                            <td>{{$PersonalInformation->Mobile_No}}</td>
+                            <td>{{$PersonalInformation->Main_livelihood}}</td>
+                            <td>
+                                <a href="">Update</a>
+                                <a class= "" href="">Delete</a>
+                            </td>		
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </section>
     </section>
 </x-app>

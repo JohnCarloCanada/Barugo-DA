@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('Middle_Name', 99)->nullable();
             $table->string('Extension', 9)->nullable();
             $table->string('Address', 255);
-            $table->string('Mobile_No', 11);
+            $table->string('Mobile_No', 20);
             $table->string('Sex', 10);
-            $table->date('Data_of_birth');
+            $table->date('Date_of_birth');
             $table->string('Religion', 99);
             $table->string('Civil_Status', 9);
             $table->string('Name_of_Spouse', 99)->nullable();
