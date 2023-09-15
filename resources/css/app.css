@@ -35,3 +35,9 @@
         @apply rounded-full;
     }
 }
+
+@layer base {
+    td {
+        padding: 0.75rem;
+    }
+}

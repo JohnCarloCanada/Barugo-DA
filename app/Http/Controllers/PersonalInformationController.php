@@ -3,30 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Models\PersonalInformation;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
-class ManagedController extends Controller
+class PersonalInformationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(): View
+    public function index()
     {
         //
-
         return view('user.managed.managed', ['PersonalInformations' => PersonalInformation::all()]);
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create()
     {
         //
-
         return view('user.managed.create');
     }
 
@@ -35,6 +33,7 @@ class ManagedController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        //
         $validation_rules = [
             'RSBSA_No' => 'required|numeric|unique:personal_informations,RSBSA_No',
             'Surname' => 'required|string',
@@ -60,13 +59,13 @@ class ManagedController extends Controller
 
         $data = PersonalInformation::create($validated_data->validated());
 
-        return redirect()->route('managed.index');
+        return redirect()->route('personalInformation.index')->with('success', 'Farmer Successfully Added');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(PersonalInformation $personalInformation)
     {
         //
     }
@@ -74,7 +73,7 @@ class ManagedController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(PersonalInformation $personalInformation)
     {
         //
     }
@@ -82,7 +81,7 @@ class ManagedController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, PersonalInformation $personalInformation)
     {
         //
     }
@@ -90,8 +89,10 @@ class ManagedController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(PersonalInformation $personalInformation)
     {
         //
+        $personalInformation->delete();
+        return redirect()->route('personalInformation.index')->with('success', 'Farmer Successfully Deleted');
     }
 }

@@ -6,11 +6,11 @@
     <x-sidebar type="managed farmers"/>   
 
     <section class="w-full min-h-screen p-10">
-        <section class="w-[100%,900px] my-0 mx-auto bg-white flex flex-col items-center justify-center">
+        <section class="w-[100%,900px] my-0 mx-auto bg-white flex flex-col items-center justify-center ">
             <h2 class="text-black font-bold text-3xl sm:text-4xl">Add New Farmer</h2>
 
-            <section class="w-full mt-10">
-                <form class="w-full" action="{{route('managed.store')}}" method="post">
+            <section class="w-full mt-10  overflow-y-auto">
+                <form class="w-full overflow-y-auto" action="{{route('personalInformation.store')}}" method="post">
                     @csrf
 
                     @if ($errors->any())
