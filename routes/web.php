@@ -29,7 +29,7 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
     Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
 
     Route::resource('personalInformation', PersonalInformationController::class)->only([
-        'index', 'create', 'store', 'destroy',
+        'index', 'create', 'store', 'destroy', 'edit', 'update',
     ]);
 });
 

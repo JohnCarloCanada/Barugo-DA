@@ -13,7 +13,7 @@ class PersonalInformationController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
         //
         return view('user.managed.managed', ['PersonalInformations' => PersonalInformation::all()]);
@@ -73,9 +73,11 @@ class PersonalInformationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PersonalInformation $personalInformation)
+    public function edit(PersonalInformation $personalInformation): View
     {
         //
+
+        return view('user.managed.edit', ['PersonalInformations' => $personalInformation]);
     }
 
     /**
@@ -84,12 +86,39 @@ class PersonalInformationController extends Controller
     public function update(Request $request, PersonalInformation $personalInformation)
     {
         //
+        //
+        $validation_rules = [
+            'RSBSA_No' => 'required',
+            'Surname' => 'required|string',
+            'First_Name' => 'required|string',
+            'Middle_Name' => 'nullable|string',
+            'Extension' => 'nullable|string',
+            'Address' => 'required|string',
+            'Mobile_No' => 'required|string',
+            'Sex' => 'required|string',
+            'Date_of_birth' => 'required|date',
+            'Religion' => 'required|string',
+            'Civil_Status' => 'required|string',
+            'Name_of_Spouse' => 'nullable|string',
+            'Highest_education_qualification' => 'required|string',
+            'Main_livelihood' => 'required|string',
+
+        ];
+        $validated_data = Validator::make($request->all(), $validation_rules);
+    
+        if($validated_data->fails()) {
+            return back()->withErrors($validated_data)->withInput();
+        }
+
+        $personalInformation->update($validated_data->validated());
+
+        return redirect()->route('personalInformation.index')->with('success', 'Farmer Successfully Edited');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PersonalInformation $personalInformation)
+    public function destroy(PersonalInformation $personalInformation): RedirectResponse
     {
         //
         $personalInformation->delete();

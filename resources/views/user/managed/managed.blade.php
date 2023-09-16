@@ -41,12 +41,7 @@
                             <td>{{$PersonalInformation->Mobile_No}}</td>
                             <td>{{$PersonalInformation->Main_livelihood}}</td>
                             <td class="flex items-center justify-center">
-                                <form class="w-full" action="" method="post">
-                                    @csrf
-                                    <div>
-                                        <input class="bg-[#679f69] px-3 py-1 rounded-lg text-white font-bold cursor-pointer" type="submit" value="Edit">
-                                    </div>
-                                </form>
+                                <a class="bg-[#679f69] px-3 py-1 rounded-lg text-white font-bold cursor-pointer" href="{{ route('personalInformation.edit', ['personalInformation' => $PersonalInformation]) }}">Edit</a>
                                 <form class="w-full" action="{{ route('personalInformation.destroy', ['personalInformation' => $PersonalInformation]) }}" method="post">
                                     @csrf
                                     @method('delete')
