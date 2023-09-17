@@ -20,7 +20,7 @@
                         <div class="w-full py-5 px-10 flex items-center justify-center gap-x-14 rounded-2xl shadow-[0px_0px_2px_black]">
                             <img class="w-14 h-14" src="{{asset('images/farmer.png')}}" alt="">
                             <div class="text-end">
-                                <p class="text-2xl sm:text-3xl text-black font-bold">0</p>
+                                <p class="text-2xl sm:text-3xl text-black font-bold">{{$count}}</p>
                                 <p class="text-xs font-bold text-black" >Total Farmers</p>
                             </div> 
                         </div>
@@ -46,6 +46,20 @@
                     <h2 class="text-black text-xl font-bold mb-3">Machinery</h2>
                     <canvas class="block rounded-2xl shadow-[0px_0px_2px_black]" id="hori-dbar-chart"></canvas>
                 </section>
+
+                <div class="mt-12 w-full h-[200px]">
+                    <h2 class="m-[3rem,0] font-[700]">Recently Added</h2>
+
+                    <section class="flex w-full h-[200px] overflow-y-scroll flex-col gap-[0.5rem] p-[1rem]">
+                        @foreach ($latestEntries as $latestEntrie )
+                            <div class="flex items-center justify-around p-[0.5rem] shadow-[0_0_4px_black] rounded-[12px] w-full">
+                                <p class="font-[700] text-[1.1rem]">{{$latestEntrie->First_Name}}</p>
+                                <p class="font-[700] text-[1.1rem]">{{$latestEntrie->Address}}</p>
+                            </div>
+                        @endforeach
+                    </section>
+                </div>
+
             </section>
         </section>
     </section>
