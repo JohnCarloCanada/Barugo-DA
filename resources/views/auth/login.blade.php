@@ -1,6 +1,6 @@
 <x-guest>
     <x-slot:title>
-        Login Barugo
+        Barugo | Login
     </x-slot:title>
 
 
@@ -14,27 +14,27 @@
 
                     <h2 class="font-bold text-3xl sm:text-4xl mb-5 text-white">Login</h2>
 
-                    <div class="mb-5">
-                        <x-input-error :messages="$errors->get('email')" class="mt-2 mb-4" />
+                    <div class="my-1">
+                        <x-input-error :messages="$errors->get('email')" class="my-1 text-xs w-fit px-2 py-1 rounded bg-red-500 text-white" />
                         <label class="sr-only" for="email">Email</label>
-                        <input class="p-2 rounded-md w-full"  type="email" name="email" id="email" placeholder="Enter Email Address" value="{{ old('email')}}">
+                        <input class="p-2 rounded-md w-full outline-0 font-semibold text-slate-700"  type="email" name="email" id="email" placeholder="Enter Email Address" value="{{ old('email')}}">
                     </div>
 
-                    <div class="mb-1">
-                        <x-input-error :messages="$errors->get('password')" class="mt-2 mb-4" />
+                    <div class="my-2">
+                        <x-input-error :messages="$errors->get('password')" class="my-1 text-xs w-fit px-2 py-1 rounded bg-red-500 text-white" />
                         <label class="sr-only" for="password">Password</label>
-                        <input class="p-2 rounded-md w-full" type="password" name="password" id="password" placeholder="Enter Password" value="{{ old('password')}}">
+                        <input class="p-2 rounded-md w-full outline-0 font-semibold" type="password" name="password" id="password" placeholder="Enter Password" value="{{ old('password')}}">
                     </div>
 
                     <div class="block mt-1 mb-2">
                         <label for="remember_me" class="inline-flex items-center">
                             <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                            <span class="ml-2 text-sm text-black font-semibold">{{ __('Remember me') }}</span>
+                            <span class="ml-2 text-sm text-black font-semibold text-slate-700">{{ __('Remember me') }}</span>
                         </label>
                     </div>
 
                     <div class="w-full flex items-center justify-center sm:justify-start">
-                        <input aria-label="Login" class="px-8 py-1 bg-[#fbad1b] text-white font-bold cursor-pointer" type="submit" value="Login">
+                        <input aria-label="Login" class="px-8 py-1 bg-[#fbad1b] rounded text-white font-bold cursor-pointer" type="submit" value="Login">
                     </div>
                 </form>
             </section>
