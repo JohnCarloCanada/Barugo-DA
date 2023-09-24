@@ -2,7 +2,7 @@
 
 
 <section data-sidebar class="isActive">
-    <img data-menu class="absolute h-6 w-6 top-2 -right-3 rotate-180 cursor-pointer rotateReverse" src="{{asset('images/arrow-right.png')}}" alt="">
+    <img data-menu class="absolute h-8 w-8 top-2 rounded-full border-2 bg-white border-white -right-4 rotate-180 cursor-pointer rotateReverse" src="{{asset('images/arrow-right.png')}}" alt="">
 
     <section class="flex items-center gap-x-1">
         <img class="h-12 w-12 sizeIfHidden" src="{{asset('images/DA-Logo.png')}}" alt="Barugo DA Logo">
@@ -10,7 +10,7 @@
     </section>
 
     <section class="flex items-center justify-center gap-x-2 mt-5 hide">
-        <img class="h-14 w-14 rounded-full"  src="{{asset('images/pexels-pixabay-220453.jpg')}}" alt="Profile Image">
+        <img class="h-14 w-14 rounded-full border border-2 border-green-900 "  src="{{asset('images/pexels-pixabay-220453.jpg')}}" alt="Profile Image">
         <div class="flex flex-col items-start justify-center">
             <p class="text-sm text-white font-bold">{{Auth::user()->name}}</p>
             <p class="text-[#a6bba7] text-xs">Agriculturist</p>
