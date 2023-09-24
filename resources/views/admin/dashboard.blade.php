@@ -10,7 +10,7 @@
         <section class="w-[100%,900px] h-[500px] mx-auto overflow-x-auto bg-white rounded-lg">
             <table class="w-full mt-5 text-center">
                 <thead>
-                    <tr>
+                    <tr >
                         <th class="">RSBSA No.</th>
                         <th class="">Surname</th>
                         <th class="">Address</th>
@@ -23,13 +23,13 @@
         
                 <tbody>
                     @foreach ($PersonalInformations as $PersonalInformation)
-                        <tr class="pt-10">
+                        <tr class="pt-10 odd:bg-slate-200">
                             <td>{{$PersonalInformation->RSBSA_No}}</td>
                             <td>{{$PersonalInformation->Surname}}</td>
                             <td>{{$PersonalInformation->Address}}</td>
                             <td>{{$PersonalInformation->Mobile_No}}</td>
                             <td>{{$PersonalInformation->Main_livelihood}}</td>
-                            <td>{{ $PersonalInformation->is_approved ? "Active" : "In-Active"}}</td>
+                            <td class="{{ $PersonalInformation->is_approved ? "text-green-500 font-bold p-1 rounded h-fit w-fit" : "text-red-500 font-bold p-1 rounded h-fit w-fit"}}">{{ $PersonalInformation->is_approved ? "Active" : "In-Active"}}</td>
                             <td class="flex items-center justify-center gap-3">
                                 <form class="w-full" action="{{ route('admin.approved', ['personalInformation' => $PersonalInformation]) }}" method="post">
                                     @csrf
