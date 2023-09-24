@@ -16,7 +16,7 @@ class PersonalInformationController extends Controller
     public function index(): View
     {
         //
-        return view('user.managed.managed', ['PersonalInformations' => PersonalInformation::all()]);
+        return view('user.managed.managed', ['PersonalInformations' => PersonalInformation::where('is_approved', '=', true)->get()]);
     }
 
     /**
