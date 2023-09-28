@@ -22,7 +22,8 @@ Route::get('/', function () {
 });
 
 Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(function() {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard',[AdminController:: class,'index'])->name('admin.dashboard');
+    Route::get('/farmers', [AdminController::class, 'indexFarmer'])->name('admin.farmer');
     Route::put('/dashboard/{personalInformation}', [AdminController::class, 'approved'])->name('admin.approved');
     Route::delete('/dashboard/{personalInformation}', [AdminController::class, 'delete'])->name('admin.delete');
 });
