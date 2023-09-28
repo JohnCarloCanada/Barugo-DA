@@ -17,7 +17,7 @@
                 <img class="w-[5rem]" src="{{asset('images/farmer-3.png')}}" alt="">
                 <div>
                     <p class="">Farmers</p>
-                    <p class="text-3xl">100</p>
+                    <p class="text-3xl">{{$count}}</p>
                 </div>
             </li>
             <li

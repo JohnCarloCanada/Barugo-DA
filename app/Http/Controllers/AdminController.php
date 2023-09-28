@@ -11,7 +11,7 @@ class AdminController extends Controller
 {
     //
     public function index(): View {
-        return view('admin.dashboard', ['PersonalInformations' => PersonalInformation::get()]);
+        return view('admin.dashboard', ['PersonalInformations' => PersonalInformation::get(), 'count' => PersonalInformation::count()]);
     }
 
     public function indexFarmer(): View {
