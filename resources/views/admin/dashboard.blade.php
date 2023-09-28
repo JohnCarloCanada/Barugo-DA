@@ -1,55 +1,53 @@
 <x-app>
     <x-slot:title>
-        Admin Dashboard
+        Admin | Dashboard
     </x-slot:title>
 
-    <x-sidebar type="dashboard"/>
+    <x-admin.sidebar type="dashboard"/>
 
-
-    <section class="w-full min-h-screen p-5 overflow-y-auto">
-        <section class="w-[100%,900px] h-[500px] mx-auto overflow-x-auto bg-white rounded-lg">
-            <table class="w-full mt-5 text-center">
-                <thead>
-                    <tr >
-                        <th class="">RSBSA No.</th>
-                        <th class="">Surname</th>
-                        <th class="">Address</th>
-                        <th class="">Mobile No.</th>
-                        <th class="">Main Livelihood</th>
-                        <th class="">Status</th>
-                        <th class="">Operation</th>
-                    </tr>
-                </thead>
-        
-                <tbody>
-                    @foreach ($PersonalInformations as $PersonalInformation)
-                        <tr class="pt-10 odd:bg-slate-200">
-                            <td>{{$PersonalInformation->RSBSA_No}}</td>
-                            <td>{{$PersonalInformation->Surname}}</td>
-                            <td>{{$PersonalInformation->Address}}</td>
-                            <td>{{$PersonalInformation->Mobile_No}}</td>
-                            <td>{{$PersonalInformation->Main_livelihood}}</td>
-                            <td class="{{ $PersonalInformation->is_approved ? "text-green-500 font-bold p-1 rounded h-fit w-fit" : "text-red-500 font-bold p-1 rounded h-fit w-fit"}}">{{ $PersonalInformation->is_approved ? "Active" : "In-Active"}}</td>
-                            <td class="flex items-center justify-center gap-3">
-                                <form class="w-full" action="{{ route('admin.approved', ['personalInformation' => $PersonalInformation]) }}" method="post">
-                                    @csrf
-                                    @method('put')
-                                    <div class="w-full">
-                                        <input class="bg-[#679f69] w-full px-3 py-1 rounded-lg text-white font-bold cursor-pointer @if($PersonalInformation->is_approved) hidden @endif" type="submit" value="Approved">
-                                    </div>
-                                </form>
-                                <form class="w-full" action="{{ route('admin.delete', ['personalInformation' => $PersonalInformation]) }}" method="post">
-                                    @csrf
-                                    @method('delete')
-                                    <div class="w-full">
-                                        <input class="bg-red-500 w-full px-3 py-1 rounded-lg text-white font-bold cursor-pointer" type="submit" value="Delete">
-                                    </div>
-                                </form>
-                            </td>		
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </section>
+    <section class="grid w-full h-full p-5">
+        <div class=" my-3">
+            <h2 class="font-bold text-2xl">Dashboard</h2>
+            <p class="text-sm">Overview about the system`s activities.</p>
+        </div>
+        <ol class="grid md:grid-cols-4 max-auto grid-cols-1 mt-5 gap-4 relative">
+            <li
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+            >
+                <img class="w-[5rem]" src="{{asset('images/farmer-3.png')}}" alt="">
+                <div>
+                    <p class="">Farmers</p>
+                    <p class="text-3xl">100</p>
+                </div>
+            </li>
+            <li
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+            >
+                <img class="w-[5rem]" src="{{asset('images/chicken.png')}}" alt="">
+                <div>
+                    <p class="">Animals</p>
+                    <p class="text-3xl">100</p>
+                </div>
+            </li>
+            <li
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+            >
+                <img class="w-[5rem]" src="{{asset('images/seeding.png')}}" alt="">
+                <div>
+                    <p class="">Seeds</p>
+                    <p class="text-3xl">100</p>
+                </div>
+            </li>
+            <li
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+            >
+                <img class="w-[5rem]" src="{{asset('images/syringe.png')}}" alt="">
+                <div>
+                    <p class="">Vaccinations</p>
+                    <p class="text-3xl">100</p>
+                </div>
+            </li>
+        </ol>
     </section>
+
 </x-app>

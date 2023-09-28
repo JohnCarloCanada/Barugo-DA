@@ -14,17 +14,21 @@ class AdminController extends Controller
         return view('admin.dashboard', ['PersonalInformations' => PersonalInformation::get()]);
     }
 
+    public function indexFarmer(): View {
+        return view('admin.farmer',['PersonalInformations' => PersonalInformation::get()]);
+    }
+
 
     public function approved(PersonalInformation $personalInformation) {
         $personalInformation->is_approved = true;
         $personalInformation->save();
 
-        return redirect()->route('admin.dashboard')->with('success', 'Farmer Successfully Approved');
+        return redirect()->route('admin.farmer')->with('success', 'Farmer Successfully Approved');
     }
 
     public function delete(PersonalInformation $personalInformation) {
         $personalInformation->delete();
-        return redirect()->route('admin.dashboard')->with('success', 'Farmer Successfully Deleted');
+        return redirect()->route('admin.farmer')->with('success', 'Farmer Successfully Deleted');
     }
 
 }
