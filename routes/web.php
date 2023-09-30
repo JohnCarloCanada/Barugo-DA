@@ -23,7 +23,9 @@ Route::get('/', function () {
 
 Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(function() {
     Route::get('/dashboard',[AdminController:: class, 'index'])->name('admin.dashboard');
-    Route::get('/farmers', [AdminController::class, 'indexFarmer'])->name('admin.farmer');
+    Route::get('/farmers', [AdminController::class, 'farmer'])->name('admin.farmer');
+    Route::get('/location', [AdminController::class, 'location'])->name('admin.location');
+    Route::get('/location/map', [AdminController::class, 'mapLocation'])->name('admin.map');
     Route::put('/dashboard/{personalInformation}', [AdminController::class, 'approved'])->name('admin.approved');
     Route::delete('/dashboard/{personalInformation}', [AdminController::class, 'delete'])->name('admin.delete');
 });

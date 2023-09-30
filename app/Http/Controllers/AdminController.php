@@ -14,10 +14,17 @@ class AdminController extends Controller
         return view('admin.dashboard', ['PersonalInformations' => PersonalInformation::get(), 'count' => PersonalInformation::count()]);
     }
 
-    public function indexFarmer(): View {
+    public function farmer(): View {
         return view('admin.farmer',['PersonalInformations' => PersonalInformation::get()]);
     }
 
+    public function location(): View {
+        return view('admin.location');
+    }
+
+    public function mapLocation(): View {
+        return view('admin.map');
+    }
 
     public function approved(PersonalInformation $personalInformation) {
         $personalInformation->is_approved = true;
