@@ -25,6 +25,11 @@ class AdminController extends Controller
     public function mapLocation(): View {
         return view('admin.map');
     }
+    
+
+    public function farmerDetails($currentRoute) :View{
+        return view('admin.farmerDetails',['currentRoute'=>$currentRoute]);
+    }
 
     public function approved(PersonalInformation $personalInformation) {
         $personalInformation->is_approved = true;

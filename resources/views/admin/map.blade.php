@@ -5,7 +5,7 @@
 
     <x-admin.sidebar type="farm locations"/>
 
-    map works
+   
 
 
 </x-app>
