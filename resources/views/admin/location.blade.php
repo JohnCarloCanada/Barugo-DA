@@ -11,9 +11,9 @@
             <p class="text-sm md:w-1/2 w-full">Their livelihood's urban location ensured access to a diverse market and numerous customers for their fresh produce.</p>
         </div>
         <div class="flex flex-col w-full h-full">
-            <table class="flex flex-col w-full shadow-md border border-2 rounded">
-                <tr class="grid grid-cols-1 py-2 bg-green-500 text-white w-full">
-                    <th class="w-full px-3 bg-green-500 relative flex md:justify-end justify-center items-center py-2">
+            <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border border-2 rounded">
+                <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
+                    <th class="w-full px-3 relative flex md:justify-end justify-center items-center py-2">
                         <input class="md:w-1/2 px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-[90%]" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-6">
@@ -34,9 +34,9 @@
                     <td>lorem</td>
                     <td>lorem</td>
                     <td class="grid grid-cols-3 gap-2">
-                        <a href="{{route('admin.map')}}"><img class="w-8 p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt=""></a>
-                        <div><img class="w-8 p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
-                        <div><img class="w-8 p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/delete.png')}}" alt=""></div>
+                        <a href="{{route('admin.map')}}"><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt=""></a>
+                        <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
+                        <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/delete.png')}}" alt=""></div>
                     </td>
                 </tr>
                 @endforeach
