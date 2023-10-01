@@ -26,10 +26,10 @@
                         </div>
                     </div>
                     <div>
-                        <h2 class="font-bold text-2xl">John Doe</h2>
+                        <h2 class="font-bold text-2xl">{{$personalInformation->Surname}}</h2>
                         <div class="flex gap-2 items-center">
                             <p class=" font-semibold">RSBSA No.</p>
-                            <p class="text-sm">9812619</p>
+                            <p class="text-sm">{{$personalInformation->RSBSA_No}}</p>
                         </div>
                     </div>
                 </div>
@@ -38,10 +38,10 @@
 
             
             <div class="w-full grid grid-cols-4 py-1">
-                <a href="/admin/farmers/details/personal" class="{{$currentRoute == 'personal' ?  'mx-auto px-2 py-1 rounded text-white cursor-pointer  bg-green-600' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Area Information</a>
-                <a href="/admin/farmers/details/live-stack" class="{{$currentRoute == 'live-stack' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Livestock Information</a>
-                <a href="/admin/farmers/details/poultry" class="{{$currentRoute == 'poultry' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Poultry Information</a>
-                <a href="/admin/farmers/details/machinary" class="{{$currentRoute == 'machinary' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Machinary Information</a>
+                <a href="{{route('admin.farmerDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'personal'])}}" class="{{$currentRoute == 'personal' ?  'mx-auto px-2 py-1 rounded text-white cursor-pointer  bg-green-600' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Area Information</a>
+                <a href="{{route('admin.farmerDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'live-stack'])}}" class="{{$currentRoute == 'live-stack' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Livestock Information</a>
+                <a href="{{route('admin.farmerDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'poultry'])}}" class="{{$currentRoute == 'poultry' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Poultry Information</a>
+                <a href="{{route('admin.farmerDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'machinary'])}}" class="{{$currentRoute == 'machinary' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Machinary Information</a>
             </div>
         </div>
 

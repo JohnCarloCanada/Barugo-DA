@@ -39,16 +39,15 @@
                         <td class="text-center">{{$PersonalInformation->Main_livelihood}}</td>
                         <td class="{{ $PersonalInformation->is_approved ? "text-green-500 font-bold text-center rounded h-fit" : "text-red-500 font-bold text-center  rounded h-fit"}}">{{ $PersonalInformation->is_approved ? "Active" : "In-Active"}}</td>
                         <td class="flex items-center justify-center gap-2">
-                            <a href="/admin/farmers/details/personal">
+                            <a href="{{route('admin.farmerDetails', ['personalInformation' => $PersonalInformation, 'currentRoute' => 'personal'])}}">
                                 <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt="">
                             </a>
-                            @if($PersonalInformation->is_approved)
+                            @if(!$PersonalInformation->is_approved)
                             <form class="" action="{{ route('admin.approved', ['personalInformation' => $PersonalInformation]) }}" method="post">
                                 @csrf
                                 @method('put')
                                 <div class="w-full">
-                                    <input class="bg-[#679f69] hidden w-full px-3 py-1 rounded-lg text-white font-bold cursor-pointer @if($PersonalInformation->is_approved) hidden @endif" type="submit" value="Approved">
-                                    <button type="submit">
+                                    <button class="@if($PersonalInformation->is_approved) hidden @endif" type="submit">
                                         <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/tick.png')}}" alt="">
                                     </button>
                                 </div>
