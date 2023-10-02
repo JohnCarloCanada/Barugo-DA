@@ -36,7 +36,9 @@
     }
 
     .nav{
-        display: none;
+        height: 0px;
+        width: 0px;
+        overflow: hidden;
     }
 
     .navShow{
@@ -46,7 +48,10 @@
         color:black;
         margin-top:5px;
         border-radius: .2rem;
+        height: 5rem;
+        width:8rem;
         box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        transition: height .4s ease-in-out;
     }
 }
 
