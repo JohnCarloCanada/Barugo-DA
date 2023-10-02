@@ -13,14 +13,14 @@
                         <img src="{{asset('images/farmer-3.png')}}" class="max-w-[46px] max-h-[46px] rounded-full bg-gray-300 border border" alt="">
                         <img onclick="toggleDropDown()" src="{{asset('images/icons/update.png')}}" class="h-[20px] h-[20px] absolute bg-white rounded-full border bottom-0 right-0 cursor-pointer hover:bg-green-200" alt="">
                         <div  id="dropdownTarget" class="nav">
-                            <ul class="w-[150px]">
-                                <li class="flex items-center justify-center gap-2 py-1 hover:bg-slate-200">
+                            <ul class="w-full">
+                                <li class="flex  cursor-pointer items-center justify-center gap-2 py-1 hover:bg-slate-200">
                                     <img src="{{asset('images/icons/delete.png')}}" class="h-[20px] w-[20px]" alt="">
-                                    <p class="text-center text-slate-700 my-1 font-semibold cursor-pointer">DELETE</p>
+                                    <p class="text-center text-slate-700 my-1 font-semibold">DELETE</p>
                                 </li>
-                                <li class="flex items-center justify-center gap-2 py-1 hover:bg-slate-200">
+                                <li class="flex items-center  cursor-pointer justify-center gap-2 py-1 hover:bg-slate-200">
                                     <img src="{{asset('images/icons/edit.png')}}" class="h-[15px] w-[15px]" alt="">
-                                    <p class="text-center text-slate-700 my-1 font-semibold cursor-pointer">UPDATE</p>
+                                    <p class="text-center text-slate-700 my-1 font-semibold ">UPDATE</p>
                                 </li>
                             </ul>
                         </div>
@@ -54,8 +54,11 @@
         <div class="{{$currentRoute == 'personal' ? 'flex flex-col w-full h-full p-5' : 'hidden'}}">
             <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
-                    <th class="w-full px-3 relative flex md:justify-end justify-center items-center py-2">
-                        <input class="md:w-1/2 px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-[90%]" placeholder="Search..." type="text">
+                    <th class="w-full px-3 grid grid-cols-2 relative  py-2">
+                        <div class="flex items-center gap-3 cursor-pointer">
+                            <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Area
+                        </div>
+                        <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-10 text-[12px] mt-5">
                         <div>Area</div>
@@ -97,8 +100,11 @@
         <div class="{{$currentRoute == 'live-stack' ? 'flex flex-col w-full h-full p-5' : 'hidden'}}">
             <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
-                    <th class="w-full px-3 relative flex md:justify-end justify-center items-center py-2">
-                        <input class="md:w-1/2 px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-[90%]" placeholder="Search..." type="text">
+                    <th class="w-full px-3 grid grid-cols-2 relative  py-2">
+                        <div class="flex items-center gap-3 cursor-pointer">
+                            <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Live-stack
+                        </div>
+                        <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-5 text-[12px] mt-5">
                         <div>Animal Name</div>
@@ -130,8 +136,11 @@
         <div class="{{$currentRoute == 'poultry' ? 'flex flex-col w-full h-full p-5' : 'hidden'}}">
             <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
-                    <th class="w-full px-3 relative flex md:justify-end justify-center items-center py-2">
-                        <input class="md:w-1/2 px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-[90%]" placeholder="Search..." type="text">
+                    <th class="w-full px-3 grid grid-cols-2 relative  py-2">
+                        <div class="flex items-center gap-3 cursor-pointer">
+                            <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Poultry
+                        </div>
+                        <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-3 text-[12px] mt-5">
                         <div>Animal Name</div>
@@ -158,8 +167,11 @@
         <div class="{{$currentRoute == 'machinary' ? 'flex flex-col w-full h-full p-5' : 'hidden'}}">
             <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
-                    <th class="w-full px-3 relative flex md:justify-end justify-center items-center py-2">
-                        <input class="md:w-1/2 px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-[90%]" placeholder="Search..." type="text">
+                    <th class="w-full px-3 grid grid-cols-2 relative  py-2">
+                        <div class="flex items-center gap-3 cursor-pointer">
+                            <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Machinary
+                        </div>
+                        <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-5 text-[12px] mt-5">
                         <div>Machine Name</div>
