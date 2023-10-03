@@ -27,9 +27,7 @@ class AdminController extends Controller
         return view('admin.map');
     }
 
-    public function personnel(Request $request) :View {
-        return view('admin.personnel',['users'=>User::get()->skip($request->skip)->take(10),'userCount'=>User::count()]);
-    }
+   
     
 
     public function farmerDetails(PersonalInformation $personalInformation, string $currentRoute) :View{

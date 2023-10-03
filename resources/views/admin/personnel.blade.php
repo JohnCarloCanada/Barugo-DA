@@ -15,7 +15,9 @@
                         <div class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Personnel
                         </div>
-                        <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
+                        <form action="{{route('admin.personnel')}}" method="GET" class="w-full">
+                            <input name="search" class="px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
+                        </form>
                     </th>
                     <th class="grid grid-cols-6">
                         <div>Name</div>
@@ -41,15 +43,24 @@
                     </td>
                 </tr>
                 @endforeach
+                @if($userCount!=0)
                 <tr class="bg-green-500 gap-2 py-1 w-full flex items-center justify-center text-white font-bold">
                     @for ($count = 0; $count < $userCount; $count += 10)
                         <td class="hover:bg-slate-200 hover:text-black rounded px-2 py-1">
-                            <a href="/admin/personnel?skip={{$count}}">
+                            <a href="/admin/personnel?skip={{$count}}&&search={{$search}}">
                                 <p>{{ $count + 10}}</p>
                             </a>
                         </td>
                     @endfor
                 </tr>
+                @else
+                    <tr class="flex items-center justify-center">
+                        <td class="flex items-center justify-center flex-col p-3 mt-5">
+                            <img src="{{asset('images/man.png')}}" class="h-[5rem] h-[5rem]" alt="">
+                            <p class="font-bold mt-3 text-xl -translate-x-2">No Data</p>
+                        </td>
+                    </tr>
+                @endIf
             </table>
         </div>
     </section>

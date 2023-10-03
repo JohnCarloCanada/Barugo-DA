@@ -1,10 +1,11 @@
 <?php
 
+use App\Http\Controllers\Personnel;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ManagedController;
 use App\Http\Controllers\PersonalInformationController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,7 @@ Route::get('/', function () {
 
 Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(function() {
     Route::get('/dashboard',[AdminController:: class, 'index'])->name('admin.dashboard');
-    Route::get('/personnel', [AdminController::class,'personnel'])->name('admin.personnel');
+    Route::get('/personnel', [Personnel::class,'getAllPersonnel'])->name('admin.personnel');
     Route::get('/farmers', [AdminController::class, 'farmer'])->name('admin.farmer');
     Route::get('/farmers/details/{personalInformation}/{currentRoute}', [AdminController::class, 'farmerDetails'])->name('admin.farmerDetails');
     Route::get('/location', [AdminController::class, 'location'])->name('admin.location');
