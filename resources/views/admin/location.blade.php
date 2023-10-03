@@ -5,12 +5,9 @@
 
     <x-admin.sidebar type="farm locations"/>
 
-    <section class="grid w-full h-full p-5">
-        <div class=" my-3">
-            <h2 class="font-bold text-2xl">Farmer`s Location</h2>
-            <p class="text-sm md:w-1/2 w-full">Their livelihood's urban location ensured access to a diverse market and numerous customers for their fresh produce.</p>
-        </div>
-        <div class="flex flex-col w-full h-full">
+    <section class="w-full h-full p-5">
+        <x-admin.titleCard title="Farmer`s Location" slogan="Their livelihood's urban location ensured access to a diverse market and numerous customers for their fresh produce." />
+        <div class="flex flex-col w-full mt-5 h-full">
             <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 relative flex md:justify-end justify-center items-center py-2">

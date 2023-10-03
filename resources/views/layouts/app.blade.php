@@ -8,7 +8,7 @@
         @vite('resources/css/app.css')
     </head>
     <body>
-        <section class="w-full bg-[#e9ffeb] flex">
+        <section class="w-full bg-[#e9ffeb] flex h-screen overflow-y-hidden">
             {{$slot}}
         </section>
 
