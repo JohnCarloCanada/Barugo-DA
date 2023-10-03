@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PersonalInformation;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -11,7 +12,7 @@ class AdminController extends Controller
 {
     //
     public function index(): View {
-        return view('admin.dashboard', ['PersonalInformations' => PersonalInformation::get(), 'count' => PersonalInformation::count()]);
+        return view('admin.dashboard', ['PersonalInformations' => PersonalInformation::get(), 'count' => PersonalInformation::count(),'userCount'=>User::count()]);
     }
 
     public function farmer(): View {
@@ -24,6 +25,10 @@ class AdminController extends Controller
 
     public function mapLocation(): View {
         return view('admin.map');
+    }
+
+    public function personnel(Request $request) :View {
+        return view('admin.personnel',['users'=>User::get()->skip($request->skip)->take(10),'userCount'=>User::count()]);
     }
     
 

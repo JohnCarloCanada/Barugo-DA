@@ -23,6 +23,7 @@ Route::get('/', function () {
 
 Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(function() {
     Route::get('/dashboard',[AdminController:: class, 'index'])->name('admin.dashboard');
+    Route::get('/personnel', [AdminController::class,'personnel'])->name('admin.personnel');
     Route::get('/farmers', [AdminController::class, 'farmer'])->name('admin.farmer');
     Route::get('/farmers/details/{personalInformation}/{currentRoute}', [AdminController::class, 'farmerDetails'])->name('admin.farmerDetails');
     Route::get('/location', [AdminController::class, 'location'])->name('admin.location');
