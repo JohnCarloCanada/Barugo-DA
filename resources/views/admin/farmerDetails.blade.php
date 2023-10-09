@@ -5,7 +5,7 @@
 
     <x-admin.sidebar type="managed farmers"/>
     <div class="h-full w-full">
-        <div class="grid w-full h-full px-5 bg-green-700">
+        <div class="grid w-full  px-5 bg-green-700">
             <div class="my-3 px-5 text-white flex justify-between w-full gap-4">
                 <x-admin.goBack/>
                 <div class="flex items-center justify-center gap-3">

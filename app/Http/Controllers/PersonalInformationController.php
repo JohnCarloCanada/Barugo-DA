@@ -10,6 +10,24 @@ use Illuminate\Http\RedirectResponse;
 
 class PersonalInformationController extends Controller
 {
+
+    var $validation_rules = [
+        'RSBSA_No' => 'required|numeric|unique:personal_informations,RSBSA_No',
+        'Surname' => 'required|string',
+        'First_Name' => 'required|string',
+        'Middle_Name' => 'nullable|string',
+        'Extension' => 'nullable|string',
+        'Address' => 'required|string',
+        'Mobile_No' => 'required|string',
+        'Sex' => 'required|string',
+        'Date_of_birth' => 'required|date',
+        'Religion' => 'required|string',
+        'Civil_Status' => 'required|string',
+        'Name_of_Spouse' => 'nullable|string',
+        'Highest_education_qualification' => 'required|string',
+        'Main_livelihood' => 'required|string',
+
+    ];
     /**
      * Display a listing of the resource.
      */
@@ -34,23 +52,7 @@ class PersonalInformationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //
-        $validation_rules = [
-            'RSBSA_No' => 'required|numeric|unique:personal_informations,RSBSA_No',
-            'Surname' => 'required|string',
-            'First_Name' => 'required|string',
-            'Middle_Name' => 'nullable|string',
-            'Extension' => 'nullable|string',
-            'Address' => 'required|string',
-            'Mobile_No' => 'required|string',
-            'Sex' => 'required|string',
-            'Date_of_birth' => 'required|date',
-            'Religion' => 'required|string',
-            'Civil_Status' => 'required|string',
-            'Name_of_Spouse' => 'nullable|string',
-            'Highest_education_qualification' => 'required|string',
-            'Main_livelihood' => 'required|string',
-
-        ];
+        
         $validated_data = Validator::make($request->all(), $validation_rules);
     
         if($validated_data->fails()) {
@@ -87,23 +89,7 @@ class PersonalInformationController extends Controller
     {
         //
         //
-        $validation_rules = [
-            'RSBSA_No' => 'required',
-            'Surname' => 'required|string',
-            'First_Name' => 'required|string',
-            'Middle_Name' => 'nullable|string',
-            'Extension' => 'nullable|string',
-            'Address' => 'required|string',
-            'Mobile_No' => 'required|string',
-            'Sex' => 'required|string',
-            'Date_of_birth' => 'required|date',
-            'Religion' => 'required|string',
-            'Civil_Status' => 'required|string',
-            'Name_of_Spouse' => 'nullable|string',
-            'Highest_education_qualification' => 'required|string',
-            'Main_livelihood' => 'required|string',
-
-        ];
+       
         $validated_data = Validator::make($request->all(), $validation_rules);
     
         if($validated_data->fails()) {

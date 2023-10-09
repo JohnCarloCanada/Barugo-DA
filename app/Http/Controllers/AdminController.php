@@ -12,7 +12,7 @@ class AdminController extends Controller
 {
     //
     public function index(): View {
-        return view('admin.dashboard', ['PersonalInformations' => PersonalInformation::get(), 'count' => PersonalInformation::count(),'userCount'=>User::count()]);
+        return view('admin.dashboard', ['PersonalInformations' => PersonalInformation::get(), 'count' => PersonalInformation::count(),'userCount' => User::where('role_as', 0)->count()]);
     }
 
     public function farmer(): View {

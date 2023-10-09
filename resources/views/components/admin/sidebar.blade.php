@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li class="{{$type == 'personnel' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
-                <a aria-label="Go to personnel" class="{{$type == 'personnel' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('admin.personnel')}}">
+                <a aria-label="Go to personnel" class="{{$type == 'personnel' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('personnel.index')}}">
                     <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/icons/people.png')}}" alt="">
                     <p class="hide">Personnel</p>
                 </a>

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Personnel;
+use App\Http\Controllers\PersonnelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
@@ -24,14 +24,16 @@ Route::get('/', function () {
 
 Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(function() {
     Route::get('/dashboard',[AdminController:: class, 'index'])->name('admin.dashboard');
-    Route::get('/personnel', [Personnel::class,'getAllPersonnel'])->name('admin.personnel');
     Route::get('/farmers', [AdminController::class, 'farmer'])->name('admin.farmer');
     Route::get('/farmers/details/{personalInformation}/{currentRoute}', [AdminController::class, 'farmerDetails'])->name('admin.farmerDetails');
     Route::get('/location', [AdminController::class, 'location'])->name('admin.location');
     Route::get('/location/map', [AdminController::class, 'mapLocation'])->name('admin.map');
     Route::put('/dashboard/{personalInformation}', [AdminController::class, 'approved'])->name('admin.approved');
     Route::delete('/dashboard/{personalInformation}', [AdminController::class, 'delete'])->name('admin.delete');
+
+    Route::resource('personnel', PersonnelController::class)->only(['index','destroy','store','update']);
 });
+
 
 Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(function() {
     Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
