@@ -128,9 +128,8 @@
 </div>
 
 <div id="personnelEditForm" class="hidden" >
-    
     <div class="h-screen w-screen bg-gray-500/50 fixed top-0 left-0 z-2 flex items-center justify-center">
-        <form method="POST" id="editFormInputValue" action="{{ route('personnel.edit', ['personnel' => $user]); }}" class="p-3 w-full gap-2 text-gray-700 grid md:w-2/4 rounded shadow-md bg-white">
+        <form method="POST" id="editFormInputValue" action="{{ route('personnel.edit'); }}" class="p-3 w-full gap-2 text-gray-700 grid md:w-2/4 rounded shadow-md bg-white">
             @csrf
             @method('PUT')
             <div class="text-[20px] font-semibold w-full flex items-center justify-between px-3 my-2">
