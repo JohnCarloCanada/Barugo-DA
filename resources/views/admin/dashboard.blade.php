@@ -19,7 +19,7 @@
                     </div>
                 </li>
             </a>
-            <a href="{{route('admin.personnel')}}">
+            <a href="{{route('personnel.index')}}">
                 <li
                     class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
                 >
