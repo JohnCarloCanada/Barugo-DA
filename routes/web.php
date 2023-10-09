@@ -32,6 +32,7 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     Route::delete('/dashboard/{personalInformation}', [AdminController::class, 'delete'])->name('admin.delete');
 
     Route::resource('personnel', PersonnelController::class)->only(['index','destroy','store','update']);
+    Route::put('personnel/{personnel}', [PersonnelController::class,'edit'])->name('personnel.edit');
 });
 
 

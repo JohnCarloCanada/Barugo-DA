@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
 use App\Models\User;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class PersonnelController extends Controller
 {
+
+
     public function index(Request $request) :View {
 
 
@@ -43,8 +46,39 @@ class PersonnelController extends Controller
     }
 
 
-    public function edit(Request $request): View{
+    public function edit(User $personnel,Request $request): View{
+        $validator = [
+            'name' => 'required|string',
+            'email' => Rule::unique('users')->ignore($personnel->id),
+            'password' => 'required|string',
+            'gender' => 'required|string',
+            'role_as' => 'required|boolean',
+            'is_actived' => 'required|boolean'
+        ];
+        $request['role_as'] = FALSE;
+        $request['is_actived'] = TRUE;
 
+        $user = User::where('role_as', 0);
+        $count = User::count();
+
+        
+        $validate_request = Validator::make($request->all(), $validator);
+        
+        if($validate_request->fails()) {
+            $errors = $validate_request->errors();
+            return view('admin.personnel',['users'=>$user
+            ->take(10)
+            ->get(),
+            'userCount'=> $count,'search'=>'','msg'=>$errors]);
+        }
+        
+    
+        $personnel->update($request->all());
+
+        return view('admin.personnel',['users'=>$user
+            ->take(10)
+            ->get(),
+            'userCount'=> $count,'search'=>'','msg'=>'Successfully updated']);
     }
 
     public function update(User $personnel):View{

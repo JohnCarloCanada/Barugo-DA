@@ -45,7 +45,7 @@
                             </button>
                         </form>
                         
-                        <img onclick="showPersonnelEditForm()" class="max-w-[34px] cursor-pointer p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt="">
+                        <img onclick="showPersonnelEditForm({{$user}})" class="max-w-[34px] cursor-pointer p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt="">
 
                         <form method="POST" action="{{ route('personnel.destroy', ['personnel' => $user]) }}">
                             @csrf
@@ -130,12 +130,14 @@
 <div id="personnelEditForm" class="hidden" >
     
     <div class="h-screen w-screen bg-gray-500/50 fixed top-0 left-0 z-2 flex items-center justify-center">
-        <form method="POST" action="{{ route('personnel.store') }}" class="p-3 w-full gap-2 text-gray-700 grid md:w-2/4 rounded shadow-md bg-white">
+        <form method="POST" id="editFormInputValue" action="{{ route('personnel.edit', ['personnel' => $user]); }}" class="p-3 w-full gap-2 text-gray-700 grid md:w-2/4 rounded shadow-md bg-white">
             @csrf
+            @method('PUT')
             <div class="text-[20px] font-semibold w-full flex items-center justify-between px-3 my-2">
                 <p>UPDATE PERSONNEL</p>
-                <img onclick="showPersonnelEditForm()" src="{{asset('images/close.png')}}" class="w-[16px] h-[16px] cursor-pointer" alt="close">
+                <img onclick="showPersonnelEditForm('')" src="{{asset('images/close.png')}}" class="w-[16px] h-[16px] cursor-pointer" alt="close">
             </div>
+            <input type="text" name="id" id="" class="hidden">
             <div class="w-full px-3 flex flex-col gap-1">
                 <label for="name" class="text-[12px] font-semibold">Name</label>
                 <input type="text" name="name" placeholder="Enter Name..." class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
@@ -167,7 +169,9 @@
 <script>
     const personnelForm = document.getElementById('personnelForm')
     const personnelEditForm = document.getElementById('personnelEditForm')
-    
+    const form = document.getElementById('editFormInputValue');
+
+
     const showPersonnelForm=()=>{
         if(personnelForm){
             if(personnelForm.classList == 'hidden') personnelForm.classList.remove("hidden")
@@ -175,9 +179,19 @@
         }   
     }
 
-    const showPersonnelEditForm=()=>{
+    const showPersonnelEditForm=(user)=>{
         if(personnelEditForm){
-            if(personnelEditForm.classList == 'hidden') personnelEditForm.classList.remove("hidden")
+            if(personnelEditForm.classList == 'hidden'){ 
+                personnelEditForm.classList.remove("hidden")
+                if (form && user) {
+                    console.log(form.attributes.action)
+                    form.id.value = user.id
+                    form.name.value = user.name
+                    form.email.value = user.email
+                    form.gender.value=user.gender
+                    form.password.value=user.password
+                }
+            }
             else personnelEditForm.classList.add("hidden")
         }
     }
