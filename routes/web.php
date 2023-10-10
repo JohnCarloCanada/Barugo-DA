@@ -37,6 +37,8 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
 
 Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(function() {
     Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+
+    Route::get('/managedFarmers/details/{personalInformation}/{currentRoute}', [UserController::class, 'managedFarmerDetails'])->name('user.managedFarmersDetails');
     
     Route::resource('personalInformation', PersonalInformationController::class)->only([
         'index', 'create', 'store', 'destroy', 'edit', 'update',
