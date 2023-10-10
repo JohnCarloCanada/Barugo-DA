@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
-use Illuminate\View\View;
 use App\Models\User;
+use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 
 class PersonnelController extends Controller
 {
+
+
     public function index(Request $request) :View {
 
 
@@ -17,8 +20,8 @@ class PersonnelController extends Controller
                 ->orWhere('name', 'LIKE', '%' . $request->search . '%');
         })
         ->where('role_as', 0);
-        $count = $request->search ? $users->count()  : User::count();
 
+        $count = $request->search ? $users->count()  : User::count();
         $search = $request->search;
 
         return view('admin.personnel',['users'=>$users
@@ -44,7 +47,43 @@ class PersonnelController extends Controller
 
 
     public function edit(Request $request): View{
+        
+        
+        $users = User::where('role_as', 0);
+        $count = User::count();
 
+
+        $validator = [
+            'name' => 'required|string',
+            'email' => Rule::unique('users')->ignore($request->id),
+            'password' => 'required|string',
+            'gender' => 'required|string',
+            'role_as' => 'required|boolean',
+            'is_actived' => 'required|boolean'
+        ];
+
+        $request['role_as'] = FALSE;
+        $request['is_actived'] = TRUE;
+
+        
+        $validate_request = Validator::make($request->all(), $validator);
+
+
+        
+        if($validate_request->fails()) {
+            $errors = $validate_request->errors();
+            return view('admin.personnel',['users'=>$users
+            ->take(10)
+            ->get(),
+            'userCount'=> $count,'search'=>'','msg'=>$errors]);
+        }
+        
+        User::find($request->id)->update($request->except(['_token']));
+    
+        return view('admin.personnel',['users'=>$users
+            ->take(10)
+            ->get(),
+            'userCount'=> $count,'search'=>'','msg'=>'Successfully updated']);
     }
 
     public function update(User $personnel):View{
