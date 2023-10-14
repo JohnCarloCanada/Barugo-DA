@@ -5,7 +5,7 @@
 
     <x-sidebar type="managed farmers"/>   
 
-    <div class="h-full w-full">
+    <div class="w-full min-h-screen">
         <div class="grid w-full  px-5 bg-green-700">
             <div class="my-3 px-5 text-white flex justify-between w-full gap-4">
                 <x-user.goBack/>
@@ -88,12 +88,12 @@
         {{-- live stack information  --}}
 
         <div class="{{$currentRoute == 'live-stack' ? 'flex flex-col w-full h-full p-5' : 'hidden'}}">
-            <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border border-2 rounded">
+            <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
-                        <div class="flex items-center gap-3 cursor-pointer">
+                        <a href="{{route('livestockInformation.create')}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Live-stack
-                        </div>
+                        </a>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-3 text-[12px] mt-5">

@@ -10,7 +10,7 @@
     </section>
 
     <section class="flex items-center justify-center gap-x-2 mt-5 hide">
-        <img class="h-14 w-14 rounded-full border border-2 border-green-900 "  src="{{asset('images/pexels-pixabay-220453.jpg')}}" alt="Profile Image">
+        <img class="h-14 w-14 rounded-full border-2 border-green-900 "  src="{{asset('images/pexels-pixabay-220453.jpg')}}" alt="Profile Image">
         <div class="flex flex-col items-start justify-center">
             <p class="text-sm text-white font-bold">{{Auth::user()->name}}</p>
             <p class="text-[#a6bba7] text-xs">Agriculturist</p>

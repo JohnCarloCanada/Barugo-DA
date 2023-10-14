@@ -52,6 +52,23 @@ class PersonalInformationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         //
+        $validation_rules = [
+            'RSBSA_No' => 'required',
+            'Surname' => 'required|string',
+            'First_Name' => 'required|string',
+            'Middle_Name' => 'nullable|string',
+            'Extension' => 'nullable|string',
+            'Address' => 'required|string',
+            'Mobile_No' => 'required|string',
+            'Sex' => 'required|string',
+            'Date_of_birth' => 'required|date',
+            'Religion' => 'required|string',
+            'Civil_Status' => 'required|string',
+            'Name_of_Spouse' => 'nullable|string',
+            'Highest_education_qualification' => 'required|string',
+            'Main_livelihood' => 'required|string',
+
+        ];
         
         $validated_data = Validator::make($request->all(), $validation_rules);
     
@@ -89,6 +106,23 @@ class PersonalInformationController extends Controller
     {
         //
         //
+        $validation_rules = [
+            'RSBSA_No' => 'required',
+            'Surname' => 'required|string',
+            'First_Name' => 'required|string',
+            'Middle_Name' => 'nullable|string',
+            'Extension' => 'nullable|string',
+            'Address' => 'required|string',
+            'Mobile_No' => 'required|string',
+            'Sex' => 'required|string',
+            'Date_of_birth' => 'required|date',
+            'Religion' => 'required|string',
+            'Civil_Status' => 'required|string',
+            'Name_of_Spouse' => 'nullable|string',
+            'Highest_education_qualification' => 'required|string',
+            'Main_livelihood' => 'required|string',
+
+        ];
        
         $validated_data = Validator::make($request->all(), $validation_rules);
     

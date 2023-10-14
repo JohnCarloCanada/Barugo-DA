@@ -24,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('central', function (Blueprint $table) {
             //
+            $table->dropColumn('LiveStockID');
         });
     }
 };

@@ -4,6 +4,7 @@ use App\Http\Controllers\PersonnelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LiveStockinformationController;
 use App\Http\Controllers\ManagedController;
 use App\Http\Controllers\PersonalInformationController;
 
@@ -43,6 +44,10 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
     
     Route::resource('personalInformation', PersonalInformationController::class)->only([
         'index', 'create', 'store', 'destroy', 'edit', 'update',
+    ]);
+
+    Route::resource('livestockInformation', LiveStockinformationController::class)->only([
+        'create',
     ]);
 });
 

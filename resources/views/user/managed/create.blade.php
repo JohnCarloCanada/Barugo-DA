@@ -14,9 +14,9 @@
                     @csrf
 
                     @if ($errors->any())
-                    <ul>
+                    <ul class="grid grid-cols-2 sm:grid-cols-4 gap-1 mb-3">
                         @foreach ($errors->all() as $error )
-                            <li>{{$error}}</li>
+                            <li class="text-sm sm:text-base text-red-800 font-bold">{{$error}}</li>
                         @endforeach
                     </ul>
                     @endif
@@ -24,9 +24,9 @@
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
                         <label class="sr-only" for="Surname">Surname: </label>
-                        <input required class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Surname" id="Surname" placeholder="Surname" value="{{old('Surname')}}">
+                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Surname" id="Surname" placeholder="Surname" value="{{old('Surname')}}">
                         <label class="sr-only" for="First_Name">First Name: </label>
-                        <input required class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="First_Name" id="First_Name" placeholder="First Name" value="{{old('First_Name')}}">
+                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="First_Name" id="First_Name" placeholder="First Name" value="{{old('First_Name')}}">
                         <label class="sr-only" for="Middle_Name">Middle Name: </label>
                         <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Middle_Name" id="Middle_Name" placeholder="Middle Name" value="{{old('Middle_Name')}}">
                         <label class="sr-only" for="Extension">Extension: </label>
@@ -35,24 +35,24 @@
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
                         <label class="sr-only" for="Surname">RSBSA No: </label>
-                        <input required class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="RSBSA_No" id="RSBSA_No" placeholder="RSBSA No" value="{{old('RSBSA_No')}}">
+                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="RSBSA_No" id="RSBSA_No" placeholder="RSBSA No" value="{{old('RSBSA_No')}}">
                         <label class="sr-only" for="Mobile_No">Mobile No: </label>
-                        <input required class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Mobile_No" id="Mobile_No" placeholder="Mobile No" value="{{old('Mobile_No')}}">
+                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Mobile_No" id="Mobile_No" placeholder="Mobile No" value="{{old('Mobile_No')}}">
                         <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-start gap-2 bg-[#e8e8e8] px-3 py-1">
                             <p class="font-semibold text-base text-gray-400 mr-3">Sex</p>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required class="w-full" type="radio" name="Sex" id="Male" value="Male" @if(old('Sex')) checked @endif>
+                                <input class="w-full" type="radio" name="Sex" id="Male" value="Male" @if(old('Sex')) checked @endif>
                                 <label class="text-gray-400" for="Male">Male</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Sex" id="Female" value="Female" @if(old('Sex')) checked @endif>
+                                <input type="radio" name="Sex" id="Female" value="Female" @if(old('Sex')) checked @endif>
                                 <label class="text-gray-400" for="Female">Female</label>
                             </div>
                         </div>
                         <label class="sr-only" for="Date_of_birth">Date of Birth: </label>
-                        <input required class="bg-[#e8e8e8] w-full px-3 py-1 text-gray-400" type="date" name="Date_of_birth" id="Date_of_birth">
+                        <input class="bg-[#e8e8e8] w-full px-3 py-1 text-gray-400" type="date" name="Date_of_birth" id="Date_of_birth">
                         <label class="sr-only" for="Religion">Religion:</label>
-                        <select required class="bg-[#e8e8e8] w-full px-3 py-1 text-gray-400" name="Religion" id="Religion">
+                        <select class="bg-[#e8e8e8] w-full px-3 py-1 text-gray-400" name="Religion" id="Religion">
                             <option class="bg-[#e8e8e8]" value="Roman Cathloic">Roman Cathloic</option>
                             <option class="bg-[#e8e8e8]" value="Christian">Christian</option>
                             <option class="bg-[#e8e8e8]" value="Born Again">Born Again</option>
@@ -69,19 +69,19 @@
                         <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-start gap-2 bg-[#e8e8e8] px-3 py-1">
                             <p class="font-semibold text-base text-gray-400 mr-3">Civil Status</p>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required class="w-full" type="radio" name="Civil_Status" id="Single" value="Single">
+                                <input class="w-full" type="radio" name="Civil_Status" id="Single" value="Single">
                                 <label class="text-gray-400" for="Single">Single</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Civil_Status" id="Married" value="Married">
+                                <input type="radio" name="Civil_Status" id="Married" value="Married">
                                 <label class="text-gray-400" for="Married">Married</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Civil_Status" id="Widowed" value="Widowed">
+                                <input type="radio" name="Civil_Status" id="Widowed" value="Widowed">
                                 <label class="text-gray-400" for="Widowed">Widowed</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Civil_Status" id="Seperated" value="Seperated">
+                                <input type="radio" name="Civil_Status" id="Seperated" value="Seperated">
                                 <label class="text-gray-400" for="Seperated">Seperated</label>
                             </div>
                         </div>
@@ -93,23 +93,23 @@
                         <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-start sm:justify-between gap-2 bg-[#e8e8e8] px-3 py-1">
                             <p class="font-semibold text-base text-gray-400 mr-3">Highest Education Qualification</p>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required class="w-full" type="radio" name="Highest_education_qualification" id="Pre School" value="Pre School">
+                                <input class="w-full" type="radio" name="Highest_education_qualification" id="Pre School" value="Pre School">
                                 <label class="text-gray-400" for="Pre_School">Pre School</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Highest_education_qualification" id="Elementary" value="Elementary">
+                                <input type="radio" name="Highest_education_qualification" id="Elementary" value="Elementary">
                                 <label class="text-gray-400" for="Elementary">Elementary</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Highest_education_qualification" id="High School" value="High School">
+                                <input type="radio" name="Highest_education_qualification" id="High School" value="High School">
                                 <label class="text-gray-400" for="High_School">High School</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Highest_education_qualification" id="College" value="College">
+                                <input type="radio" name="Highest_education_qualification" id="College" value="College">
                                 <label class="text-gray-400" for="College">College</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Highest_education_qualification" id="None" value="None">
+                                <input type="radio" name="Highest_education_qualification" id="None" value="None">
                                 <label class="text-gray-400" for="None">None</label>
                             </div>
                         </div>
@@ -119,19 +119,19 @@
                         <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-start sm:justify-between gap-2 bg-[#e8e8e8] px-3 py-1">
                             <p class="font-semibold text-base text-gray-400 mr-3">Main Livelihood</p>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Main_livelihood" id="Farmer" value="Farmer">
+                                <input type="radio" name="Main_livelihood" id="Farmer" value="Farmer">
                                 <label class="text-gray-400" for="Farmer">Farmer</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Main_livelihood" id="Farmworker/Laborer" value="Farmworker/Laborer">
+                                <input type="radio" name="Main_livelihood" id="Farmworker/Laborer" value="Farmworker/Laborer">
                                 <label class="text-gray-400" for="Farmworker/Laborer">Farmworker/Laborer</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Main_livelihood" id="Fisherfolk" value="Fisherfolk">
+                                <input type="radio" name="Main_livelihood" id="Fisherfolk" value="Fisherfolk">
                                 <label class="text-gray-400" for="Fisherfolk">Fisherfolk</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
-                                <input required type="radio" name="Main_livelihood" id="Agri_Youth" value="Agri Youth">
+                                <input type="radio" name="Main_livelihood" id="Agri_Youth" value="Agri Youth">
                                 <label class="text-gray-400" for="Agri_Youth">Agri Youth</label>
                             </div>
                         </div>

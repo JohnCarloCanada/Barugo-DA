@@ -24,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('personal_informations', function (Blueprint $table) {
             //
+            $table->dropColumn('is_approved');
         });
     }
 };

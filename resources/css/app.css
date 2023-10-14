@@ -12,7 +12,7 @@
     }
 
     .isActive {
-        @apply min-h-screen w-64 bg-[#679f69] flex flex-col items-start justify-start p-4 relative;
+        @apply w-64 bg-[#679f69] flex flex-col items-start justify-start p-4 relative;
     }
 
     .isHidden {
@@ -35,23 +35,24 @@
         @apply rounded-full;
     }
 
-    .nav{
+    .nav {
         height: 0px;
         width: 0px;
         overflow: hidden;
     }
 
-    .navShow{
+    .navShow {
         display: inline-block;
         background-color: white;
         position: absolute;
-        color:black;
-        margin-top:5px;
-        border-radius: .2rem;
+        color: black;
+        margin-top: 5px;
+        border-radius: 0.2rem;
         height: 5rem;
-        width:8rem;
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-        transition: height .4s ease-in-out;
+        width: 8rem;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+            0 2px 4px -2px rgb(0 0 0 / 0.1);
+        transition: height 0.4s ease-in-out;
     }
 }
 
