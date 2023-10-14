@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PersonalInformation extends Model
 {
@@ -52,4 +53,8 @@ class PersonalInformation extends Model
      * @var bool
      */
     public $incrementing = false;
+
+    public function livestockinformation(): HasMany {
+        return $this->hasMany(Livestock::class, 'RSBSA_No', 'LiveStockID');
+    }
 }

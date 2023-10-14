@@ -5,14 +5,14 @@
 
     <x-sidebar type="managed farmers"/>   
 
-    <div class="w-full min-h-screen">
+    <div class="w-full">
         <div class="grid w-full  px-5 bg-green-700">
             <div class="my-3 px-5 text-white flex justify-between w-full gap-4">
                 <x-user.goBack/>
                 <div class="flex items-center justify-center gap-3">
                     <div class="relative">
-                        <img src="{{asset('images/farmer-3.png')}}" class="max-w-[46px] max-h-[46px] rounded-full bg-gray-300 border border" alt="">
-                        <img src="{{asset('images/icons/update.png')}}" class="h-[20px] h-[20px] absolute bg-white rounded-full border bottom-0 right-0 cursor-pointer hover:bg-green-200" alt="">
+                        <img src="{{asset('images/farmer-3.png')}}" class="max-w-[46px] max-h-[46px] rounded-full bg-gray-300 border" alt="">
+                        <img src="{{asset('images/icons/update.png')}}" class="h-[20px] absolute bg-white rounded-full border bottom-0 right-0 cursor-pointer hover:bg-green-200" alt="">
                         
                     </div>
                     <div>
@@ -41,8 +41,8 @@
 
         {{-- personal information  --}}
 
-        <div class="{{$currentRoute == 'personal' ? 'flex flex-col w-full h-full p-5' : 'hidden'}}">
-            <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border border-2 rounded">
+        <div class="{{$currentRoute == 'personal' ? 'flex flex-col w-full min-h-screen p-5 overflow-y-auto' : 'hidden'}}">
+            <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
                         <div class="flex items-center gap-3 cursor-pointer">
@@ -87,11 +87,11 @@
 
         {{-- live stack information  --}}
 
-        <div class="{{$currentRoute == 'live-stack' ? 'flex flex-col w-full h-full p-5' : 'hidden'}}">
+        <div class="{{$currentRoute == 'live-stack' ? 'flex flex-col w-full min-h-screen p-5' : 'hidden'}}">
             <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
-                        <a href="{{route('livestockInformation.create')}}" class="flex items-center gap-3 cursor-pointer">
+                        <a href="{{route('liveStockInformation.index', ['personalInformation' => $personalInformation])}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Live-stack
                         </a>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
@@ -119,8 +119,8 @@
 
         {{-- Pultry Inforamtion --}}
 
-        <div class="{{$currentRoute == 'poultry' ? 'flex flex-col w-full h-full p-5' : 'hidden'}}">
-            <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border border-2 rounded">
+        <div class="{{$currentRoute == 'poultry' ? 'flex flex-col w-full min-h-screen p-5' : 'hidden'}}">
+            <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
                         <div class="flex items-center gap-3 cursor-pointer">
@@ -150,7 +150,7 @@
 
         {{-- machinary information  --}}
 
-        <div class="{{$currentRoute == 'machinary' ? 'flex flex-col w-full h-full p-5' : 'hidden'}}">
+        <div class="{{$currentRoute == 'machinary' ? 'flex flex-col w-full min-h-screen p-5' : 'hidden'}}">
             <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">

@@ -4,8 +4,7 @@ use App\Http\Controllers\PersonnelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\LiveStockinformationController;
-use App\Http\Controllers\ManagedController;
+use App\Http\Controllers\LiveStockInformationController;
 use App\Http\Controllers\PersonalInformationController;
 
 /*
@@ -46,9 +45,8 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
         'index', 'create', 'store', 'destroy', 'edit', 'update',
     ]);
 
-    Route::resource('livestockInformation', LiveStockinformationController::class)->only([
-        'create',
-    ]);
+    Route::get('/liveStockInformation/{personalInformation}', [LiveStockInformationController::class, 'index'])->name('liveStockInformation.index');
+    Route::post('/liveStockInformation/{personalInformation}', [LiveStockInformationController::class, 'store'])->name('liveStockInformation.store');
 });
 
 Route::redirect('/', '/login');

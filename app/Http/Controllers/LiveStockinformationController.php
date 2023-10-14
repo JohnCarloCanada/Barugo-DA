@@ -2,65 +2,37 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Livestock;
+use App\Models\PersonalInformation;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
-class LiveStockinformationController extends Controller
+class LiveStockInformationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    //
+
+    public function index(PersonalInformation $personalInformation): View {
+        return view('user.managed.livestock.create', ['personalInformation' => $personalInformation]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create(): View
-    {
-        //
-        return view('user.managed.livestock.create');
-    }
+    public function store(Request $request, PersonalInformation $personalInformation): RedirectResponse {
+        $validation_rules = [
+            'LSAnimals' => 'required|string',
+            'Sex_LS' => 'required|string',
+        ];
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $validated_data = $request->validate($validation_rules);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        Livestock::create([
+            'LSAnimals' => $validated_data['LSAnimals'],
+            'Sex_LS' => $validated_data['Sex_LS'],
+            'RSBSA_No' => $personalInformation->RSBSA_No
+        ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('personalInformation.index')->with('success', 'Livestock Successfully Added');
     }
 }
