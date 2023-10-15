@@ -16,6 +16,13 @@ class Livestock extends Model
         'RSBSA_No',
     ];
 
+    /**
+     * The primary key associated with the table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'LiveStockID';
+
     public function personalinformation(): BelongsTo {
         return $this->belongsTo(PersonalInformation::class, 'RSBSA_No', 'RSBSA_No');
     }

@@ -54,7 +54,7 @@ class PersonalInformation extends Model
      */
     public $incrementing = false;
 
-    public function livestockinformation(): HasMany {
-        return $this->hasMany(Livestock::class, 'RSBSA_No', 'LiveStockID');
+    public function livestock(): HasMany {
+        return $this->hasMany(Livestock::class, 'RSBSA_No', 'RSBSA_No');
     }
 }

@@ -31,7 +31,18 @@ class AdminController extends Controller
     
 
     public function farmerDetails(PersonalInformation $personalInformation, string $currentRoute) :View{
-        return view('admin.farmerDetails',['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation]);
+        if ($currentRoute == "personal") {
+            return view('admin.farmerDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
+        }
+        elseif ($currentRoute == "live-stack") {
+            return view('admin.farmerDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
+        }
+        elseif ($currentRoute == "poultry") {
+            return view('admin.farmerDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
+        } 
+        else {
+            return view('admin.farmerDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
+        }
     }
 
     public function approved(PersonalInformation $personalInformation) {

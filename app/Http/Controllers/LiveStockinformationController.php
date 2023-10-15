@@ -7,7 +7,6 @@ use App\Models\PersonalInformation;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class LiveStockInformationController extends Controller
 {
@@ -34,5 +33,11 @@ class LiveStockInformationController extends Controller
         ]);
 
         return redirect()->route('personalInformation.index')->with('success', 'Livestock Successfully Added');
+    }
+
+    public function destroy(Livestock $livestock): View {
+        dd($livestock);
+        /* $livestock->delete();
+        return redirect()->route('admin.farmer')->with('success', 'Livestock Successfully Added'); */
     }
 }

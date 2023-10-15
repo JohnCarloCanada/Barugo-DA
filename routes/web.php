@@ -30,9 +30,11 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     Route::get('/location/map', [AdminController::class, 'mapLocation'])->name('admin.map');
     Route::put('/dashboard/{personalInformation}', [AdminController::class, 'approved'])->name('admin.approved');
     Route::delete('/dashboard/{personalInformation}', [AdminController::class, 'delete'])->name('admin.delete');
-
     Route::resource('personnel', PersonnelController::class)->only(['index','destroy','store','update']);
     Route::put('personnel', [PersonnelController::class,'edit'])->name('personnel.edit');
+
+
+    Route::delete('/liveStockInformation/{livestock}', [LiveStockInformationController::class, 'destroy'])->name('liveStockInformation.destroy');
 });
 
 
