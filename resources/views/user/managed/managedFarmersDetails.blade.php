@@ -29,7 +29,7 @@
             
             <div class="w-full grid grid-cols-1 sm:grid-cols-4 py-1">
                 <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'personal'])}}" class="{{$currentRoute == 'personal' ?  'mx-auto px-2 py-1 rounded text-white cursor-pointer  bg-green-600' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Area Information</a>
-                <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'live-stack'])}}" class="{{$currentRoute == 'live-stack' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Livestock Information</a>
+                <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'livestock'])}}" class="{{$currentRoute == 'livestock' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Livestock Information</a>
                 <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'poultry'])}}" class="{{$currentRoute == 'poultry' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Poultry Information</a>
                 <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'machinary'])}}" class="{{$currentRoute == 'machinary' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Machinary Information</a>
             </div>
@@ -85,14 +85,14 @@
         </div>
 
 
-        {{-- live stack information  --}}
+        {{-- livestock information  --}}
 
-        <div class="{{$currentRoute == 'live-stack' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'livestock' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] sm:w-full flex flex-col shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
                         <a href="{{route('liveStockInformation.index', ['personalInformation' => $personalInformation])}}" class="flex items-center gap-3 cursor-pointer">
-                            <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Live-stack
+                            <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add livestock
                         </a>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
@@ -109,7 +109,7 @@
                     <td class="text-center">{{$property->Sex_LS}}</td>
                     <td class="flex items-center justify-center gap-4">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
-                        <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/delete.png')}}" alt=""></div>
+                        {{-- <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/delete.png')}}" alt=""></div> --}}
                     </td>
                 </tr>
                 @endforeach

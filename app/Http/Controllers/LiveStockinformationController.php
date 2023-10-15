@@ -24,20 +24,20 @@ class LiveStockInformationController extends Controller
 
         $validated_data = $request->validate($validation_rules);
 
-
-
         Livestock::create([
             'LSAnimals' => $validated_data['LSAnimals'],
             'Sex_LS' => $validated_data['Sex_LS'],
             'RSBSA_No' => $personalInformation->RSBSA_No
         ]);
 
-        return redirect()->route('personalInformation.index')->with('success', 'Livestock Successfully Added');
+        
+
+        return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock])->with('success', 'Livestock Successfully Added');
     }
 
-    public function destroy(Livestock $livestock): View {
-        dd($livestock);
-        /* $livestock->delete();
-        return redirect()->route('admin.farmer')->with('success', 'Livestock Successfully Added'); */
+    public function destroy(Livestock $livestock): RedirectResponse {
+        $personalinformation = $livestock->personalinformation;
+        $livestock->delete();
+        return redirect()->route('admin.farmerDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->livestock])->with('success', 'Livestock Successfully Added');
     }
 }

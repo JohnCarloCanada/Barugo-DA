@@ -19,7 +19,7 @@ class UserController extends Controller
         if ($currentRoute == "personal") {
             return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
         }
-        elseif ($currentRoute == "live-stack") {
+        elseif ($currentRoute == "livestock") {
             return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
         }
         elseif ($currentRoute == "poultry") {

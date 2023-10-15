@@ -24,6 +24,6 @@ class Livestock extends Model
     protected $primaryKey = 'LiveStockID';
 
     public function personalinformation(): BelongsTo {
-        return $this->belongsTo(PersonalInformation::class, 'RSBSA_No', 'RSBSA_No');
+        return $this->belongsTo(PersonalInformation::class, 'RSBSA_No');
     }
 }

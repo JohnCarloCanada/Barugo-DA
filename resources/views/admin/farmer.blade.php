@@ -7,7 +7,7 @@
 
 
     <section class="w-full min-h-screen p-5 overflow-y-auto">
-        <x-admin.titleCard title="Farmers Details" slogan="Approval and Inforamtion About the farmers." />
+        <x-admin.titleCard title="Farmers Details" slogan="Approval and Information About the farmers." />
         <div class="flex flex-col w-full h-full">
             <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
@@ -24,14 +24,13 @@
                         <div>Mobile No.</div>
                         <div>Main Livelihood</div>
                         <div>status</div>
-                        <div class="">Operation</div>
+                        <div>Operation</div>
                     </th>
                 </tr>
 
 
                     @foreach ($PersonalInformations as $PersonalInformation)
                     <tr class="grid py-1 odd:bg-slate-200 grid-cols-7 w-full">
-
                         <td class="text-center">{{$PersonalInformation->RSBSA_No}}</td>
                         <td class="text-center">{{$PersonalInformation->Surname}}</td>
                         <td class="text-center">{{$PersonalInformation->Address}}</td>
@@ -39,20 +38,20 @@
                         <td class="text-center">{{$PersonalInformation->Main_livelihood}}</td>
                         <td class="{{ $PersonalInformation->is_approved ? "text-green-500 font-bold text-center rounded h-fit" : "text-red-500 font-bold text-center  rounded h-fit"}}">{{ $PersonalInformation->is_approved ? "Active" : "In-Active"}}</td>
                         <td class="grid grid-cols-3 gap-2">
-                            <div>
+                            <div class="@if($PersonalInformation->is_approved) hidden @endif">
                                 @if(!$PersonalInformation->is_approved)
-                                <form class="" action="{{ route('admin.approved', ['personalInformation' => $PersonalInformation]) }}" method="post">
+                                <form action="{{ route('admin.approved', ['personalInformation' => $PersonalInformation]) }}" method="post">
                                     @csrf
                                     @method('put')
                                     <div class="w-full">
-                                        <button class="@if($PersonalInformation->is_approved) hidden @endif" type="submit">
+                                        <button type="submit">
                                             <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/tick.png')}}" alt="">
                                         </button>
                                     </div>
                                 </form>
                                 @endif
                             </div>
-                            <a href="{{route('admin.farmerDetails', ['personalInformation' => $PersonalInformation, 'currentRoute' => 'personal'])}}">
+                            <a class="@if(!$PersonalInformation->is_approved) hidden @endif" href="{{route('admin.farmerDetails', ['personalInformation' => $PersonalInformation, 'currentRoute' => 'personal'])}}">
                                 <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt="">
                             </a>
                             <form class="" action="{{ route('admin.delete', ['personalInformation' => $PersonalInformation]) }}" method="post">

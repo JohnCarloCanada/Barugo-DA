@@ -34,7 +34,7 @@ class AdminController extends Controller
         if ($currentRoute == "personal") {
             return view('admin.farmerDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
         }
-        elseif ($currentRoute == "live-stack") {
+        elseif ($currentRoute == "livestock") {
             return view('admin.farmerDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
         }
         elseif ($currentRoute == "poultry") {

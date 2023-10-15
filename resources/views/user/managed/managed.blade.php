@@ -6,11 +6,6 @@
     <x-sidebar type="managed farmers"/>   
 
     <section class="w-full min-h-screen p-5 overflow-y-auto">
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
         <section class="flex flex-col my-2 items-start justify-center gap-y-6">
             <h2 class="text-2xl sm:text-4xl mx-2 font-bold text-black">Managed Farmers</h2>
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-y-0 justify-center gap-x-3">
@@ -39,7 +34,7 @@
         
                 <tbody>
                     @foreach ($PersonalInformations as $PersonalInformation)
-                        <tr class="pt-10">
+                        <tr class="pt-10 odd:bg-slate-200">
                             <td>{{$PersonalInformation->RSBSA_No}}</td>
                             <td>{{$PersonalInformation->Surname}}</td>
                             <td>{{$PersonalInformation->Address}}</td>
