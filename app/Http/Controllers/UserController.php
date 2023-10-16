@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Livestock;
 use App\Models\PersonalInformation;
-use Database\Seeders\all;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -11,8 +11,12 @@ class UserController extends Controller
 {
     //
     public function index(): View {
-        return view('user.dashboard', ['count' => PersonalInformation::count(), 
-                    'latestEntries' => PersonalInformation::orderBy('created_at', 'desc')->take(4)->get()]);
+        $count  = PersonalInformation::count();
+        $latestEntries = PersonalInformation::orderBy('created_at', 'desc')->take(4)->get();
+        $allLivestock = Livestock::get();
+
+
+        return view('user.dashboard', ['count' => $count, 'latestEntries' => $latestEntries, 'livestocks' => $allLivestock]);
     }
 
     public function managedFarmerDetails(PersonalInformation $personalInformation, string $currentRoute): View {

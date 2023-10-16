@@ -31,7 +31,7 @@
                 <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'personal'])}}" class="{{$currentRoute == 'personal' ?  'mx-auto px-2 py-1 rounded text-white cursor-pointer  bg-green-600' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Area Information</a>
                 <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'livestock'])}}" class="{{$currentRoute == 'livestock' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Livestock Information</a>
                 <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'poultry'])}}" class="{{$currentRoute == 'poultry' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Poultry Information</a>
-                <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'machinary'])}}" class="{{$currentRoute == 'machinary' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">Machinary Information</a>
+                <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $personalInformation, 'currentRoute' => 'machinery'])}}" class="{{$currentRoute == 'machinery' ?  'mx-auto px-2 py-1 rounded text-white bg-green-600 cursor-pointer' : 'mx-auto px-2 py-1 rounded text-white hover:bg-green-600  cursor-pointer' }}">machinery Information</a>
             </div>
         </div>
 
@@ -148,14 +148,14 @@
             </table>
         </div>
 
-        {{-- machinary information  --}}
+        {{-- machinery information  --}}
 
-        <div class="{{$currentRoute == 'machinary' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'machinery' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] sm:w-full flex flex-col shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
                         <div class="flex items-center gap-3 cursor-pointer">
-                            <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Machinary
+                            <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add machinery
                         </div>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
@@ -163,7 +163,7 @@
                         <div>Machine Name</div>
                         <div>Purchased</div>
                         <div>Grant</div>
-                        <div>Use of Machinary</div>
+                        <div>Use of machinery</div>
                         <div>Operation</div>
                     </th>
                 </tr>

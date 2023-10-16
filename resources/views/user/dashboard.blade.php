@@ -65,23 +65,43 @@
     </section>
     
     <script>
+        const livestocks = {{Js::From($livestocks)}};
         const dbarCTX = document.getElementById("dbar-chart").getContext('2d');
         const horidbarCTX = document.getElementById("hori-dbar-chart").getContext('2d');
+
+        const maleLivestock = livestocks.filter(livestock => livestock.Sex_LS === "Male");
+        const femaleLivestock = livestocks.filter(livestock => livestock.Sex_LS === "Female");
+
+
        
         const dbarChart = new Chart(dbarCTX, {
             type: 'bar',
             data: {
-                labels: ["Carabao", "Cattle", "Goat", "Cat", "Sheep", "Swine", "Dogs"],
+                labels: ["Carabao", "Cattle", "Goat", "Sheep", "Swine"],
                 datasets: [
                     {
                         label: "Male",
-                        data: [12, 34, 4, 56, 7, 2, 8],
+                        data: 
+                        [
+                            maleLivestock.filter(LS => LS.LSAnimals === "Carabao").length, 
+                            maleLivestock.filter(LS => LS.LSAnimals === "Cattle").length, 
+                            maleLivestock.filter(LS => LS.LSAnimals === "Goat").length, 
+                            maleLivestock.filter(LS => LS.LSAnimals === "Sheep").length, 
+                            maleLivestock.filter(LS => LS.LSAnimals === "Swine").length,
+                        ],
                         backgroundColor : "rgba(3,149,255,255)",
                         borderwidth: 1
                     },
                     {
                         label: "Female",
-                        data: [1, 34, 3, 56, 7, 2, 14],
+                        data:
+                        [
+                            femaleLivestock.filter(LS => LS.LSAnimals === "Carabao").length, 
+                            femaleLivestock.filter(LS => LS.LSAnimals === "Cattle").length, 
+                            femaleLivestock.filter(LS => LS.LSAnimals === "Goat").length, 
+                            femaleLivestock.filter(LS => LS.LSAnimals === "Sheep").length, 
+                            femaleLivestock.filter(LS => LS.LSAnimals === "Swine").length,
+                        ],
                         backgroundColor : "rgba(255,44,94,255)",
                         borderwidth: 1
                     },
