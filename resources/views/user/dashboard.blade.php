@@ -66,6 +66,8 @@
     
     <script>
         const livestocks = {{Js::From($livestocks)}};
+        const machineries = {{Js::From($machineries)}};
+
         const dbarCTX = document.getElementById("dbar-chart").getContext('2d');
         const horidbarCTX = document.getElementById("hori-dbar-chart").getContext('2d');
 
@@ -121,7 +123,13 @@
                     {
                         axis: 'y',
                         label: "# of owners",
-                        data: [4, 5, 6, 8, 9],
+                        data: [
+                            machineries.filter(machinery => machinery.MachineName === "Hand Tractor").length,
+                            machineries.filter(machinery => machinery.MachineName === "Palay Threaser").length,
+                            machineries.filter(machinery => machinery.MachineName === "Rice Mill").length,
+                            machineries.filter(machinery => machinery.MachineName === "Wheel Tractor").length,
+                            machineries.filter(machinery => machinery.MachineName === "Combine Harvester").length,
+                        ],
                         fill: false,
                         borderwidth: 1,
                     }

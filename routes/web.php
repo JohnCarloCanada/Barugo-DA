@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\LiveStockInformationController;
+use App\Http\Controllers\MachineryInformationController;
 use App\Http\Controllers\PersonalInformationController;
 
 /*
@@ -22,6 +23,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(function() {
     Route::get('/dashboard',[AdminController:: class, 'index'])->name('admin.dashboard');
     Route::get('/farmers', [AdminController::class, 'farmer'])->name('admin.farmer');
@@ -35,6 +37,7 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
 
 
     Route::delete('/liveStockInformation/{livestock}', [LiveStockInformationController::class, 'destroy'])->name('liveStockInformation.destroy');
+    Route::delete('/machineryInformation/{machinery}', [MachineryInformationController::class, 'destroy'])->name('machineryInformation.destroy');
 });
 
 
@@ -49,9 +52,15 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
 
     Route::get('/liveStockInformation/{personalInformation}', [LiveStockInformationController::class, 'index'])->name('liveStockInformation.index');
     Route::post('/liveStockInformation/{personalInformation}', [LiveStockInformationController::class, 'store'])->name('liveStockInformation.store');
+
+    Route::get('/machineryInformation/{personalInformation}', [MachineryInformationController::class, 'index'])->name('machineryInformation.index');
+    Route::post('/machineryInformation/{personalInformation}', [MachineryInformationController::class, 'store'])->name('machineryInformation.store');
 });
 
+
 Route::redirect('/', '/login');
+
+
 
 require __DIR__.'/auth.php';
 ?>

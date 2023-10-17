@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Livestock;
+use App\Models\Machinery;
 use App\Models\PersonalInformation;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -14,9 +15,10 @@ class UserController extends Controller
         $count  = PersonalInformation::count();
         $latestEntries = PersonalInformation::orderBy('created_at', 'desc')->take(4)->get();
         $allLivestock = Livestock::get();
+        $allMachineries = Machinery::get();
 
 
-        return view('user.dashboard', ['count' => $count, 'latestEntries' => $latestEntries, 'livestocks' => $allLivestock]);
+        return view('user.dashboard', ['count' => $count, 'latestEntries' => $latestEntries, 'livestocks' => $allLivestock, 'machineries' => $allMachineries]);
     }
 
     public function managedFarmerDetails(PersonalInformation $personalInformation, string $currentRoute): View {
@@ -30,7 +32,7 @@ class UserController extends Controller
             return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
         } 
         else {
-            return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
+            return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->machinery]);
         }
     }
 }

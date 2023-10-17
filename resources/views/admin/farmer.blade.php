@@ -51,7 +51,7 @@
                                 </form>
                                 @endif
                             </div>
-                            <a class="@if(!$PersonalInformation->is_approved) hidden @endif" href="{{route('admin.farmerDetails', ['personalInformation' => $PersonalInformation, 'currentRoute' => 'personal'])}}">
+                            <a class="@if(!$PersonalInformation->is_approved) hidden @endif" href="{{route('admin.farmerDetails', ['personalInformation' => $PersonalInformation, 'currentRoute' => 'area'])}}">
                                 <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt="">
                             </a>
                             <form class="" action="{{ route('admin.delete', ['personalInformation' => $PersonalInformation]) }}" method="post">

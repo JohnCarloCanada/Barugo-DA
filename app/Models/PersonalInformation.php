@@ -57,4 +57,8 @@ class PersonalInformation extends Model
     public function livestock(): HasMany {
         return $this->hasMany(Livestock::class, 'RSBSA_No', 'RSBSA_No');
     }
+
+    public function machinery(): HasMany {
+        return $this->hasMany(Machinery::class, 'RSBSA_No', 'RSBSA_No');
+    }
 }

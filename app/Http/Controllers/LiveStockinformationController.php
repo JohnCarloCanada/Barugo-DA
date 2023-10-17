@@ -38,6 +38,6 @@ class LiveStockInformationController extends Controller
     public function destroy(Livestock $livestock): RedirectResponse {
         $personalinformation = $livestock->personalinformation;
         $livestock->delete();
-        return redirect()->route('admin.farmerDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->livestock])->with('success', 'Livestock Successfully Added');
+        return redirect()->route('admin.farmerDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->livestock])->with('success', 'Livestock Successfully Deleted');
     }
 }

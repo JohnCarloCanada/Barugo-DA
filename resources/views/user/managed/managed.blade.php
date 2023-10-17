@@ -41,7 +41,7 @@
                             <td>{{$PersonalInformation->Mobile_No}}</td>
                             <td>{{$PersonalInformation->Main_livelihood}}</td>
                             <td class="flex items-center justify-center">
-                                <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $PersonalInformation, 'currentRoute' => 'personal'])}}">
+                                <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $PersonalInformation, 'currentRoute' => 'area'])}}">
                                     <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt="">
                                 </a>
                                 {{-- <a class="bg-[#679f69] px-3 py-1 rounded-lg text-white font-bold cursor-pointer" href="{{ route('personalInformation.edit', ['personalInformation' => $PersonalInformation]) }}">Edit</a> --}}
