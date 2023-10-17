@@ -53,10 +53,9 @@
                         <input class="bg-[#e8e8e8] w-full px-3 py-1 text-gray-400" type="date" name="Date_of_birth" id="Date_of_birth">
                         <label class="sr-only" for="Religion">Religion:</label>
                         <select class="bg-[#e8e8e8] w-full px-3 py-1 text-gray-400" name="Religion" id="Religion">
-                            <option class="bg-[#e8e8e8]" value="Roman Cathloic">Roman Cathloic</option>
-                            <option class="bg-[#e8e8e8]" value="Christian">Christian</option>
-                            <option class="bg-[#e8e8e8]" value="Born Again">Born Again</option>
-                            <option class="bg-[#e8e8e8]" value="Saksi Ni Monta">Saksi Ni Monta</option>
+                            @foreach ($religions as $religion)
+                                <option class="bg-[#e8e8e8]" value="{{$religion->religion}}">{{$religion->religion}}</option>
+                            @endforeach
                         </select>
                     </div>
 

@@ -10,7 +10,7 @@
         <ol class="grid md:grid-cols-3 max-auto grid-cols-1 mt-5 gap-4 relative">
             <a href="{{route('admin.farmer')}}">
                 <li
-                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
             >
                     <img class="w-[5rem]" src="{{asset('images/farmer-3.png')}}" alt="">
                     <div>
@@ -21,7 +21,7 @@
             </a>
             <a href="{{route('personnel.index')}}">
                 <li
-                    class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+                    class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
                 >
                     <img class="w-[5rem]" src="{{asset('images/personnel.png')}}" alt="">
                     <div>
@@ -31,7 +31,7 @@
                 </li>
             </a>
             <li
-                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl  border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
             >
                 <img class="w-[5rem]" src="{{asset('images/chicken.png')}}" alt="">
                 <div>
@@ -40,7 +40,7 @@
                 </div>
             </li>
             <li
-                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl  border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
             >
                 <img class="w-[5rem]" src="{{asset('images/seeding.png')}}" alt="">
                 <div>
@@ -49,7 +49,7 @@
                 </div>
             </li>
             <li
-                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl  border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
             >
                 <img class="w-[5rem]" src="{{asset('images/syringe.png')}}" alt="">
                 <div>
@@ -59,7 +59,7 @@
             </li>
             <a href="{{route('admin.location')}}">
                 <li
-                    class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+                    class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl  border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
                 >
                     <img class="w-[5rem]" src="{{asset('images/map.png')}}" alt="">
                     <div>

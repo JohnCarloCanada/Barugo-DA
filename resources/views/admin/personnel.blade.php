@@ -9,7 +9,7 @@
     <section class="w-full min-h-screen p-5 overflow-y-auto">
         <x-admin.titleCard title="Personnel Details" slogan="Personnel refers to the employees or workforce of an organization, encompassing all individuals who contribute to its operations, from entry-level staff to top executives." />
         <div class="flex flex-col w-full">
-            <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border border-2 rounded">
+            <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
                         <div  onclick="showPersonnelForm()" class="flex cursor-pointer w-fit items-center gap-3">
@@ -79,7 +79,7 @@
                 @else
                     <tr class="flex items-center justify-center">
                         <td class="flex items-center justify-center flex-col p-3 mt-5">
-                            <img src="{{asset('images/man.png')}}" class="h-[5rem] h-[5rem]" alt="">
+                            <img src="{{asset('images/man.png')}}" class="h-[5rem]" alt="">
                             <p class="font-bold mt-3 text-xl -translate-x-2">No Data</p>
                         </td>
                     </tr>
@@ -125,6 +125,7 @@
             </div>
         </form>
     </div>
+
 </div>
 
 <div id="personnelEditForm" class="hidden" >

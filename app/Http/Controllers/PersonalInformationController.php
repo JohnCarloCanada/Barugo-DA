@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PersonalInformation;
+use App\Models\Religion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
@@ -25,7 +26,7 @@ class PersonalInformationController extends Controller
     public function create()
     {
         //
-        return view('user.managed.create');
+        return view('user.managed.create', ['religions' => Religion::get()]);
     }
 
     /**

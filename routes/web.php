@@ -4,6 +4,7 @@ use App\Http\Controllers\PersonnelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AdminControlPanelController;
 use App\Http\Controllers\LiveStockInformationController;
 use App\Http\Controllers\MachineryInformationController;
 use App\Http\Controllers\PersonalInformationController;
@@ -38,6 +39,10 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
 
     Route::delete('/liveStockInformation/{livestock}', [LiveStockInformationController::class, 'destroy'])->name('liveStockInformation.destroy');
     Route::delete('/machineryInformation/{machinery}', [MachineryInformationController::class, 'destroy'])->name('machineryInformation.destroy');
+
+    Route::get('/adminControlPanel', [AdminControlPanelController::class, 'index'])->name('adminControlPanel.index');
+    Route::post('/adminControlPanel', [AdminControlPanelController::class, 'store'])->name('adminControlPanel.store');
+    Route::delete('/adminControlPanel/{religion}', [AdminControlPanelController::class, 'destroy'])->name('adminControlPanel.destroy');
 });
 
 
