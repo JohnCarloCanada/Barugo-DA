@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Religion extends Model
+class Option extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'religion',
+        'Option_Name',
+        'Name'
     ];
 
     /**
@@ -18,5 +19,5 @@ class Religion extends Model
      *
      * @var string
      */
-    protected $table = 'religions';
+    protected $table = 'options';
 }

@@ -53,8 +53,8 @@
                         <input class="bg-[#e8e8e8] w-full px-3 py-1 text-gray-400" type="date" name="Date_of_birth" id="Date_of_birth">
                         <label class="sr-only" for="Religion">Religion:</label>
                         <select class="bg-[#e8e8e8] w-full px-3 py-1 text-gray-400" name="Religion" id="Religion">
-                            @foreach ($religions as $religion)
-                                <option class="bg-[#e8e8e8]" value="{{$religion->religion}}">{{$religion->religion}}</option>
+                            @foreach ($Religions as $religion)
+                                <option class="bg-[#e8e8e8]" value="{{$religion->Name}}">{{$religion->Name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -93,7 +93,7 @@
                             <p class="font-semibold text-base text-gray-400 mr-3">Highest Education Qualification</p>
                             <div class="flex items-center justify-center gap-1 mr-3">
                                 <input class="w-full" type="radio" name="Highest_education_qualification" id="Pre School" value="Pre School">
-                                <label class="text-gray-400" for="Pre_School">Pre School</label>
+                                <label class="text-gray-400 whitespace-nowrap" for="Pre_School">Pre School</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
                                 <input type="radio" name="Highest_education_qualification" id="Elementary" value="Elementary">
@@ -115,25 +115,11 @@
                     </div>
                     <h3 class="bg-[#679f69] px-3 py-1 font-bold text-white">Part II: Farm Profile</h3>
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
-                        <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-start sm:justify-between gap-2 bg-[#e8e8e8] px-3 py-1">
-                            <p class="font-semibold text-base text-gray-400 mr-3">Main Livelihood</p>
-                            <div class="flex items-center justify-center gap-1 mr-3">
-                                <input type="radio" name="Main_livelihood" id="Farmer" value="Farmer">
-                                <label class="text-gray-400" for="Farmer">Farmer</label>
-                            </div>
-                            <div class="flex items-center justify-center gap-1 mr-3">
-                                <input type="radio" name="Main_livelihood" id="Farmworker/Laborer" value="Farmworker/Laborer">
-                                <label class="text-gray-400" for="Farmworker/Laborer">Farmworker/Laborer</label>
-                            </div>
-                            <div class="flex items-center justify-center gap-1 mr-3">
-                                <input type="radio" name="Main_livelihood" id="Fisherfolk" value="Fisherfolk">
-                                <label class="text-gray-400" for="Fisherfolk">Fisherfolk</label>
-                            </div>
-                            <div class="flex items-center justify-center gap-1 mr-3">
-                                <input type="radio" name="Main_livelihood" id="Agri_Youth" value="Agri Youth">
-                                <label class="text-gray-400" for="Agri_Youth">Agri Youth</label>
-                            </div>
-                        </div>
+                        <select class="bg-[#e8e8e8] px-3 py-1 text-gray-400" name="Main_livelihood" id="Main_livelihood">
+                            @foreach ($Livelihood as $livelihood)
+                                <option class="bg-[#e8e8e8]" value="{{$livelihood->Name}}">{{$livelihood->Name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-end gap-3 my-2">
                         <input class="bg-[#679f69] py-1 px-2 text-white font-bold cursor-pointer" type="submit" value="Add Farmer">

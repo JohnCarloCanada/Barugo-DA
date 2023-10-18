@@ -5,7 +5,7 @@
 
     <x-admin.sidebar type="Admin Panel"/>
 
-    <section class="w-full h-full">
+    <section class="w-full h-full overflow-hidden">
         <header class="bg-[#679f69] px-3 sm:px-6 py-2 sm:py-6">
             <div class="w-[min(400px,100%)] text-center">
                 <h2 class="font-bold text-3xl sm:text-4xl text-white">Administration Control Panel</h2>
@@ -19,13 +19,24 @@
             </ul>
         </nav>
 
-        <section>
+        <section class="w-[100%,900px] h-[500px] overflow-x-auto">
             <table class="w-[700px] sm:w-full flex flex-col shadow-md rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
-                    <th class="w-full px-3 grid grid-cols-1 relative  py-2">
+                    <th class="w-full px-3 flex items-center justify-between relative  py-2">
                         <div data-show-form class="flex items-center gap-3 cursor-pointer">
-                            <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add New Religion
+                            <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add New Option
                         </div>
+                        <ul class="flex items-center gap-x-5 sm:gap-x-6">
+                            <li>
+                                <a href="{{route('adminControlPanel.index', ['currentRoute' => 'All'])}}" class="{{$currentRoute == 'All' ? 'text-[#72c4ff]' : ''}}">All</a>
+                            </li>
+                            <li>
+                                <a href="{{route('adminControlPanel.index', ['currentRoute' => 'Religion'])}}" class="{{$currentRoute == 'Religion' ? 'text-[#72c4ff]' : ''}}" href="">Religion</a>
+                            </li>
+                            <li>
+                                <a href="{{route('adminControlPanel.index', ['currentRoute' => 'Livelihood'])}}" class="{{$currentRoute == 'Livelihood' ? 'text-[#72c4ff]' : ''}}" href="">Livelihood</a>
+                            </li>
+                        </ul>
                     </th>
                     <th class="grid grid-cols-2 text-[12px] mt-5">
                         <div>Option Name</div>
@@ -34,11 +45,11 @@
                 </tr>
                 <tr class="grid py-1 grid-cols-2 w-full">
 
-                    @foreach ($religions as $religion)
-                        <td class="text-center">{{$religion->religion}}</td>
+                    @foreach ($options as $option)
+                        <td class="text-center">{{$option->Name}}</td>
                         <td class="flex items-center justify-center">
                             {{-- <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div> --}}
-                            <form action="{{route('adminControlPanel.destroy', ['religion' => $religion])}}" method="post">
+                            <form action="{{route('adminControlPanel.destroy', ['option' => $option])}}" method="post">
                                 @csrf
                                 @method('delete')
 
@@ -62,12 +73,19 @@
         <form method="POST" action="{{route('adminControlPanel.store')}}" class="p-3 w-full gap-2 text-gray-700 grid md:w-2/4 rounded shadow-md bg-white">
             @csrf
             <div class="text-[20px] font-semibold w-full flex items-center justify-between px-3 my-2">
-                <p>Add New Religion</p>
+                <p>Add New Option</p>
                 <img data-show-close src="{{asset('images/close.png')}}" class="w-[16px] h-[16px] cursor-pointer" alt="close">
             </div>
             <div class="w-full px-3 flex flex-col gap-1">
-                <label for="religion" class="text-[12px] font-semibold">Religion Name</label>
-                <input type="text" name="religion" id="religion" placeholder="Enter Religion..." class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
+                <label for="Option_Name" class="text-[12px] font-semibold">Gender</label>
+                <select name="Option_Name" id="Option_Name" class="w-full border text-gray-700 outline-0 px-2 py-1 shadow-md bg-gray-100">
+                    <option value="Religion">Religion</option>
+                    <option value="Livelihood">Livelihood</option>
+                </select>
+            </div>
+            <div class="w-full px-3 flex flex-col gap-1">
+                <label for="Name" class="text-[12px] font-semibold">Name</label>
+                <input type="text" name="Name" id="Name" placeholder="Enter Name..." class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
             </div>
             <div class="px-3">
                 <button type="submit" class="py-2 w-full mt-3 text-white hover:bg-green-500 rounded font-bold bg-green-700">

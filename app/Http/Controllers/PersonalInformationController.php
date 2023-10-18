@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Option;
 use App\Models\PersonalInformation;
 use App\Models\Religion;
 use Illuminate\Http\Request;
@@ -26,7 +27,7 @@ class PersonalInformationController extends Controller
     public function create()
     {
         //
-        return view('user.managed.create', ['religions' => Religion::get()]);
+        return view('user.managed.create', ['Religions' => Option::where('Option_Name', 'Religion')->get(), 'Livelihood' => Option::where('Option_Name', 'Livelihood')->get()]);
     }
 
     /**

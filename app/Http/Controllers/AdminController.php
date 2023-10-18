@@ -30,7 +30,7 @@ class AdminController extends Controller
    
     
 
-    public function farmerDetails(PersonalInformation $personalInformation, string $currentRoute) :View{
+    public function farmerDetails(PersonalInformation $personalInformation, string $currentRoute): View{
         if ($currentRoute == "personal") {
             return view('admin.farmerDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
         }

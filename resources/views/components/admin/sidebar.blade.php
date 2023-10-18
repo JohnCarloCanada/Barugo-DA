@@ -64,7 +64,7 @@
                 </a>
             </li>
             <li class="{{$type == 'Admin Panel' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
-                <a aria-label="Go to notifications" class="{{$type == 'Admin Panel' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('adminControlPanel.index')}}">
+                <a aria-label="Go to notifications" class="{{$type == 'Admin Panel' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('adminControlPanel.index', ['currentRoute' => 'All'])}}">
                     <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/icons/Admin.png')}}" alt="">
                     <p class="hide">Admin Control Panel</p>
                 </a>

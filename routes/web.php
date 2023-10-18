@@ -40,9 +40,9 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     Route::delete('/liveStockInformation/{livestock}', [LiveStockInformationController::class, 'destroy'])->name('liveStockInformation.destroy');
     Route::delete('/machineryInformation/{machinery}', [MachineryInformationController::class, 'destroy'])->name('machineryInformation.destroy');
 
-    Route::get('/adminControlPanel', [AdminControlPanelController::class, 'index'])->name('adminControlPanel.index');
+    Route::get('/adminControlPanel/{currentRoute}', [AdminControlPanelController::class, 'index'])->name('adminControlPanel.index');
     Route::post('/adminControlPanel', [AdminControlPanelController::class, 'store'])->name('adminControlPanel.store');
-    Route::delete('/adminControlPanel/{religion}', [AdminControlPanelController::class, 'destroy'])->name('adminControlPanel.destroy');
+    Route::delete('/adminControlPanel/{option}', [AdminControlPanelController::class, 'destroy'])->name('adminControlPanel.destroy');
 });
 
 
