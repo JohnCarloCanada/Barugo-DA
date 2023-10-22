@@ -7,7 +7,6 @@ use App\Models\UserDetails;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,13 +18,11 @@ class PersonnelController extends Controller
         $users = User::where(function ($query) use ($request) {
             $query->where('employee_id', 'LIKE', '%' . $request->search . '%')
                 ->orWhere('last_name', 'LIKE', '%' . $request->search . '%');
-        });
-
-        $users = $users->get()->filter(function($user) {
+        })->get()->filter(function($user) {
             return $user->userdetails->user_role == 'User';
         });
 
-        $count = $request->search ? $users->count()  : UserDetails::count();
+        $count = $request->search ? $users->count()  : User::count();
         $search = $request->search;
 
         return view('admin.personnel', ['users' => $users->skip($request->skip)->take(10), 'userCount' => $count, 'search' => $search]);
