@@ -61,4 +61,8 @@ class PersonalInformation extends Model
     public function machinery(): HasMany {
         return $this->hasMany(Machinery::class, 'RSBSA_No', 'RSBSA_No');
     }
+
+    public function area(): HasMany {
+        return $this->hasMany(Area::class, 'RSBSA_No', 'RSBSA_No');
+    }
 }

@@ -30,8 +30,6 @@ class LiveStockInformationController extends Controller
             'RSBSA_No' => $personalInformation->RSBSA_No
         ]);
 
-        
-
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock])->with('success', 'Livestock Successfully Added');
     }
 

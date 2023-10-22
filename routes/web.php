@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminControlPanelController;
+use App\Http\Controllers\AreaInformationController;
 use App\Http\Controllers\LiveStockInformationController;
 use App\Http\Controllers\MachineryInformationController;
 use App\Http\Controllers\PersonalInformationController;
@@ -36,9 +37,10 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     Route::resource('personnel', PersonnelController::class)->only(['index','destroy','store','update']);
     Route::put('personnel', [PersonnelController::class,'edit'])->name('personnel.edit');
 
-
+    Route::delete('/areaInformation{area}', [AreaInformationController::class, 'destroy'])->name('areaInformation.destroy');
     Route::delete('/liveStockInformation/{livestock}', [LiveStockInformationController::class, 'destroy'])->name('liveStockInformation.destroy');
     Route::delete('/machineryInformation/{machinery}', [MachineryInformationController::class, 'destroy'])->name('machineryInformation.destroy');
+
 
     Route::get('/adminControlPanel/{currentRoute}', [AdminControlPanelController::class, 'index'])->name('adminControlPanel.index');
     Route::post('/adminControlPanel', [AdminControlPanelController::class, 'store'])->name('adminControlPanel.store');
@@ -54,6 +56,9 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
     Route::resource('personalInformation', PersonalInformationController::class)->only([
         'index', 'create', 'store', 'destroy', 'edit', 'update',
     ]);
+
+    Route::get('/areaInformation{personalInformation}', [AreaInformationController::class, 'index'])->name('areaInformation.index');
+    Route::post('/areaInformation/{personalInformation}', [AreaInformationController::class, 'store'])->name('areaInformation.store');
 
     Route::get('/liveStockInformation/{personalInformation}', [LiveStockInformationController::class, 'index'])->name('liveStockInformation.index');
     Route::post('/liveStockInformation/{personalInformation}', [LiveStockInformationController::class, 'store'])->name('liveStockInformation.store');

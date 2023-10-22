@@ -9,7 +9,7 @@
         <section class="w-[100%,900px] my-0 mx-auto bg-white flex flex-col items-center justify-center ">
             <h2 class="text-black font-bold text-3xl sm:text-4xl">Add New Farmer</h2>
 
-            <section class="w-full mt-10  overflow-y-auto">
+            <section class="w-full mt-10 overflow-y-auto">
                 <form class="w-full overflow-y-auto" action="{{route('personalInformation.store')}}" method="post">
                     @csrf
 

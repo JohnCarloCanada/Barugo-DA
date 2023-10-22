@@ -22,8 +22,8 @@ class UserController extends Controller
     }
 
     public function managedFarmerDetails(PersonalInformation $personalInformation, string $currentRoute): View {
-        if ($currentRoute == "personal") {
-            return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
+        if ($currentRoute == "area") {
+            return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->area]);
         }
         elseif ($currentRoute == "livestock") {
             return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
