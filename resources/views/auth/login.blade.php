@@ -15,9 +15,9 @@
                     <h2 class="font-bold text-3xl sm:text-4xl mb-5 text-white">Login</h2>
 
                     <div class="my-1">
-                        <x-input-error :messages="$errors->get('email')" class="my-1 text-xs w-fit px-2 py-1 rounded bg-red-500 text-white" />
-                        <label class="sr-only" for="email">Email</label>
-                        <input class="p-2 rounded-md w-full outline-0 font-semibold text-slate-700"  type="email" name="email" id="email" placeholder="Enter Email Address" value="{{ old('email')}}">
+                        <x-input-error :messages="$errors->get('employee_id')" class="my-1 text-xs w-fit px-2 py-1 rounded bg-red-500 text-white" />
+                        <label class="sr-only" for="employee_id">Employee ID</label>
+                        <input class="p-2 rounded-md w-full outline-0 font-semibold text-slate-700"  type="text" name="employee_id" id="employee_id" placeholder="Enter Employee ID" value="{{ old('employee_id')}}">
                     </div>
 
                     <div class="my-2">
@@ -26,12 +26,12 @@
                         <input class="p-2 rounded-md w-full outline-0 font-semibold" type="password" name="password" id="password" placeholder="Enter Password" value="{{ old('password')}}">
                     </div>
 
-                    <div class="block mt-1 mb-2">
+                    {{-- <div class="block mt-1 mb-2">
                         <label for="remember_me" class="inline-flex items-center">
                             <input id="remember_me" type="checkbox" class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800" name="remember">
-                            <span class="ml-2 text-sm text-black font-semibold text-slate-700">{{ __('Remember me') }}</span>
+                            <span class="ml-2 text-sm font-semibold text-slate-700">{{ __('Remember me') }}</span>
                         </label>
-                    </div>
+                    </div> --}}
 
                     <div class="w-full flex items-center justify-center sm:justify-start">
                         <input aria-label="Login" class="px-8 py-1 bg-[#fbad1b] rounded text-white font-bold cursor-pointer" type="submit" value="Login">

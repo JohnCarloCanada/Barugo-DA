@@ -8,7 +8,7 @@
     <section class="flex flex-col w-full items-center justify-center gap-x-2 mt-5 hide">
         <img class="h-14 w-14 rounded-full border-2 border-green-900 "  src="{{asset('images/pexels-pixabay-220453.jpg')}}" alt="Profile Image">
         <div class="flex w-full flex-col items-center justify-center">
-            <p class="text-sm text-white font-bold">{{Auth::user()->name}}</p>
+            <p class="text-sm text-white font-bold whitespace-nowrap">{{Auth::user()->first_name . " " . Auth::user()->middle_name . " " . Auth::user()->last_name}}</p>
             <p class="text-slate-200 text-xs">Agriculturist</p>
         </div>
     </section>

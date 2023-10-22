@@ -164,7 +164,7 @@ return [
     */
 
     'custom' => [
-        'email' => [
+        'employee_id' => [
             'required' => ':attribute is Required',
         ],
         'password' => [
@@ -184,7 +184,7 @@ return [
     */
 
     'attributes' => [
-        'email' => 'Email Address',
+        'employee_id' => 'Employee_ID',
         'password' => 'Password',
     ],
 

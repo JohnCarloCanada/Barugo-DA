@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UserDetails;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,130 +15,103 @@ class PersonnelController extends Controller
 {
 
 
-    public function index(Request $request) :View {
-
-
+    public function index(Request $request): View {
         $users = User::where(function ($query) use ($request) {
-            $query->where('email', 'LIKE', '%' . $request->search . '%')
-                ->orWhere('name', 'LIKE', '%' . $request->search . '%');
-        })
-        ->where('role_as', 0);
+            $query->where('employee_id', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('last_name', 'LIKE', '%' . $request->search . '%');
+        });
 
-        $count = $request->search ? $users->count()  : User::count();
+        $users = $users->get()->filter(function($user) {
+            return $user->userdetails->user_role == 'User';
+        });
+
+        $count = $request->search ? $users->count()  : UserDetails::count();
         $search = $request->search;
 
-        return view('admin.personnel',['users'=>$users
-            ->skip($request->skip)
-            ->take(10)
-            ->get(),
-            'userCount'=> $count,'search'=>$search]);
+        return view('admin.personnel', ['users' => $users->skip($request->skip)->take(10), 'userCount' => $count, 'search' => $search]);
     }
 
 
-    public function destroy(User $personnel): View{
-
+    public function destroy(User $personnel): RedirectResponse {
         $personnel->delete();
-
-        $count = User::count();
-
-
-        return view('admin.personnel',['users'=>User::where('role_as', 0)
-            ->take(10)
-            ->get(),
-            'userCount'=> $count,'search'=>'','msg'=>'Successfully deleted']);
+        return redirect()->route('personnel.index')->with('success', 'Successfully Deleted');
     }
 
 
-    public function edit(Request $request): View{
-        
-        
-        $users = User::where('role_as', 0);
-        $count = User::count();
-
-
+    public function edit(Request $request): RedirectResponse {
         $validator = [
-            'name' => 'required|string',
-            'email' => Rule::unique('users')->ignore($request->id),
+            'last_name' => 'required|string|max:50',
+            'first_name'=>'required|string|max:50',
+            'middle_name' => 'nullable|string|max:50',
+            'gender' => 'required|string|max:24',
             'password' => 'required|string',
-            'gender' => 'required|string',
-            'role_as' => 'required|boolean',
-            'is_actived' => 'required|boolean'
+            'employee_id' => Rule::unique('users')->ignore($request->id),
         ];
 
-        $request['role_as'] = FALSE;
-        $request['is_actived'] = TRUE;
-
-        
         $validate_request = Validator::make($request->all(), $validator);
 
-
-        
         if($validate_request->fails()) {
-            $errors = $validate_request->errors();
-            return view('admin.personnel',['users'=>$users
-            ->take(10)
-            ->get(),
-            'userCount'=> $count,'search'=>'','msg'=>$errors]);
+            return back()->withErrors($validate_request)->withInput();
         }
         
-        User::find($request->id)->update($request->except(['_token']));
+        $findUser = User::find($request->id);
+        
+        $findUser->update([
+            'employee_id' => $validate_request->validated()['employee_id'],
+            'last_name' => $validate_request->validated()['last_name'],
+            'first_name' => $validate_request->validated()['first_name'],
+            'middle_name' => $validate_request->validated()['middle_name'],
+            'password' => $validate_request->validated()['password'],
+        ]);
+
+        $findUser->userdetails()->update([
+            'gender' => $validate_request->validated()['gender'],
+        ]);
     
-        return view('admin.personnel',['users'=>$users
-            ->take(10)
-            ->get(),
-            'userCount'=> $count,'search'=>'','msg'=>'Successfully updated']);
+        return redirect()->route('personnel.index')->with('success', 'Successfully Updated');
     }
 
-    public function update(User $personnel):View{
-
-        $personnel->update(['is_actived' => !$personnel->is_actived]);
-
-        $count = User::count();
-
-        return view('admin.personnel',['users'=>User::where('role_as', 0)
-            ->take(10)
-            ->get(),
-            'userCount'=> $count,'search'=>'','msg'=>"Successfully updated"]);
+    public function update(User $personnel): RedirectResponse {
+        $personnel->userdetails()->update(['is_actived' => !$personnel->userdetails->is_actived]);
+        return redirect()->route('personnel.index')->with('success', 'Successfully Updated');
     }
 
 
-    public function store(Request $request): View{
-
+    public function store(Request $request): RedirectResponse {
         $validator = [
-            'name' => 'required|string',
-            'email'=>'required|email',
+            'last_name' => 'required|string|max:50',
+            'first_name'=>'required|string|max:50',
+            'middle_name' => 'nullable|string|max:50',
+            'gender' => 'required|string|max:24',
+            'user_role' => 'required|string|max:24',
+            'is_actived' => 'required|boolean',
             'password' => 'required|string',
-            'gender' => 'required|string',
-            'role_as' => 'required|boolean',
-            'is_actived' => 'required|boolean'
+            'employee_id' => 'required|string|unique:users,employee_id',
         ];
 
-        $request['role_as'] = FALSE;
+        $request['user_role'] = 'User';
         $request['is_actived'] = TRUE;
 
-        $user = User::where('role_as', 0);
-        $count = User::count();
-
-
         $validate_request = Validator::make($request->all(), $validator);
-        
+    
         if($validate_request->fails()) {
-            $errors = $validate_request->errors();
-            return view('admin.personnel',['users'=>$user
-            ->take(10)
-            ->get(),
-            'userCount'=> $count,'search'=>'','msg'=>$errors]);
+            return back()->withErrors($validate_request)->withInput();
         }
 
-        
-        $data = User::create($validate_request->validated());
+        $createdUser = User::create([
+            'employee_id' => $validate_request->validated()['employee_id'],
+            'last_name' => $validate_request->validated()['last_name'],
+            'first_name' => $validate_request->validated()['first_name'],
+            'middle_name' => $validate_request->validated()['middle_name'],
+            'password' => $validate_request->validated()['password'],
+        ]);
 
+        UserDetails::create([
+            'user_id' => $createdUser->id,
+            'user_role' => $validate_request->validated()['user_role'],
+            'gender' => $validate_request->validated()['gender'],
+        ]);
 
-        return view('admin.personnel',['users'=>$user
-            ->take(10)
-            ->get(),
-            'userCount'=> $count,'search'=>'','msg'=>'Successfully Added']);
+        return redirect()->route('personnel.index')->with('success', 'Successfully Added');
     }
-
-
 }

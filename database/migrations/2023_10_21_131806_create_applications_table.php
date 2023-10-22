@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            $table->integer('role_as')->default(0);
+        Schema::create('applications', function (Blueprint $table) {
+            $table->integer('id', 11);
+            $table->string('application_name', 255);
+            /* $table->timestamps(); */
+            $table->datetimes();
         });
     }
 
@@ -22,9 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-            $table->dropColumn('role_as');
-        });
+        Schema::dropIfExists('applications');
     }
 };

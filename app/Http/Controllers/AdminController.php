@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PersonalInformation;
 use App\Models\User;
+use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -12,7 +13,7 @@ class AdminController extends Controller
 {
     //
     public function index(): View {
-        return view('admin.dashboard', ['PersonalInformations' => PersonalInformation::get(), 'count' => PersonalInformation::count(),'userCount' => User::where('role_as', 0)->count()]);
+        return view('admin.dashboard', ['PersonalInformations' => PersonalInformation::get(), 'count' => PersonalInformation::count(), 'userCounts' => UserDetails::where('user_role', 'User')->count()]);
     }
 
     public function farmer(): View {

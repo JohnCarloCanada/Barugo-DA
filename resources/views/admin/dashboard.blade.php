@@ -26,7 +26,7 @@
                     <img class="w-[5rem]" src="{{asset('images/personnel.png')}}" alt="">
                     <div>
                         <p class="">Personnel</p>
-                        <p class="text-3xl">{{$userCount}}</p>
+                        <p class="text-3xl">{{$userCounts}}</p>
                     </div>
                 </li>
             </a>
