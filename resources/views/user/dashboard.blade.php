@@ -28,7 +28,7 @@
                         <div class="w-full py-5 px-10 flex items-center justify-center gap-x-14 rounded-2xl shadow-[0px_0px_2px_black]">
                             <img class="w-14 h-14" src="{{asset('images/garden.png')}}" alt="">
                             <div class="text-end">
-                                <p class="text-2xl sm:text-3xl text-black font-bold">140</p>
+                                <p class="text-2xl sm:text-3xl text-black font-bold">{{$totalHectares}}</p>
                                 <p class="text-xs font-bold text-black" >Total Hectares</p>
                             </div>
                         </div>

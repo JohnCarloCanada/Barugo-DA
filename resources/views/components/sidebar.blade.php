@@ -32,7 +32,7 @@
                 </a>
             </li>
             <li class="{{$type == 'farm locations' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
-                <a aria-label="Go to farm locations" class="{{$type == 'farm locations' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="">
+                <a aria-label="Go to farm locations" class="{{$type == 'farm locations' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('userLocation.index')}}">
                     <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/icons/location.png')}}" alt="">
                     <p class="hide">Farm Locations</p>
                 </a>

@@ -52,11 +52,11 @@
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
                                 <input type="radio" name="Area_Type" id="HDCVP" value="HDCVP">
-                                <label class="text-gray-400" for="HDCVP">HDCVP</label>
+                                <label data-HDCVP class="text-gray-400" for="HDCVP">HDCVP</label>
                             </div>
                         </div>
                         <label class="sr-only" for="Commodity_planted">Commodity Planted: </label>
-                        <input disabled class="bg-[#e8e8e8] w-[50%] px-3 py-1" type="text" name="Commodity_planted" id="Commodity_planted" placeholder="Commodity Planted">
+                        <input data-commodity disabled class="bg-[#e8e8e8] w-[50%] px-3 py-1" type="text" name="Commodity_planted" id="Commodity_planted" placeholder="Commodity Planted">
                     </div>
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
@@ -71,8 +71,8 @@
                                 <label class="text-gray-400" for="Tenant">Tenant</label>
                             </div>
                         </div>
-                        <label class="sr-only" for="Tenant_Name">Commodity Planted: </label>
-                        <input disabled class="bg-[#e8e8e8] w-[50%] px-3 py-1" type="text" name="Tenant_Name" id="Tenant_Name" placeholder="Tenant Name">
+                        <label class="sr-only" for="Tenant_Name">Tenant Name: </label>
+                        <input data-tenant disabled class="bg-[#e8e8e8] w-[50%] px-3 py-1" type="text" name="Tenant_Name" id="Tenant_Name" placeholder="Tenant Name">
                     </div>
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
@@ -90,3 +90,31 @@
         </section>
     </section>
 </x-app>
+
+<script>
+    const areaTypeBtn = document.querySelectorAll('input[name="Area_Type"]');
+    const commodityInput = document.querySelector('[data-commodity]');
+
+    const ownerShipTypeBtn = document.querySelectorAll('input[name="Ownership_Type"]');
+    const tenantInput = document.querySelector('[data-tenant]');
+
+    areaTypeBtn.forEach(btn => {
+        btn.addEventListener('change', () => {
+            if(btn.value === 'HDCVP') {
+                commodityInput.disabled = false;
+            } else {
+                commodityInput.disabled = true;
+            }
+        })
+    });
+
+    ownerShipTypeBtn.forEach(btn => {
+        btn.addEventListener('change', () => {
+            if(btn.value === 'Tenant') {
+                tenantInput.disabled = false;
+            } else {
+                tenantInput.disabled = true;
+            }
+        })
+    })
+</script>

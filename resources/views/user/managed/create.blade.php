@@ -85,7 +85,7 @@
                             </div>
                         </div>
                         <label class="sr-only" for="Name_of_Spouse">Name Of Spouse: </label>
-                        <input class="bg-[#e8e8e8] w-[50%] px-3 py-1" type="text" name="Name_of_Spouse" id="Name_of_Spouse" placeholder="Name of Spouse if married">
+                        <input disabled class="bg-[#e8e8e8] w-[50%] px-3 py-1" type="text" name="Name_of_Spouse" id="Name_of_Spouse" placeholder="Name of Spouse if married">
                     </div>
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
@@ -129,3 +129,18 @@
         </section>
     </section>
 </x-app>
+
+<script>
+    const civilStatusBtn = document.querySelectorAll('input[name="Civil_Status"]');
+    const spouseInput = document.querySelector('input[name="Name_of_Spouse"]');
+
+    civilStatusBtn.forEach(btn => {
+        btn.addEventListener('change', () => {
+            if(btn.value === 'Single') {
+                spouseInput.disabled = true;
+            } else {
+                spouseInput.disabled = false;
+            }
+        })
+    })
+</script>

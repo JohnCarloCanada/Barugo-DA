@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\Livestock;
 use App\Models\Machinery;
 use App\Models\PersonalInformation;
@@ -17,8 +18,9 @@ class UserController extends Controller
         $allLivestock = Livestock::get();
         $allMachineries = Machinery::get();
 
+        $totalHectares = Area::sum('Hectares');
 
-        return view('user.dashboard', ['count' => $count, 'latestEntries' => $latestEntries, 'livestocks' => $allLivestock, 'machineries' => $allMachineries]);
+        return view('user.dashboard', ['count' => $count, 'latestEntries' => $latestEntries, 'livestocks' => $allLivestock, 'machineries' => $allMachineries, 'totalHectares' => (int)$totalHectares]);
     }
 
     public function managedFarmerDetails(PersonalInformation $personalInformation, string $currentRoute): View {
@@ -34,5 +36,9 @@ class UserController extends Controller
         else {
             return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->machinery]);
         }
+    }
+
+    public function showMap(): View {
+        return view('user.location.index', ['locations' => Area::get()]);
     }
 }

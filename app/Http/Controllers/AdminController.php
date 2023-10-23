@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\PersonalInformation;
 use App\Models\User;
 use App\Models\UserDetails;
@@ -20,16 +21,9 @@ class AdminController extends Controller
         return view('admin.farmer',['PersonalInformations' => PersonalInformation::get()]);
     }
 
-    public function location(): View {
-        return view('admin.location');
+    public function showMap(): View {
+        return view('admin.location.index', ['locations' => Area::get()]);
     }
-
-    public function mapLocation(): View {
-        return view('admin.map');
-    }
-
-   
-    
 
     public function farmerDetails(PersonalInformation $personalInformation, string $currentRoute): View {
         if ($currentRoute == "area") {
