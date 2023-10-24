@@ -42,7 +42,7 @@ class PersonnelController extends Controller
             'middle_name' => 'nullable|string|max:50',
             'gender' => 'required|string|max:24',
             'password' => 'required|string',
-            'employee_id' => Rule::unique('users')->ignore($request->id),
+            /* 'employee_id' => Rule::unique('users')->ignore($request->id), */
         ];
 
         $validate_request = Validator::make($request->all(), $validator);
@@ -54,7 +54,7 @@ class PersonnelController extends Controller
         $findUser = User::find($request->id);
         
         $findUser->update([
-            'employee_id' => $validate_request->validated()['employee_id'],
+            /* 'employee_id' => $validate_request->validated()['employee_id'], */
             'last_name' => $validate_request->validated()['last_name'],
             'first_name' => $validate_request->validated()['first_name'],
             'middle_name' => $validate_request->validated()['middle_name'],
@@ -83,7 +83,7 @@ class PersonnelController extends Controller
             'user_role' => 'required|string|max:24',
             'is_actived' => 'required|boolean',
             'password' => 'required|string',
-            'employee_id' => 'required|string|unique:users,employee_id',
+            /* 'employee_id' => 'required|string|unique:users,employee_id', */
         ];
 
         $request['user_role'] = 'User';
@@ -96,7 +96,7 @@ class PersonnelController extends Controller
         }
 
         $createdUser = User::create([
-            'employee_id' => $validate_request->validated()['employee_id'],
+            /* 'employee_id' => $validate_request->validated()['employee_id'], */
             'last_name' => $validate_request->validated()['last_name'],
             'first_name' => $validate_request->validated()['first_name'],
             'middle_name' => $validate_request->validated()['middle_name'],

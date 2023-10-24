@@ -99,10 +99,10 @@
                 <p>CREATE PERSONNEL</p>
                 <img onclick="showPersonnelForm()" src="{{asset('images/close.png')}}" class="w-[16px] h-[16px] cursor-pointer" alt="close">
             </div>
-            <div class="w-full px-3 flex flex-col gap-1">
+            {{-- <div class="w-full px-3 flex flex-col gap-1">
                 <label for="employee_id" class="text-[12px] font-semibold">Employee ID</label>
                 <input type="text" name="employee_id" placeholder="Enter Employee ID..." class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
-            </div>
+            </div> --}}
             <div class="w-full px-3 flex flex-col gap-1">
                 <label for="last_name" class="text-[12px] font-semibold">Last Name</label>
                 <input type="text" name="last_name" placeholder="Enter Last Name..." class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
@@ -118,8 +118,8 @@
             <div class="w-full px-3 flex flex-col gap-1">
                 <label for="gender" class="text-[12px] font-semibold">Gender</label>
                 <select name="gender" class="w-full border text-gray-700 outline-0 px-2 py-1 shadow-md bg-gray-100">
-                    <option value="female">Female</option>
-                    <option value="male">Male</option>
+                    <option value="female">Male</option>
+                    <option value="male">Female</option>
                 </select>
             </div>
             <div class="w-full px-3 flex flex-col gap-1">
@@ -146,10 +146,10 @@
                 <img onclick="showPersonnelEditForm('')" src="{{asset('images/close.png')}}" class="w-[16px] h-[16px] cursor-pointer" alt="close">
             </div>
             <input type="text" name="id" id="" class="hidden">
-            <div class="w-full px-3 flex flex-col gap-1">
+            {{-- <div class="w-full px-3 flex flex-col gap-1">
                 <label for="employee_id" class="text-[12px] font-semibold">Employee ID</label>
                 <input type="text" name="employee_id" placeholder="Enter Employee ID..." class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
-            </div>
+            </div> --}}
             <div class="w-full px-3 flex flex-col gap-1">
                 <label for="last_name" class="text-[12px] font-semibold">Last Name</label>
                 <input type="text" name="last_name" placeholder="Enter Last Name..." class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
@@ -202,12 +202,11 @@
                 if (form && user) {
                     console.log(form.attributes.action);
                     form.id.value = user.id;
-                    form.employee_id.value = user.employee_id;
                     form.last_name.value = user.last_name;
                     form.first_name.value = user.first_name;
                     form.middle_name.value = user.middle_name;
                     form.gender.value = user.userdetails.gender;
-                    form.password.value = user.userdetails.password;
+                    form.password.value = user.password;
                 }
             }
             else personnelEditForm.classList.add("hidden")

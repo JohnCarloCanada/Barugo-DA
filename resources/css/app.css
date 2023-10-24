@@ -54,6 +54,16 @@
             0 2px 4px -2px rgb(0 0 0 / 0.1);
         transition: height 0.4s ease-in-out;
     }
+
+    .custom-icon {
+        background-color: blue;
+        border: 2px solid white;
+        border-radius: 50%; /* Make it a circle */
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 41px; /* Vertically center text within the marker */
+    }
 }
 
 @layer base {

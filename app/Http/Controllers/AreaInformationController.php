@@ -27,6 +27,7 @@ class AreaInformationController extends Controller
             'Ownership_Type' => 'required|string|max:10',
             'Tenant_Name' => 'nullable|string|max:99',
             'Owner_Address' => 'required|string|max:255',
+            'Farm_Type' => 'required|string|max:24'
         ];
 
         $validated_data = $request->validate($validation_rules);
@@ -42,6 +43,7 @@ class AreaInformationController extends Controller
             'Owner_Address' => $validated_data['Owner_Address'],
             'Lat' => $validated_data['Lat'],
             'Lon' => $validated_data['Lon'],
+            'Farm_Type' => $validated_data['Farm_Type'],
             'RSBSA_No' => $personalInformation->RSBSA_No,
         ]);
 

@@ -32,7 +32,7 @@
                         <label class="sr-only" for="Lot_No">Lot No: </label>
                         <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Lot_No" id="Lot_No" placeholder="Lot No">
                         <label class="sr-only" for="Hectares">Hectares: </label>
-                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="number" name="Hectares" id="Hectares" placeholder="Hectares">
+                        <input class="bg-[#e8e8e8] w-full px-3 py-1" step="0.01" type="number" name="Hectares" id="Hectares" placeholder="Hectares">
                         <label class="sr-only" for="Address">Address: </label>
                         <input class="bg-[#e8e8e8] w-[min(100%,300px)] px-3 py-1" type="text" name="Address" id="Address" placeholder="Address">
                         <label class="sr-only" for="Owner_Address">Owner Address: </label>
@@ -76,6 +76,17 @@
                     </div>
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
+                        <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-start gap-2 bg-[#e8e8e8] px-3 py-1">
+                            <p class="font-semibold text-base text-gray-400 mr-3">Farm Type</p>
+                            <div class="flex items-center justify-center gap-1 mr-3">
+                                <input class="w-full" type="radio" name="Farm_Type" id="Irrigated" value="Irrigated">
+                                <label class="text-gray-400" for="Irrigated">Irrigated</label>
+                            </div>
+                            <div class="flex items-center justify-center gap-1 mr-3">
+                                <input type="radio" name="Farm_Type" id="Rainfed" value="Rainfed">
+                                <label class="text-gray-400" for="Rainfed">Rainfed</label>
+                            </div>
+                        </div>
                         <label class="sr-only" for="Lat">Latitude: </label>
                         <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Lat" id="Lat" placeholder="Latitude">
                         <label class="sr-only" for="Lon">Longitude: </label>

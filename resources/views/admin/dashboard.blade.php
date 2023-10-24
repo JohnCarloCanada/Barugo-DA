@@ -57,7 +57,7 @@
                     <p class="text-3xl">100</p>
                 </div>
             </li>
-            <a href="{{route('admin.location')}}">
+            <a href="{{route('adminLocation.index')}}">
                 <li
                     class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl  border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
                 >

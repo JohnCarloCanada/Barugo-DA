@@ -16,8 +16,7 @@
 
 <script>
     const locations = {{Js::From($locations)}}
-    console.log(locations)
-
+    
     let map = L.map('map').setView([11.3002, 124.7630], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 

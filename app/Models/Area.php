@@ -25,7 +25,8 @@ class Area extends Model
         'Tenant_Name',
         'Owner_Address',
         'Lat',
-        'Lon'
+        'Lon',
+        'Farm_Type'
     ];
 
     /**
