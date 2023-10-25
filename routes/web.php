@@ -6,9 +6,11 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminControlPanelController;
 use App\Http\Controllers\AreaInformationController;
+use App\Http\Controllers\DogVaccinationinformationController;
 use App\Http\Controllers\LiveStockInformationController;
 use App\Http\Controllers\MachineryInformationController;
 use App\Http\Controllers\PersonalInformationController;
+use App\Http\Controllers\PoultryInformationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,7 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     Route::delete('/areaInformation{area}', [AreaInformationController::class, 'destroy'])->name('areaInformation.destroy');
     Route::delete('/liveStockInformation/{livestock}', [LiveStockInformationController::class, 'destroy'])->name('liveStockInformation.destroy');
     Route::delete('/machineryInformation/{machinery}', [MachineryInformationController::class, 'destroy'])->name('machineryInformation.destroy');
+    Route::delete('/poultryInformation/{poultry}', [PoultryInformationController::class, 'destroy'])->name('poultryInformation.destroy');
 
 
     Route::get('/adminControlPanel/{currentRoute}', [AdminControlPanelController::class, 'index'])->name('adminControlPanel.index');
@@ -64,6 +67,16 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
 
     Route::get('/machineryInformation/{personalInformation}', [MachineryInformationController::class, 'index'])->name('machineryInformation.index');
     Route::post('/machineryInformation/{personalInformation}', [MachineryInformationController::class, 'store'])->name('machineryInformation.store');
+
+    Route::get('/poultryInformation/{personalInformation}', [PoultryInformationController::class, 'index'])->name('poultryInformation.index');
+    Route::post('/poultryInformation/{personalInformation}', [PoultryInformationController::class, 'store'])->name('poultryInformation.store');
+
+
+    Route::controller(DogVaccinationinformationController::class)->group(function() {
+        Route::get('/dogVaccinationInformation', 'index')->name('dogVaccinationInformation.index');
+        Route::get('/dogVaccinationInformation/create', 'create')->name('dogVaccinationInformation.create');
+        Route::post('/dogVaccinationInformation/store', 'store')->name('dogVaccinationInformation.store');
+    });
 
     Route::get('/location', [UserController::class, 'showMap'])->name('userLocation.index');
 });

@@ -44,7 +44,7 @@
                 </a>
             </li>
             <li class="{{$type == 'canine records' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
-                <a aria-label="Go to vaccination records" class="{{$type == 'canine records' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="">
+                <a aria-label="Go to vaccination records" class="{{$type == 'canine records' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('dogVaccinationInformation.index')}}">
                     <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/icons/inject.png')}}" alt="">
                     <p class="hide">Canine Vaccination Records</p>
                 </a>

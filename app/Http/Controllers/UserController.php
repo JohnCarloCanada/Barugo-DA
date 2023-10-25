@@ -20,7 +20,7 @@ class UserController extends Controller
 
         $totalHectares = Area::sum('Hectares');
 
-        return view('user.dashboard', ['count' => $count, 'latestEntries' => $latestEntries, 'livestocks' => $allLivestock, 'machineries' => $allMachineries, 'totalHectares' => (int)$totalHectares]);
+        return view('user.dashboard', ['count' => $count, 'latestEntries' => $latestEntries, 'livestocks' => $allLivestock, 'machineries' => $allMachineries, 'totalHectares' => (float)$totalHectares]);
     }
 
     public function managedFarmerDetails(PersonalInformation $personalInformation, string $currentRoute): View {
@@ -31,7 +31,7 @@ class UserController extends Controller
             return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
         }
         elseif ($currentRoute == "poultry") {
-            return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock]);
+            return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->poultry]);
         } 
         else {
             return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->machinery]);

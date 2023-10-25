@@ -105,7 +105,6 @@
                     <td class="text-center">{{$property->Sex_LS}}</td>
                     <td class="flex items-center justify-center gap-4">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
-                        {{-- <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/delete.png')}}" alt=""></div> --}}
                     </td>
                 </tr>
                 @endforeach
@@ -119,25 +118,25 @@
             <table class="w-[700px] sm:w-full flex flex-col shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
-                        <div class="flex items-center gap-3 cursor-pointer">
+                        <a href="{{route('poultryInformation.index', ['personalInformation' => $personalInformation])}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Poultry
-                        </div>
+                        </a>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-3 text-[12px] mt-5">
-                        <div>Animal Name</div>
-                        <div>Quality</div>
+                        <div>Poultry Type</div>
+                        <div>Quantity</div>
                         <div>Operation</div>
                     </th>
                 </tr>
-                @foreach ([1,2,3,4] as $item)
+                @foreach ($properties as $poultry)
                     
                 <tr class="grid py-1 odd:bg-slate-200 grid-cols-3 w-full">
-                    <td class="text-center">lorem</td>
-                    <td class="text-center">lorem</td>
-                    <td class="flex items-center justify-around">
+                    <td class="text-center">{{$poultry->Poultry_Type}}</td>
+                    <td class="text-center">{{$poultry->Quantity}}</td>
+                    <td class="flex items-center justify-center">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
-                        <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/delete.png')}}" alt=""></div>
+                        {{-- <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/delete.png')}}" alt=""></div> --}}
                     </td>
                 </tr>
                 @endforeach

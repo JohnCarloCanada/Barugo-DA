@@ -65,4 +65,12 @@ class PersonalInformation extends Model
     public function area(): HasMany {
         return $this->hasMany(Area::class, 'RSBSA_No', 'RSBSA_No');
     }
+
+    public function poultry(): HasMany {
+        return $this->hasMany(Poultry::class, 'RSBSA_No', 'RSBSA_No');
+    }
+
+    public function doginformation(): HasMany {
+        return $this->hasMany(DogInformation::class, 'RSBSA_No', 'RSBSA_No'); 
+    }
 }

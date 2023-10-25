@@ -1,6 +1,6 @@
 <x-app>
     <x-slot:title>
-        User | Farmer-Details
+        Admin | Farmer-Details
     </x-slot:title>
 
     <x-admin.sidebar type="managed farmers"/>
@@ -60,7 +60,7 @@
                         </div>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
-                    <th class="grid grid-cols-9 text-[12px] mt-5">
+                    <th class="grid grid-cols-10 text-[12px] mt-5">
                         <div>Lot Number</div>
                         <div>Area</div>
                         <div>Commodity_planted</div>
@@ -69,12 +69,13 @@
                         <div>Tenant Name</div>
                         <div>Address</div>
                         <div>Owner Address</div>
+                        <div>Farm Type</div>
                         <div>Operation</div>
                     </th>
                 </tr>
                 @foreach ($properties as $area)
                     
-                <tr class="grid py-1 odd:bg-slate-200 grid-cols-9 w-full">
+                <tr class="grid py-1 odd:bg-slate-200 grid-cols-10 w-full">
                     <td class="text-center">{{$area->Lot_No}}</td>
                     <td class="text-center">{{$area->Area_Type}}</td>
                     <td class="text-center">{{$area->Commodity_planted}}</td>
@@ -83,6 +84,7 @@
                     <td class="text-center">{{$area->Tenant_Name}}</td>
                     <td class="text-center">{{$area->Address}}</td>
                     <td class="text-center">{{$area->Owner_Address}}</td>
+                    <td class="text-center">{{$area->Farm_Type}}</td>
                     <td class="flex items-center justify-center gap-4">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
                         <form action="{{ route('areaInformation.destroy', ['area' => $area]) }}" method="post">
@@ -139,7 +141,7 @@
         </div>
 
 
-        {{-- Pultry Inforamtion --}}
+        {{-- Poultry Inforamtion --}}
 
         <div class="{{$currentRoute == 'poultry' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] sm:w-full flex flex-col shadow-md border-2 rounded">
@@ -151,19 +153,26 @@
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-3 text-[12px] mt-5">
-                        <div>Animal Name</div>
-                        <div>Quality</div>
+                        <div>Poultry Type</div>
+                        <div>Quantity</div>
                         <div>Operation</div>
                     </th>
                 </tr>
-                @foreach ([1,2,3,4] as $item)
+                @foreach ($properties as $poultry)
                     
                 <tr class="grid py-1 odd:bg-slate-200 grid-cols-3 w-full">
-                    <td class="text-center">lorem</td>
-                    <td class="text-center">lorem</td>
-                    <td class="flex items-center justify-around">
+                    <td class="text-center">{{$poultry->Poultry_Type}}</td>
+                    <td class="text-center">{{$poultry->Quantity}}</td>
+                    <td class="flex items-center justify-center">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
-                        <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/delete.png')}}" alt=""></div>
+                        <form action="{{ route('poultryInformation.destroy', ['poultry' => $poultry]) }}" method="post">
+                            @csrf
+                            @method('delete')
+
+                            <button type="submit">
+                                <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/delete.png')}}" alt="">
+                            </button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

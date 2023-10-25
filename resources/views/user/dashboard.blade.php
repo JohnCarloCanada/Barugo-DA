@@ -8,7 +8,7 @@
     <section class="w-full min-h-screen p-5">
         <h1 class="sr-only">Barugo Information Management System</h1>
         <section class="mb-4">
-            <p class="font-semibold text-xl text-black">Hello <span>{{Auth::user()->name}}</span>!</p>
+            <p class="font-semibold text-xl text-black">Hello <span>{{Auth::user()->first_name . " " . Auth::user()->middle_name . " " . Auth::user()->last_name}}</span>!</p>
             <p class="text-xs font-bold text-black mt-1">Welcome back and keep up the good work!</p>
         </section>
 
