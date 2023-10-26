@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminControlPanelController;
+use App\Http\Controllers\AdminDogVaccinationController;
 use App\Http\Controllers\AreaInformationController;
 use App\Http\Controllers\DogVaccinationinformationController;
 use App\Http\Controllers\LiveStockInformationController;
@@ -47,6 +48,10 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     Route::get('/adminControlPanel/{currentRoute}', [AdminControlPanelController::class, 'index'])->name('adminControlPanel.index');
     Route::post('/adminControlPanel', [AdminControlPanelController::class, 'store'])->name('adminControlPanel.store');
     Route::delete('/adminControlPanel/{option}', [AdminControlPanelController::class, 'destroy'])->name('adminControlPanel.destroy');
+
+    Route::controller(AdminDogVaccinationController::class)->group(function() {
+        Route::get('/dogVaccinationInformation', 'index')->name('adminDogVaccinationInformation.index');
+    });
 });
 
 
@@ -76,6 +81,7 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
         Route::get('/dogVaccinationInformation', 'index')->name('dogVaccinationInformation.index');
         Route::get('/dogVaccinationInformation/create', 'create')->name('dogVaccinationInformation.create');
         Route::post('/dogVaccinationInformation/store', 'store')->name('dogVaccinationInformation.store');
+        Route::get('/dogVaccinationInformation/vaccination/{dogInformation}', 'vaccination')->name('dogVaccinationInformation.vaccination');
     });
 
     Route::get('/location', [UserController::class, 'showMap'])->name('userLocation.index');

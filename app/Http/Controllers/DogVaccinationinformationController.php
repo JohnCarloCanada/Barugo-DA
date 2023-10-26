@@ -53,4 +53,10 @@ class DogVaccinationinformationController extends Controller
 
         return redirect()->route('dogVaccinationInformation.index')->with('Success', 'Added New Record');
     }
+
+
+    public function vaccination(DogInformation $dogInformation): View {
+        dd($dogInformation->personalinformation);
+        return view('user.vaccination.vaccination');
+    }
 }

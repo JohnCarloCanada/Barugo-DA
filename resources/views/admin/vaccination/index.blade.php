@@ -3,13 +3,13 @@
         barugo | Managed Farmers
     </x-slot:title>
 
-    <x-sidebar type="canine records"/>   
+    <x-admin.sidebar type="canine records"/>
 
     <section class="w-full min-h-screen p-5 overflow-y-auto">
         <section class="flex flex-col my-2 items-start justify-center gap-y-6">
             <h2 class="text-2xl sm:text-4xl mx-2 font-bold text-black">Canine Vaccination Records</h2>
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-y-0 justify-center gap-x-3">
-                <a aria-label="Go to add farmers" class="py-2 px-3 bg-[#679f69] rounded flex items-center justify-between gap-x-4" href="{{route('dogVaccinationInformation.create')}}">
+                <a aria-label="Go to add farmers" class="py-2 px-3 bg-[#679f69] rounded flex items-center justify-between gap-x-4" href="">
                     <p class="text-white font-bold text-xs">ADD NEW RECORD</p>
                     <img aria-hidden="true" class="w-3 h-3 object-contain" src="{{asset('images/icons/plus.png')}}" alt="">
                 </a>
@@ -49,7 +49,7 @@
                             <td>{{$dogInformation->Species}}</td>
                             <td>{{$dogInformation->Last_Vac_Month}}</td>
                             <td class="flex items-center justify-center">
-                                <a href="{{route('dogVaccinationInformation.vaccination', ['dogInformation' => $dogInformation])}}">
+                                <a href="">
                                     <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt="">
                                 </a>
                                 <div>
@@ -63,4 +63,3 @@
         </section>
     </section>
 </x-app>
-
