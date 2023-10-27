@@ -25,12 +25,12 @@
                         <div class="flex flex-col sm:flex-row gap-4">
                             <label class="text-base sm:text-xl font-bold text-[#979797] text-center" for="Poultry_Type">Poultry</label>
                             <select class="bg-[#679f69] px-5 py-1 rounded-3xl text-white font-bold cursor-pointer" name="Poultry_Type" id="Poultry_Type">
-                                <option value="Carabao">Panabong</option>
-                                <option value="Cattle">Native</option>
-                                <option value="Goat">Layer</option>
-                                <option value="Sheep">Broiler</option>
-                                <option value="Swine">Goose</option>
-                                <option value="Swine">Pigeon</option>
+                                <option value="Panabong">Panabong</option>
+                                <option value="Native">Native</option>
+                                <option value="Layer">Layer</option>
+                                <option value="Broiler">Broiler</option>
+                                <option value="Goose">Goose</option>
+                                <option value="Pigeon">Pigeon</option>
                             </select>
                         </div>
     

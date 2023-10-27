@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Str;
 
 class UserMiddleware
 {
@@ -18,12 +19,23 @@ class UserMiddleware
     {
         if(Auth::check())
         {
-            if(Auth::user()->user_role == 'Employee' || Auth::user()->user_role == 'employee')
-            {
+            if((int)Auth::user()->appaccess->app_id != 8) {
+                Auth::guard('web')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect()->route('login.index')->with('status', "You are not allowed to access this page!");;
+            }
+            
+            if(Str::lower(Auth::user()->status) != 'active') {
+                Auth::guard('web')->logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect()->route('login.index')->with('status', "Your account has been deactivated!");;
+            }
+
+            if(Str::lower(Auth::user()->user_role) == 'employee'){
                 return $next($request);
-            } 
-            else 
-            {
+            } else {
                 return redirect()->route('admin.dashboard');
             }
             

@@ -52,4 +52,8 @@ class User extends Authenticatable
     public function userdetails(): HasOne {
         return $this->hasOne(UserDetails::class);
     }
+
+    public function appaccess(): HasOne {
+        return $this->hasOne(AppAccess::class);
+    }
 }
