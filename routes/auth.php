@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->controller(AuthenticatedSesionController::class)->group(function () {
     Route::get('/login', 'index')->name('login.index');
-    Route::post('/login', 'store')->name('login.store');
+    Route::post('/login', 'loginPost')->name('login.store');
 });
 
 Route::middleware('auth')->controller(AuthenticatedSesionController::class)->group(function() {

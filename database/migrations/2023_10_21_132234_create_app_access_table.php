@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
             $table->integer('app_id', false, false);
             $table->foreign('app_id')->references('id')->on('applications')->onDelete('cascade')->onUpdate('cascade');
-            $table->datetimes();
+            $table->timestamps();
         });
     }
 

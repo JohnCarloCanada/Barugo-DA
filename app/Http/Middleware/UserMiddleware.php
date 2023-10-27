@@ -18,7 +18,7 @@ class UserMiddleware
     {
         if(Auth::check())
         {
-            if(Auth::user()->userdetails->user_role == 'User' || Auth::user()->userdetails->user_role == 'User')
+            if(Auth::user()->user_role == 'Employee' || Auth::user()->user_role == 'employee')
             {
                 return $next($request);
             } 
