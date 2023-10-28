@@ -52,7 +52,7 @@
         {{-- Area information  --}}
 
         <div class="{{$currentRoute == 'area' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
-            <table class="w-[700px] sm:w-full flex flex-col shadow-md border-2 rounded">
+            <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
                         <div class="flex items-center gap-3 cursor-pointer">
@@ -99,13 +99,14 @@
                 </tr>
                 @endforeach
             </table>
+            <div class="mt-3 sm:mt-4 shadow-2xl">{{ $properties->links('pagination::tailwind')}}</div>
         </div>
 
 
         {{-- live stack information  --}}
 
         <div class="{{$currentRoute == 'livestock' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
-            <table class="w-[700px] sm:w-full flex flex-col shadow-md border-2 rounded">
+            <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
                         <div class="flex items-center gap-3 cursor-pointer">
@@ -138,13 +139,14 @@
                 </tr>
                 @endforeach
             </table>
+            <div class="mt-3 sm:mt-4 shadow-2xl">{{ $properties->links('pagination::tailwind')}}</div>
         </div>
 
 
         {{-- Poultry Inforamtion --}}
 
         <div class="{{$currentRoute == 'poultry' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
-            <table class="w-[700px] sm:w-full flex flex-col shadow-md border-2 rounded">
+            <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
                         <div class="flex items-center gap-3 cursor-pointer">
@@ -177,12 +179,13 @@
                 </tr>
                 @endforeach
             </table>
+            <div class="mt-3 sm:mt-4 shadow-2xl">{{ $properties->links('pagination::tailwind')}}</div>
         </div>
 
         {{-- machinery information  --}}
 
         <div class="{{$currentRoute == 'machinery' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
-            <table class="w-[700px] sm:w-full flex flex-col shadow-md border-2 rounded">
+            <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
                         <div class="flex items-center gap-3 cursor-pointer">
@@ -219,6 +222,7 @@
                 </tr>
                 @endforeach
             </table>
+            <div class="mt-3 sm:mt-4 shadow-2xl">{{ $properties->links('pagination::tailwind')}}</div>
         </div>
 
     </div>

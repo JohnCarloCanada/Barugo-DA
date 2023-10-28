@@ -19,7 +19,7 @@
                 </ul>
             </div>
         </section>
-        <section class="w-[100%,900px] h-[500px] mx-auto overflow-x-auto bg-white rounded-lg">
+        <section class="w-[100%,900px] h-[600px] mx-auto overflow-x-auto bg-white rounded-lg px-3 shadow-2xl">
             <table class="w-full mt-5 text-center">
                 <thead>
                     <tr>
@@ -50,6 +50,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $PersonalInformations->links('pagination::tailwind') }}
         </section>
     </section>
 </x-app>

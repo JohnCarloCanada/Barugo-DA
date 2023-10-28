@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Events\HandleUser;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,16 +20,12 @@ class AdminMiddleware
     {
         if(Auth::check()){
             if((int)Auth::user()->appaccess->app_id != 8) {
-                Auth::guard('web')->logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
+                HandleUser::dispatch($request);
                 return redirect()->route('login.index')->with('status', "You are not allowed to access this page!");
             }
             
             if(Str::lower(Auth::user()->status) != 'active') {
-                Auth::guard('web')->logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
+                HandleUser::dispatch($request);
                 return redirect()->route('login.index')->with('status', "Your account has been deactivated!");;
             }
 

@@ -8,6 +8,7 @@ use App\Http\Controllers\AdminControlPanelController;
 use App\Http\Controllers\AdminDogVaccinationController;
 use App\Http\Controllers\AreaInformationController;
 use App\Http\Controllers\DogVaccinationinformationController;
+use App\Http\Controllers\GeoMappingController;
 use App\Http\Controllers\LiveStockInformationController;
 use App\Http\Controllers\MachineryInformationController;
 use App\Http\Controllers\PersonalInformationController;
@@ -77,6 +78,10 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
         Route::get('/dashboard', 'index')->name('user.dashboard');
         Route::get('/managedFarmers/details/{personalInformation}/{currentRoute}', 'managedFarmerDetails')->name('user.managedFarmersDetails');
         Route::get('/location', 'showMap')->name('userLocation.index');
+    });
+
+    Route::controller(GeoMappingController::class)->group(function() {
+        Route::get('/location/{personalInformation}', 'userShowSpecificFarmerMap')->name('geoMapping.userShowSpecificFarmerMap');
     });
     
     Route::resource('personalInformation', PersonalInformationController::class)->only([

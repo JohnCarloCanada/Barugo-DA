@@ -7,7 +7,7 @@
 
     <section class="w-full min-h-screen p-5">
         <x-admin.titleCard title="Farmer`s Location" slogan="Their livelihood's urban location ensured access to a diverse market and numerous customers for their fresh produce." />
-        <div class="w-[100%,900px] h-[500px] mx-auto overflow-hidden bg-white">
+        <div class="w-[100%,900px] mx-auto overflow-hidden">
             <div id="map" class="w-[900px,100%] min-h-screen"></div>
         </div>
     </section>
