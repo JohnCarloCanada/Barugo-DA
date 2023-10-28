@@ -11,6 +11,6 @@ class GeoMappingController extends Controller
     //
     public function userShowSpecificFarmerMap(PersonalInformation $personalInformation): View {
         $SpecificFarmerArea = $personalInformation->area()->get();
-        return view('user.location.index', ['locations' => $SpecificFarmerArea, 'farmers' => PersonalInformation::where('is_approved', true)->paginate(5), 'currentFarmer' => $personalInformation]);
+        return view('user.location.index', ['locations' => $SpecificFarmerArea, 'farmers' => PersonalInformation::where('is_approved', true)->paginate(5), 'currentFarmer' => $personalInformation, 'search' => '']);
     }
 }

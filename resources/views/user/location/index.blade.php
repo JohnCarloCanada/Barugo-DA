@@ -7,11 +7,12 @@
 
     <section class="w-full min-h-screen p-5">
         <x-admin.titleCard title="Farmer`s Location" slogan="Their livelihood's urban location ensured access to a diverse market and numerous customers for their fresh produce." />
-        <div class="w-full min-h-screen flex flex-col-reverse sm:flex-row items-start justify-between gap-4 sm:gap-5 overflow-hidden bg-white p-5">
+        <div class="w-full flex flex-col-reverse sm:flex-row items-start justify-between gap-4 sm:gap-5 overflow-hidden bg-white p-5">
             <div id="map" class="w-full sm:w-[50%] h-[400px]"></div>
             <section class="w-full flex flex-col items-start justify-center sm:w-[50%]">
                 <div class="px-3 py-5 bg-green-700 text-white w-full">
-                    <form action="" method="GET" class="w-full">
+                    <form action="{{route('userLocation.index')}}" method="GET" class="w-full">
+                        @csrf
                         <input name="search" class="w-[50%] px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search..." type="text" value="">
                     </form>
                 </div>
@@ -47,7 +48,7 @@
                         @endforeach
                     </tbody>
                 </table>
-                <div class="mt-3 sm:mt-4 shadow-2xl">{{ $farmers->links('pagination::tailwind')}}</div>
+                <div class="mt-3 sm:mt-4 shadow-2xl w-full">{{ $farmers->links('pagination::tailwind')}}</div>
             </section>
         </div>
     </section>

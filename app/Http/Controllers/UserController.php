@@ -7,6 +7,7 @@ use App\Models\Livestock;
 use App\Models\Machinery;
 use App\Models\PersonalInformation;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\View\View;
 
 class UserController extends Controller
@@ -38,8 +39,25 @@ class UserController extends Controller
         }
     }
 
-    public function showMap(): View {
-        return view('user.location.index', ['locations' => Area::get(), 'farmers' => PersonalInformation::where('is_approved', true)->paginate(5), 'currentFarmer' => NULL]);
+    public function showMap(Request $request): View {
+        $users = PersonalInformation::where(function($query) use ($request) {
+            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%')->orWhere('Surname', 'LIKE', '%' . $request->search . '%');
+        })->get()->filter(function($user) {
+            return $user->is_approved == true;
+        });
+
+        $perPage = 5;
+        $currentPage = LengthAwarePaginator::resolveCurrentPage();
+
+        $paginatedResearchResult = new LengthAwarePaginator(
+            $users->forPage($currentPage, $perPage),
+            $users->count(),
+            $perPage,
+            $currentPage,
+            ['path' => LengthAwarePaginator::resolveCurrentPath()],
+        );
+
+        return view('user.location.index', ['locations' => Area::get(), 'farmers' => $paginatedResearchResult, 'currentFarmer' => NULL]);
     }
 
     
