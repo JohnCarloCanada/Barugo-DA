@@ -38,27 +38,4 @@ class UserController extends Controller
             return view('user.managed.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->machinery()->paginate(5)]);
         }
     }
-
-    public function showMap(Request $request): View {
-        $users = PersonalInformation::where(function($query) use ($request) {
-            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%')->orWhere('Surname', 'LIKE', '%' . $request->search . '%');
-        })->get()->filter(function($user) {
-            return $user->is_approved == true;
-        });
-
-        $perPage = 5;
-        $currentPage = LengthAwarePaginator::resolveCurrentPage();
-
-        $paginatedResearchResult = new LengthAwarePaginator(
-            $users->forPage($currentPage, $perPage),
-            $users->count(),
-            $perPage,
-            $currentPage,
-            ['path' => LengthAwarePaginator::resolveCurrentPath()],
-        );
-
-        return view('user.location.index', ['locations' => Area::get(), 'farmers' => $paginatedResearchResult, 'currentFarmer' => NULL]);
-    }
-
-    
 }

@@ -16,7 +16,7 @@
             </ul>
             @endif
             <section class="w-full mt-10 overflow-y-auto">
-                <form class="w-full overflow-y-auto" action="{{route('dogVaccinationInformation.store')}}" method="post">
+                <form class="w-full overflow-y-auto" action="{{route('adminDogVaccinationInformation.store')}}" method="post">
                     @csrf
 
                     @if ($errors->any())

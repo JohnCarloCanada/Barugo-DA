@@ -10,7 +10,7 @@
             <h2 class="text-black font-bold text-3xl sm:text-4xl">Add New Farmer</h2>
 
             <section class="w-full mt-10 overflow-y-auto">
-                <form class="w-full overflow-y-auto" action="{{route('personalInformation.store')}}" method="post">
+                <form class="w-full overflow-y-auto" action="{{route('userPersonalInformation.store')}}" method="post">
                     @csrf
 
                     @if ($errors->any())

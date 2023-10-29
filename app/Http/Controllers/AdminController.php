@@ -9,20 +9,16 @@ use App\Models\UserDetails;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class AdminController extends Controller
 {
     //
     public function index(): View {
-        return view('admin.dashboard', ['PersonalInformations' => PersonalInformation::get(), 'count' => PersonalInformation::count(), 'userCounts' => UserDetails::where('user_role', 'User')->count()]);
-    }
+        $farmerCounts = PersonalInformation::where('is_approved', true)->count();
+        $totalLocations = Area::count();
 
-    public function farmer(): View {
-        return view('admin.farmer',['PersonalInformations' => PersonalInformation::get()]);
-    }
-
-    public function showMap(): View {
-        return view('admin.location.index', ['locations' => Area::get()]);
+        return view('admin.dashboard', ['farmersCount' => $farmerCounts, 'locationsCount' => $totalLocations]);
     }
 
     public function farmerDetails(PersonalInformation $personalInformation, string $currentRoute): View {
@@ -39,17 +35,4 @@ class AdminController extends Controller
             return view('admin.farmerDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation, 'properties' => $personalInformation->machinery()->paginate(5)]);
         }
     }
-
-    public function approved(PersonalInformation $personalInformation) {
-        $personalInformation->is_approved = true;
-        $personalInformation->save();
-
-        return redirect()->route('admin.farmer')->with('success', 'Farmer Successfully Approved');
-    }
-
-    public function delete(PersonalInformation $personalInformation) {
-        $personalInformation->delete();
-        return redirect()->route('admin.farmer')->with('success', 'Farmer Successfully Deleted');
-    }
-
 }

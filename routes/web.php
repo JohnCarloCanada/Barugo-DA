@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminControlPanelController;
 use App\Http\Controllers\AdminDogVaccinationController;
+use App\Http\Controllers\AdminPersonalInformationController;
 use App\Http\Controllers\AreaInformationController;
 use App\Http\Controllers\DogVaccinationinformationController;
 use App\Http\Controllers\GeoMappingController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\LiveStockInformationController;
 use App\Http\Controllers\MachineryInformationController;
 use App\Http\Controllers\PersonalInformationController;
 use App\Http\Controllers\PoultryInformationController;
+use App\Http\Controllers\UserPersonalInformationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,11 +39,19 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
 
     Route::controller(AdminController::class)->group(function() {
         Route::get('/dashboard', 'index')->name('admin.dashboard');
-        Route::get('/farmers', 'farmer')->name('admin.farmer');
         Route::get('/farmers/details/{personalInformation}/{currentRoute}', 'farmerDetails')->name('admin.farmerDetails');
-        Route::get('/location', 'showMap')->name('adminLocation.index');
-        Route::put('/dashboard/{personalInformation}', 'approved')->name('admin.approved');
-        Route::delete('/dashboard/{personalInformation}', 'delete')->name('admin.delete');
+    });
+
+    Route::controller(GeoMappingController::class)->group(function() {
+        Route::get('/location', 'adminShowMap')->name('adminLocation.index');
+        Route::get('/location/{personalInformation}', 'adminShowSpecificFarmerMap')->name('geoMapping.adminShowSpecificFarmerMap');
+    });
+
+    Route::controller(AdminPersonalInformationController::class)->group(function() {
+        Route::get('/farmers', 'farmer')->name('adminPersonalInformation.index');
+        Route::put('/farmers/{personalInformation}', 'approved')->name('adminPersonalInformation.approved');
+        Route::delete('/farmers/{personalInformation}', 'delete')->name('adminPersonalInformation.delete');
+        Route::get('/farmers/needApproval', 'needApproval')->name('adminPersonalInformation.needApproval');
     });
 
     Route::controller(AreaInformationController::class)->group(function() {
@@ -68,25 +78,30 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
 
     Route::controller(AdminDogVaccinationController::class)->group(function() {
         Route::get('/dogVaccinationInformation', 'index')->name('adminDogVaccinationInformation.index');
+        Route::get('/dogVaccinationInformation/create', 'create')->name('adminDogVaccinationInformation.create');
+        Route::post('/dogVaccinationInformation/store', 'store')->name('adminDogVaccinationInformation.store');
+        Route::get('/dogVaccinationInformation/vaccination/{dogInformation}', 'vaccination')->name('adminDogVaccinationInformation.vaccination');
+        Route::delete('/dogVaccinationInformation/destroy/{dogInformation}', 'destroy')->name('adminDogVaccinationInformation.destroy');
     });
 });
 
 
 Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(function() {
-
     Route::controller(UserController::class)->group(function() {
         Route::get('/dashboard', 'index')->name('user.dashboard');
         Route::get('/managedFarmers/details/{personalInformation}/{currentRoute}', 'managedFarmerDetails')->name('user.managedFarmersDetails');
-        Route::get('/location', 'showMap')->name('userLocation.index');
     });
 
     Route::controller(GeoMappingController::class)->group(function() {
+        Route::get('/location', 'userShowMap')->name('userLocation.index');
         Route::get('/location/{personalInformation}', 'userShowSpecificFarmerMap')->name('geoMapping.userShowSpecificFarmerMap');
     });
-    
-    Route::resource('personalInformation', PersonalInformationController::class)->only([
-        'index', 'create', 'store', 'destroy', 'edit', 'update',
-    ]);
+
+    Route::controller(UserPersonalInformationController::class)->group(function() {
+        Route::get('/personalInformation', 'index')->name('userPersonalInformation.index');
+        Route::get('/personalInformation/create', 'create')->name('userPersonalInformation.create');
+        Route::post('/personalInformation/store', 'store')->name('userPersonalInformation.store');
+    });
 
     Route::controller(AreaInformationController::class)->group(function() {
         Route::get('/areaInformation{personalInformation}', 'index')->name('areaInformation.index');
@@ -113,6 +128,7 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
         Route::get('/dogVaccinationInformation/create', 'create')->name('dogVaccinationInformation.create');
         Route::post('/dogVaccinationInformation/store', 'store')->name('dogVaccinationInformation.store');
         Route::get('/dogVaccinationInformation/vaccination/{dogInformation}', 'vaccination')->name('dogVaccinationInformation.vaccination');
+        Route::delete('/dogVaccinationInformation/destroy/{dogInformation}', 'destroy')->name('dogVaccinationInformation.destroy');
     });
 });
 

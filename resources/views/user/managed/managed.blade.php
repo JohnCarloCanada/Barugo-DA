@@ -7,16 +7,12 @@
 
     <section class="w-full min-h-screen p-5 overflow-y-auto">
         <section class="flex flex-col my-2 items-start justify-center gap-y-6">
-            <h2 class="text-2xl sm:text-4xl mx-2 font-bold text-black">Managed Farmers</h2>
-            <div class="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-y-0 justify-center gap-x-3">
-                <a aria-label="Go to add farmers" class="py-2 px-3 bg-[#679f69] rounded flex items-center justify-between gap-x-4" href="{{route('personalInformation.create')}}">
+            <h2 class="w-full text-2xl sm:text-4xl mx-2 font-bold text-black text-center">Managed Farmers</h2>
+            <div class="w-full flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-y-0 justify-between gap-x-3">
+                <a aria-label="Go to add farmers" class="py-2 px-3 bg-[#679f69] rounded flex items-center justify-between gap-x-4" href="{{route('userPersonalInformation.create')}}">
                     <p class="text-white font-bold text-xs">ADD FARMER</p>
                     <img aria-hidden="true" class="w-3 h-3 object-contain" src="{{asset('images/icons/plus.png')}}" alt="">
                 </a>
-                <ul class="py-2 px-3 bg-[#679f69] rounded cursor-pointer flex items-center justify-between gap-x-4">
-                    <p class="text-white font-bold text-xs">SORT</p>
-                    <img aria-hidden="true" class="w-3 h-3 cursor-pointer object-contain" src="{{asset('images/icons/down-arrow.png')}}" alt="">
-                </ul>
             </div>
         </section>
         <section class="w-[100%,900px] h-[600px] mx-auto overflow-x-auto bg-white rounded-lg px-3 shadow-2xl">
@@ -50,7 +46,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {{ $PersonalInformations->links('pagination::tailwind') }}
+            <div class="mt-3 sm:mt-4 shadow-2xl w-full">{{ $PersonalInformations->links('pagination::tailwind') }}</div>
         </section>
     </section>
 </x-app>
