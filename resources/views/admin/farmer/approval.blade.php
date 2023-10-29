@@ -15,7 +15,7 @@
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Farmer
                         </div>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-[50%]" placeholder="Search..." type="text">
-                        <x-admin.navigation type="approval"/>
+                        <x-admin.navigation type="approval" notApprovedCount={{$notApprovedCount}} needUpdateFarmersCount={{$needUpdateFarmersCount}}/>
                     </th>
                     <th class="grid grid-cols-7 text-[12px] mt-5">
                         <div>RSBSA No</div>

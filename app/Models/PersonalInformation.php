@@ -30,6 +30,22 @@ class PersonalInformation extends Model
         'Name_of_Spouse',
         'Highest_education_qualification',
         'Main_livelihood',
+
+        'Updated_Surname',
+        'Updated_First_Name',
+        'Updated_Middle_Name',
+        'Updated_Extension',
+        'Updated_Address',
+        'Updated_Mobile_No',
+        'Updated_Sex',
+        'Updated_Date_of_birth',
+        'Updated_Religion',
+        'Updated_Civil_Status',
+        'Updated_Name_of_Spouse',
+        'Updated_Highest_education_qualification',
+        'Updated_Main_livelihood',
+
+        'update_status',
     ];
 
     /**

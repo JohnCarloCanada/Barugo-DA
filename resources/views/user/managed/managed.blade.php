@@ -19,28 +19,32 @@
             <table class="w-full mt-5 text-center">
                 <thead>
                     <tr>
-                        <th class="">RSBSA No.</th>
-                        <th class="">Surname</th>
-                        <th class="">Address</th>
-                        <th class="">Mobile No.</th>
-                        <th class="">Main Livelihood</th>
-                        <th class="">Operation</th>
+                        <th class="text-sm"></th>
+                        <th class="text-sm">RSBSA No.</th>
+                        <th class="text-sm">Surname</th>
+                        <th class="text-sm">Address</th>
+                        <th class="text-sm">Mobile No.</th>
+                        <th class="text-sm whitespace-nowrap">Main Livelihood</th>
+                        <th class="text-sm">Operation</th>
                     </tr>
                 </thead>
         
                 <tbody>
                     @foreach ($PersonalInformations as $PersonalInformation)
                         <tr class="pt-10 odd:bg-slate-200">
+                            <td><div class="w-[24px] h-[24px] bg-red-800 {{ $PersonalInformation->update_status  ? '' : 'hidden' }} "></div></td>
                             <td>{{$PersonalInformation->RSBSA_No}}</td>
                             <td>{{$PersonalInformation->Surname}}</td>
                             <td>{{$PersonalInformation->Address}}</td>
                             <td>{{$PersonalInformation->Mobile_No}}</td>
                             <td>{{$PersonalInformation->Main_livelihood}}</td>
-                            <td class="flex items-center justify-center">
+                            <td class="flex items-center justify-center gap-x-3">
                                 <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $PersonalInformation, 'currentRoute' => 'area'])}}">
                                     <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt="">
                                 </a>
-                                {{-- <a class="bg-[#679f69] px-3 py-1 rounded-lg text-white font-bold cursor-pointer" href="{{ route('personalInformation.edit', ['personalInformation' => $PersonalInformation]) }}">Edit</a> --}}
+                                <a href="{{route('userPersonalInformation.edit', ['personalInformation' => $PersonalInformation])}}">
+                                    <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt="">
+                                </a>
                             </td>		
                         </tr>
                     @endforeach

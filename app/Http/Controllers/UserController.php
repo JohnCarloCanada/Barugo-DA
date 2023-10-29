@@ -14,7 +14,7 @@ class UserController extends Controller
 {
     //
     public function index(): View {
-        $count  = PersonalInformation::count();
+        $count  = PersonalInformation::where('is_approved', true)->count();
         $latestEntries = PersonalInformation::orderBy('created_at', 'desc')->take(4)->get();
         $allLivestock = Livestock::get();
         $allMachineries = Machinery::get();

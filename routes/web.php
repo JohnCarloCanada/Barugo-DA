@@ -52,6 +52,8 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::put('/farmers/{personalInformation}', 'approved')->name('adminPersonalInformation.approved');
         Route::delete('/farmers/{personalInformation}', 'delete')->name('adminPersonalInformation.delete');
         Route::get('/farmers/needApproval', 'needApproval')->name('adminPersonalInformation.needApproval');
+        Route::get('/farmers/needUpdate', 'needUpdate')->name('adminPersonalInformation.needUpdate');
+        Route::put('/farmers/{personalInformation}/acceptUpdate', 'acceptUpdate')->name('adminPersonalInformation.acceptUpdate');
     });
 
     Route::controller(AreaInformationController::class)->group(function() {
@@ -101,6 +103,8 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
         Route::get('/personalInformation', 'index')->name('userPersonalInformation.index');
         Route::get('/personalInformation/create', 'create')->name('userPersonalInformation.create');
         Route::post('/personalInformation/store', 'store')->name('userPersonalInformation.store');
+        Route::get('/personalInformation/{personalInformation}/edit', 'edit')->name('userPersonalInformation.edit');
+        Route::put('/personalInformation/{personalInformation}/update', 'update')->name('userPersonalInformation.update');
     });
 
     Route::controller(AreaInformationController::class)->group(function() {
