@@ -14,6 +14,7 @@ use App\Http\Controllers\LiveStockInformationController;
 use App\Http\Controllers\MachineryInformationController;
 use App\Http\Controllers\PersonalInformationController;
 use App\Http\Controllers\PoultryInformationController;
+use App\Http\Controllers\SeedInventoryController;
 use App\Http\Controllers\UserPersonalInformationController;
 
 /*
@@ -73,9 +74,18 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     });
 
     Route::controller(AdminControlPanelController::class)->group(function() {
-        Route::get('/adminControlPanel/{currentRoute}', 'index')->name('adminControlPanel.index');
-        Route::post('/adminControlPanel', 'store')->name('adminControlPanel.store');
-        Route::delete('/adminControlPanel/{option}', 'destroy')->name('adminControlPanel.destroy');
+        Route::get('/adminControlPanel/{currentRoute}/survey', 'surveyQuestionsIndex')->name('adminControlPanelSurvey.survey');
+        Route::post('/adminControlPanel/survey', 'surveyQuestionsStore')->name('adminControlPanelSurvey.store');
+        Route::delete('/adminControlPanel/{option}/survey', 'surveyQuestionsDestroy')->name('adminControlPanelSurvey.destroy');
+
+        Route::get('/adminControlPanel/seed', 'seedDistrubutionIndex')->name('adminControlPanelSeed.seed');
+        Route::post('/adminControlPanel/seed', 'seedDistrubutionStore')->name('adminControlPanelSeed.store');
+        Route::put('/adminControlPanel/{season}/seed/end', 'seedDistrubutionEnd')->name('adminControlPanelSeed.end');
+        Route::put('/adminControlPanel/seed/edit', 'seedDistrubutionEdit')->name('adminControlPanelSeed.edit');
+    });
+
+    Route::controller(SeedInventoryController::class)->group(function() {
+        Route::post('/adminControlPanel/seed/inventory', 'seedInventoryStore')->name('seedInventoryStore.store');
     });
 
     Route::controller(AdminDogVaccinationController::class)->group(function() {

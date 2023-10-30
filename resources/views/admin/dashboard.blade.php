@@ -34,7 +34,7 @@
                 <img class="w-[5rem]" src="{{asset('images/seeding.png')}}" alt="">
                 <div>
                     <p class="">Seeds</p>
-                    <p class="text-3xl">100</p>
+                    <p class="text-3xl">{{$totalSeeds}}</p>
                 </div>
             </li>
             <li

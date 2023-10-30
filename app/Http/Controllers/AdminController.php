@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use App\Models\PersonalInformation;
+use App\Models\SeedInventory;
 use App\Models\User;
 use App\Models\UserDetails;
 use Illuminate\Http\Request;
@@ -17,8 +18,9 @@ class AdminController extends Controller
     public function index(): View {
         $farmerCounts = PersonalInformation::where('is_approved', true)->count();
         $totalLocations = Area::count();
+        $totalSeeds = SeedInventory::sum('Quantity');
 
-        return view('admin.dashboard', ['farmersCount' => $farmerCounts, 'locationsCount' => $totalLocations]);
+        return view('admin.dashboard', ['farmersCount' => $farmerCounts, 'locationsCount' => $totalLocations, 'totalSeeds' => $totalSeeds]);
     }
 
     public function farmerDetails(PersonalInformation $personalInformation, string $currentRoute): View {
