@@ -11,9 +11,9 @@
             <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 flex flex-col sm:flex-row items-center justify-between gap-y-4 sm:gap-y-0 relative py-2">
-                        <div class="flex items-center gap-3 cursor-pointer">
+                        <a href="{{route('adminPersonalInformation.create')}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Farmer
-                        </div>
+                        </a>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-[50%]" placeholder="Search..." type="text">
                         <x-admin.navigation type="approval" notApprovedCount={{$notApprovedCount}} needUpdateFarmersCount={{$needUpdateFarmersCount}}/>
                     </th>

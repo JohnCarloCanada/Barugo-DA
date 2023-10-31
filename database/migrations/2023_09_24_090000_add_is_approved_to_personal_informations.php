@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('personal_informations', function (Blueprint $table) {
             //
-            $table->boolean('is_approved')->default(false);
+            $table->boolean('is_approved')->nullable()->default(false);
         });
     }
 

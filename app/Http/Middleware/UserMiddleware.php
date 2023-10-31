@@ -20,14 +20,20 @@ class UserMiddleware
     {
         if(Auth::check())
         {
-            if((int)Auth::user()->appaccess->app_id != 8) {
+            if(Auth::user()->appaccess) {
+                if((int)Auth::user()->appaccess->app_id != 8) {
+                    HandleUser::dispatch($request);
+                    return redirect()->route('login.index')->with('status', "You are not allowed to access this page!");
+                }
+            } else {
                 HandleUser::dispatch($request);
-                return redirect()->route('login.index')->with('status', "You are not allowed to access this page!");;
+                    return redirect()->route('login.index')->with('status', "You are not allowed to access this page!");
             }
+            
             
             if(Str::lower(Auth::user()->status) != 'active') {
                 HandleUser::dispatch($request);
-                return redirect()->route('login.index')->with('status', "Your account has been deactivated!");;
+                return redirect()->route('login.index')->with('status', "Your account has been deactivated!");
             }
 
             if(Str::lower(Auth::user()->user_role) == 'employee'){

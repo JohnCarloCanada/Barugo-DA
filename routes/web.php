@@ -62,6 +62,8 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::get('/farmers/needApproval', 'needApproval')->name('adminPersonalInformation.needApproval');
         Route::get('/farmers/needUpdate', 'needUpdate')->name('adminPersonalInformation.needUpdate');
         Route::put('/farmers/{personalInformation}/acceptUpdate', 'acceptUpdate')->name('adminPersonalInformation.acceptUpdate');
+        Route::get('/farmers/create', 'create')->name('adminPersonalInformation.create');
+        Route::post('/farmers/store', 'store')->name('adminPersonalInformation.store');
     });
 
     Route::controller(AreaInformationController::class)->group(function() {

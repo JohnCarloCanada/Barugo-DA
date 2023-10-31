@@ -46,6 +46,7 @@ class PersonalInformation extends Model
         'Updated_Main_livelihood',
 
         'update_status',
+        'is_approved',
     ];
 
     /**
