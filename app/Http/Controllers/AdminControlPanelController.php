@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Option;
+use App\Models\PersonalInformation;
 use App\Models\Season;
 use App\Models\SeedInventory;
 use Illuminate\Contracts\View\View;
@@ -66,6 +67,11 @@ class AdminControlPanelController extends Controller
                 'Status' => 'Inactive',
             ]);
         }
+
+        PersonalInformation::where('is_claimed', 1)->update([
+            'is_claimed' => 0,
+        ]);
+
         
         $totalSeeds = SeedInventory::sum('Quantity');
         $current_total_seeds = 0;
@@ -88,6 +94,10 @@ class AdminControlPanelController extends Controller
     public function seedDistrubutionEnd(Season $season): RedirectResponse {
         $season->Status = 'Inactive';
         $season->save();
+
+        PersonalInformation::where('is_claimed', 1)->update([
+            'is_claimed' => 0,
+        ]);
 
         return redirect()->route('adminControlPanelSeed.seed');
     }

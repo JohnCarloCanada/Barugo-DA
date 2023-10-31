@@ -13,7 +13,7 @@ class UserPersonalInformationController extends Controller
 {
     public function index(): View
     {
-        return view('user.managed.managed', ['PersonalInformations' => PersonalInformation::where('is_approved', true)->paginate(5)]);
+        return view('user.managed.managed', ['PersonalInformations' => PersonalInformation::latest()->where('is_approved', true)->paginate(5)]);
     }
 
     public function create()

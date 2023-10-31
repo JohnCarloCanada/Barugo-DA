@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
+use App\Events\ClaimedSuccesful;
 use App\Events\HandleUser;
+use App\Listeners\ChangedStatusClaimedStatusToTrue;
 use App\Listeners\HandleUserLogout;
+use App\Listeners\UpdateInventoryAfterClaiming;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -23,6 +26,10 @@ class EventServiceProvider extends ServiceProvider
         HandleUser::class => [
             HandleUserLogout::class,
         ],
+        ClaimedSuccesful::class => [
+            UpdateInventoryAfterClaiming::class,
+            ChangedStatusClaimedStatusToTrue::class,
+        ]
     ];
 
     /**

@@ -7,6 +7,7 @@ use App\Models\PersonalInformation;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminDogVaccinationController extends Controller
 {
@@ -15,6 +16,7 @@ class AdminDogVaccinationController extends Controller
         $dogs = DogInformation::where(function($query) use ($request) {
             $query->where('Owner_Name', 'LIKE', '%' . $request->search . '%')->orWhere('Dog_Name', 'LIKE', '%' . $request->search . '%')->orWhere('RSBSA_No', 'LIKE', '%' . $request->search . '%');
         });
+
         return view('admin.vaccination.index', ['DogInformations' => $dogs->paginate(10), 'search' => $request->search]);
     }
 

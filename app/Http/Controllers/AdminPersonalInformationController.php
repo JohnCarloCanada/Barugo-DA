@@ -10,21 +10,21 @@ use Illuminate\Http\Request;
 class AdminPersonalInformationController extends Controller
 {
     public function farmer(): View {
-        $approvedFarmers = PersonalInformation::where('is_approved', true)->paginate(5);
+        $approvedFarmers = PersonalInformation::latest()->where('is_approved', true)->paginate(5);
         $notApprovedFarmersCount = PersonalInformation::where('is_approved', false)->count();
         $needUpdateFarmersCount = PersonalInformation::where('update_status', true)->count();
         return view('admin.farmer.farmer', ['PersonalInformations' => $approvedFarmers, 'notApprovedCount' => $notApprovedFarmersCount, 'needUpdateFarmersCount' => $needUpdateFarmersCount]);
     }
 
     public function needApproval(): View {
-        $notApprovedFarmers = PersonalInformation::where('is_approved', false)->paginate(5);
+        $notApprovedFarmers = PersonalInformation::latest()->where('is_approved', false)->paginate(5);
         $notApprovedFarmersCount = PersonalInformation::where('is_approved', false)->count();
         $needUpdateFarmersCount = PersonalInformation::where('update_status', true)->count();
         return view('admin.farmer.approval', ['PersonalInformations' => $notApprovedFarmers, 'notApprovedCount' => $notApprovedFarmersCount, 'needUpdateFarmersCount' => $needUpdateFarmersCount]);
     }
 
     public function needUpdate(): View {
-        $needUpdateFarmers = PersonalInformation::where('is_approved', true)->where('update_status', true)->paginate(5);
+        $needUpdateFarmers = PersonalInformation::latest()->where('is_approved', true)->where('update_status', true)->paginate(5);
         $notApprovedFarmersCount = PersonalInformation::where('is_approved', false)->count();
         $needUpdateFarmersCount = PersonalInformation::where('update_status', true)->count();
         return view('admin.farmer.update', ['PersonalInformations' => $needUpdateFarmers, 'notApprovedCount' => $notApprovedFarmersCount, 'needUpdateFarmersCount' => $needUpdateFarmersCount]);

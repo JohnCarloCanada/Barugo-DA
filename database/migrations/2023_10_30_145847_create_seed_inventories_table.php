@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('seed_inventories', function (Blueprint $table) {
             $table->id();
             $table->string('Seed_Type', 24);
-            $table->string('Seed_Variety', 99);
+            $table->string('Seed_Variety', 99)->unique();
             $table->string('Company', 99);
             $table->integer('Quantity', false, false)->default(0);
             $table->timestamps();

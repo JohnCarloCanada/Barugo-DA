@@ -13,7 +13,7 @@ class SeedInventoryController extends Controller
     public function seedInventoryStore(Request $request): RedirectResponse {
         $validated_rules = [
             'Seed_Type' => 'required|string|max:24',
-            'Seed_Variety' => 'required|string|max:99',
+            'Seed_Variety' => 'required|string|max:99|unique:seed_inventories,Seed_Variety',
             'Company' => 'required|string|max:99',
             'Quantity' => 'required|numeric',
         ];

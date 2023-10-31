@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminControlPanelController;
 use App\Http\Controllers\AdminDogVaccinationController;
 use App\Http\Controllers\AdminPersonalInformationController;
+use App\Http\Controllers\AdminSeedDistributionController;
 use App\Http\Controllers\AreaInformationController;
 use App\Http\Controllers\DogVaccinationinformationController;
 use App\Http\Controllers\GeoMappingController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\PersonalInformationController;
 use App\Http\Controllers\PoultryInformationController;
 use App\Http\Controllers\SeedInventoryController;
 use App\Http\Controllers\UserPersonalInformationController;
+use App\Http\Controllers\UserSeedDistributionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +48,11 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     Route::controller(GeoMappingController::class)->group(function() {
         Route::get('/location', 'adminShowMap')->name('adminLocation.index');
         Route::get('/location/{personalInformation}', 'adminShowSpecificFarmerMap')->name('geoMapping.adminShowSpecificFarmerMap');
+    });
+
+    Route::controller(AdminSeedDistributionController::class)->group(function() {
+        Route::get('/seedDistribution', 'adminIndex')->name('adminSeedDistribution.index');
+        Route::put('/seedDistribution', 'adminSeedClaiming')->name('adminSeedDistribution.claim');
     });
 
     Route::controller(AdminPersonalInformationController::class)->group(function() {
@@ -107,6 +114,11 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
     Route::controller(GeoMappingController::class)->group(function() {
         Route::get('/location', 'userShowMap')->name('userLocation.index');
         Route::get('/location/{personalInformation}', 'userShowSpecificFarmerMap')->name('geoMapping.userShowSpecificFarmerMap');
+    });
+
+    Route::controller(UserSeedDistributionController::class)->group(function() {
+        Route::get('/seedDistribution', 'userIndex')->name('userSeedDistribution.index');
+        Route::put('/seedDistribution', 'userSeedClaiming')->name('userSeedDistribution.claim');
     });
 
     Route::controller(UserPersonalInformationController::class)->group(function() {

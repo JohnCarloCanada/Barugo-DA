@@ -16,7 +16,7 @@
                 <div class="py-2 bg-green-700 text-white w-full">
                     <form action="{{route('adminDogVaccinationInformation.index')}}" method="GET" class="w-full">
                         @csrf
-                        <input name="search" class="w-full px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search..." type="text" value="{{$search}}">
+                        <input name="search" class="w-full px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search RSBSA_No or Owner Name" type="text" value="{{$search}}">
                     </form>
                 </div>
             </div>
@@ -70,6 +70,7 @@
                     @endforeach
                 </tbody>
             </table>
+            <div class="w-full mt-3">{{$DogInformations->links('pagination::tailwind')}}</div>
         </section>
     </section>
 </x-app>

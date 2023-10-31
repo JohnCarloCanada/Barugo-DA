@@ -40,7 +40,7 @@
                 </a>
             </li>
             <li class="{{$type == 'seed distributions' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
-                <a aria-label="Go to seed distributions" class="{{$type == 'seed distributions' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="">
+                <a aria-label="Go to seed distributions" class="{{$type == 'seed distributions' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('adminSeedDistribution.index')}}">
                     <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/seed.png')}}" alt="">
                     <p class="hide">Seed Distributions</p>
                 </a>
