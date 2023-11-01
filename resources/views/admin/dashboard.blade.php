@@ -28,7 +28,8 @@
                     <p class="text-3xl">100</p>
                 </div>
             </li>
-            <li
+            <a href="{{route('adminControlPanelSeed.index')}}">
+                <li
                 class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl  border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
             >
                 <img class="w-[5rem]" src="{{asset('images/seeding.png')}}" alt="">
@@ -37,6 +38,7 @@
                     <p class="text-3xl">{{$totalSeeds}}</p>
                 </div>
             </li>
+            </a>
             <li
                 class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl  border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
             >

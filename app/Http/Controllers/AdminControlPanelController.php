@@ -49,12 +49,12 @@ class AdminControlPanelController extends Controller
         return redirect()->route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])->with('success', 'Option Successfully Deleted');
     }
 
-    // Seed Distributions Page
-    public function seedDistrubutionIndex(): view {
-        return view('admin.adminpanel.seed.index', ['seasons' => Season::latest()->paginate(5)]);
+    // Season Page
+    public function seasonDistrubutionIndex(): view {
+        return view('admin.adminpanel.season.index', ['seasons' => Season::latest()->paginate(5)]);
     }
 
-    public function seedDistrubutionStore(Request $request): RedirectResponse {
+    public function seasonDistrubutionStore(Request $request): RedirectResponse {
         $validation_rules = [
             'Season' => 'required|string|max:24',
         ];
@@ -88,10 +88,10 @@ class AdminControlPanelController extends Controller
             'Year' => now()->year,
         ]);
 
-        return redirect()->route('adminControlPanelSeed.seed')->with('success', 'Season Succesfull Added');
+        return redirect()->route('adminControlPanelSeason.season')->with('success', 'Season Succesfull Added');
     }
 
-    public function seedDistrubutionEnd(Season $season): RedirectResponse {
+    public function seasonDistrubutionEnd(Season $season): RedirectResponse {
         $season->Status = 'Inactive';
         $season->save();
 
@@ -99,10 +99,10 @@ class AdminControlPanelController extends Controller
             'is_claimed' => 0,
         ]);
 
-        return redirect()->route('adminControlPanelSeed.seed');
+        return redirect()->route('adminControlPanelSeason.season');
     }
 
-    public function seedDistrubutionEdit(Request $request): RedirectResponse {
+    public function seasonDistrubutionEdit(Request $request): RedirectResponse {
         $validation_rules = [
             'Season' => 'required|string|max:24',
         ];
@@ -111,6 +111,6 @@ class AdminControlPanelController extends Controller
         $findSeason->Season = $validated_data['Season'];
         $findSeason->save();
 
-        return redirect()->route('adminControlPanelSeed.seed');
+        return redirect()->route('adminControlPanelSeason.season');
     }
 }

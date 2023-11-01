@@ -43,7 +43,7 @@
                                 <div class="{{$farmer->is_claimed ? 'bg-yellow-600' : 'bg-red-600'}} text-white font-bold text-xs px-2 sm:px-3 py-1 rounded-sm">{{$farmer->is_claimed ? 'Claimed' : 'Not-Claimed'}}</div>
                             </td>
                             <td class="flex items-center justify-center cursor-pointer">
-                                <div onclick="showClaimSeedForm({{$farmer}})" class="{{$farmer->RSBSA_No && !$farmer->is_claimed && $farmer->area->count() ? '' : 'hidden'}} bg-green-600 text-white font-bold text-base px-2 sm:px-3 py-1 rounded-sm" type="submit">
+                                <div onclick="showClaimSeedForm({{$farmer}})" class="{{$seasons->Status === 'Active' && $farmer->RSBSA_No && !$farmer->is_claimed && $farmer->area->count() ? '' : 'hidden'}} bg-green-600 text-white font-bold text-base px-2 sm:px-3 py-1 rounded-sm" type="submit">
                                     Claim
                                 </div>
                             </td>		

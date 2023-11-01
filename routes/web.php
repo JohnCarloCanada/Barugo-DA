@@ -36,10 +36,6 @@ Route::get('/', function () {
 
 
 Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(function() {
-
-    /* Route::resource('personnel', PersonnelController::class)->only(['index','destroy','store','update']);
-    Route::put('personnel', [PersonnelController::class,'edit'])->name('personnel.edit'); */
-
     Route::controller(AdminController::class)->group(function() {
         Route::get('/dashboard', 'index')->name('admin.dashboard');
         Route::get('/farmers/details/{personalInformation}/{currentRoute}', 'farmerDetails')->name('admin.farmerDetails');
@@ -87,14 +83,16 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::post('/adminControlPanel/survey', 'surveyQuestionsStore')->name('adminControlPanelSurvey.store');
         Route::delete('/adminControlPanel/{option}/survey', 'surveyQuestionsDestroy')->name('adminControlPanelSurvey.destroy');
 
-        Route::get('/adminControlPanel/seed', 'seedDistrubutionIndex')->name('adminControlPanelSeed.seed');
-        Route::post('/adminControlPanel/seed', 'seedDistrubutionStore')->name('adminControlPanelSeed.store');
-        Route::put('/adminControlPanel/{season}/seed/end', 'seedDistrubutionEnd')->name('adminControlPanelSeed.end');
-        Route::put('/adminControlPanel/seed/edit', 'seedDistrubutionEdit')->name('adminControlPanelSeed.edit');
+        Route::get('/adminControlPanel/season', 'seasonDistrubutionIndex')->name('adminControlPanelSeason.season');
+        Route::post('/adminControlPanel/season', 'seasonDistrubutionStore')->name('adminControlPanelSeason.store');
+        Route::put('/adminControlPanel/{season}/seed/end', 'seasonDistrubutionEnd')->name('adminControlPanelSeason.end');
+        Route::put('/adminControlPanel/season/edit', 'seasonDistrubutionEdit')->name('adminControlPanelSeason.edit');
     });
 
     Route::controller(SeedInventoryController::class)->group(function() {
+        Route::get('/adminControlPanel/seed/inventory', 'seedInventoryIndex')->name('adminControlPanelSeed.index');
         Route::post('/adminControlPanel/seed/inventory', 'seedInventoryStore')->name('seedInventoryStore.store');
+        Route::delete('/adminControlPanel/seed/inventory/{seedInventory}/destroy', 'seedInventoryDestroy')->name('seedInventoryDestroy.destroy');
     });
 
     Route::controller(AdminDogVaccinationController::class)->group(function() {

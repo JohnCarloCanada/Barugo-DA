@@ -55,7 +55,7 @@ class DogVaccinationinformationController extends Controller
             'Remarks' => $validated_data['Remarks'] ?? NULL,
         ]);
 
-        return redirect()->route('dogVaccinationInformation.index')->with('Success', 'Added New Record');
+        return redirect()->route('dogVaccinationInformation.index')->with('success', 'Added New Record');
     }
 
 

@@ -23,7 +23,7 @@ class AdminDogVaccinationController extends Controller
     public function vaccination(DogInformation $dogInformation): RedirectResponse {
         $dogInformation->Last_Vac_Month = now();
         $dogInformation->save();
-        return redirect()->route('adminDogVaccinationInformation.index')->with('Success', $dogInformation->Dog_Name . ' ' . 'latest Vaccination Month Added');
+        return redirect()->route('adminDogVaccinationInformation.index')->with('success', $dogInformation->Dog_Name . ' ' . 'latest Vaccination Month Added');
     }
 
     public function create(): View {
@@ -62,7 +62,7 @@ class AdminDogVaccinationController extends Controller
             'Remarks' => $validated_data['Remarks'] ?? NULL,
         ]);
 
-        return redirect()->route('adminDogVaccinationInformation.index')->with('Success', 'Added New Record');
+        return redirect()->route('adminDogVaccinationInformation.index')->with('success', 'Added New Record');
     }
 
     public function destroy(DogInformation $dogInformation): RedirectResponse {

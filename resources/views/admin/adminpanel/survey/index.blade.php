@@ -14,7 +14,8 @@
         <nav class="flex justify-start items-center p-3 sm:p-4 shadow-xl">
             <ul class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
                 <li><a class=" underline font-semibold text-[#72c4ff]" href="{{route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])}}">Survey Questions</a></li>
-                <li><a class=" underline font-semibold" href="{{route('adminControlPanelSeed.seed')}}">Seed Distribution</a></li>
+                <li><a class=" underline font-semibold" href="{{route('adminControlPanelSeason.season')}}">Season</a></li>
+                <li><a class=" underline font-semibold" href="{{route('adminControlPanelSeed.index')}}">Seed Inventory</a></li>
             </ul>
         </nav>
 
