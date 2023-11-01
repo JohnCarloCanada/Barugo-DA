@@ -6,11 +6,7 @@
     <x-admin.sidebar type="Admin Panel"/>
 
     <section class="w-full min-h-screen overflow-hidden">
-        <header class="bg-[#679f69] px-3 sm:px-6 py-2 sm:py-6">
-            <div class="w-[min(400px,100%)] text-center">
-                <h2 class="font-bold text-3xl sm:text-4xl text-white">Administration Control Panel</h2>
-            </div>
-        </header>
+        <x-admin.controlPanel>Season Control Panel</x-admin.controlPanel>
         <nav class="flex justify-start items-center p-3 sm:p-4 shadow-xl">
             <ul class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
                 <li><a class=" underline font-semibold" href="{{route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])}}">Survey Questions</a></li>
@@ -20,7 +16,7 @@
         </nav>
 
         <section class="w-full overflow-x-auto p-4 overflow-y-hidden">
-            <table class="w-[700px] h-[500px] sm:w-full flex flex-col shadow-2xl">
+            <table class="w-[700px] sm:w-full flex flex-col shadow-2xl">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 flex flex-col sm:flex-row gap-3 items-center justify-between relative py-2">
                         <div data-show-form class="flex items-center gap-3 cursor-pointer">

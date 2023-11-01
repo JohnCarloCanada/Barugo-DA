@@ -18,7 +18,7 @@
             <section class="w-full mt-3">
                 <h3 class="bg-[#679f69] px-3 py-1 font-bold text-white">Livestock</h3>
 
-                <form class="w-full flex flex-col justify-center items-center mt-5 sm:mt-6" action="{{route('userLiveStockInformation.store', ['personalInformation' => $personalInformation])}}" method="post">
+                <form class="w-full flex flex-col justify-center items-center mt-5 sm:mt-6" action="{{route('adminLiveStockInformation.store', ['personalInformation' => $personalInformation])}}" method="post">
                     @csrf 
 
                     <div class="w-[min(100%,300px)] flex items-center sm:items-end justify-center flex-col gap-y-3">

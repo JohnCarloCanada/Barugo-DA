@@ -36,17 +36,18 @@ class AdminControlPanelController extends Controller
         $capitalizedName = ucwords($validated_data['Name']);
         $capitalizedOptionName = ucwords($validated_data['Option_Name']);
 
-        Option::create([
+        $NewlyCreated = Option::create([
             'Option_Name' => $capitalizedOptionName,
             'Name' => $capitalizedName,
         ]);
 
-        return redirect()->route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])->with('success', 'Option Successfully Added');
+        return redirect()->route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])->with('success', $NewlyCreated->Name . ' ' . $NewlyCreated->Option_Name . ' ' . 'Successfully Added');
     }
 
     public function surveyQuestionsDestroy(Option $option): RedirectResponse {
+        $option_name = $option->OptionName;
         $option->delete();
-        return redirect()->route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])->with('success', 'Option Successfully Deleted');
+        return redirect()->route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])->with('success', $option_name . ' ' . 'Successfully Deleted');
     }
 
     // Season Page
@@ -82,16 +83,18 @@ class AdminControlPanelController extends Controller
             $current_total_seeds = $totalSeeds;
         }
 
-        Season::create([
+        $newly_added_season = Season::create([
             'Season' => $validated_data['Season'],
             'Quantity_of_Seeds' => $current_total_seeds,
             'Year' => now()->year,
         ]);
 
-        return redirect()->route('adminControlPanelSeason.season')->with('success', 'Season Succesfull Added');
+        return redirect()->route('adminControlPanelSeason.season')->with('success', $newly_added_season->Season . ' ' . 'Succesfully Added');
     }
 
     public function seasonDistrubutionEnd(Season $season): RedirectResponse {
+        $Season = $season->Season;
+        $Year = $season->Year;
         $season->Status = 'Inactive';
         $season->save();
 
@@ -99,7 +102,7 @@ class AdminControlPanelController extends Controller
             'is_claimed' => 0,
         ]);
 
-        return redirect()->route('adminControlPanelSeason.season');
+        return redirect()->route('adminControlPanelSeason.season')->with('success', $Year . '-' . $Season . ' ' . 'Has Ended!');
     }
 
     public function seasonDistrubutionEdit(Request $request): RedirectResponse {
@@ -111,6 +114,6 @@ class AdminControlPanelController extends Controller
         $findSeason->Season = $validated_data['Season'];
         $findSeason->save();
 
-        return redirect()->route('adminControlPanelSeason.season');
+        return redirect()->route('adminControlPanelSeason.season')->with('success', 'Succesfully Edited!');
     }
 }

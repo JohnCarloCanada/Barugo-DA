@@ -63,19 +63,27 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     });
 
     Route::controller(AreaInformationController::class)->group(function() {
-        Route::delete('/areaInformation/{area}', 'destroy')->name('areaInformation.destroy');
+        Route::get('/areaInformation/{personalInformation}', 'adminIndex')->name('adminAreaInformation.index');
+        Route::post('/areaInformation/{personalInformation}', 'adminStore')->name('adminAreaInformation.store');
+        Route::delete('/areaInformation/{area}', 'adminDestroy')->name('adminAreaInformation.destroy');
     });
 
     Route::controller(LiveStockInformationController::class)->group(function() {
-        Route::delete('/liveStockInformation/{livestock}', 'destroy')->name('liveStockInformation.destroy');
+        Route::get('/liveStockInformation/{personalInformation}', 'adminIndex')->name('adminLiveStockInformation.index');
+        Route::post('/liveStockInformation/{personalInformation}', 'adminStore')->name('adminLiveStockInformation.store');
+        Route::delete('/liveStockInformation/{livestock}', 'adminDestroy')->name('adminLiveStockInformation.destroy');
     });
 
     Route::controller(MachineryInformationController::class)->group(function() {
-        Route::delete('/machineryInformation/{machinery}', 'destroy')->name('machineryInformation.destroy');
+        Route::get('/machineryInformation/{personalInformation}', 'adminIndex')->name('adminMachineryInformation.index');
+        Route::post('/machineryInformation/{personalInformation}', 'adminStore')->name('adminMachineryInformation.store');
+        Route::delete('/machineryInformation/{machinery}', 'adminDestroy')->name('adminMachineryInformation.destroy');
     });
 
     Route::controller(PoultryInformationController::class)->group(function() {
-        Route::delete('/poultryInformation/{poultry}', 'destroy')->name('poultryInformation.destroy');
+        Route::get('/poultryInformation/{personalInformation}', 'adminIndex')->name('adminPoultryInformation.index');
+        Route::post('/poultryInformation/{personalInformation}', 'adminStore')->name('adminPoultryInformation.store');
+        Route::delete('/poultryInformation/{poultry}', 'adminDestroy')->name('adminPoultryInformation.destroy');
     });
 
     Route::controller(AdminControlPanelController::class)->group(function() {
@@ -130,23 +138,27 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
     });
 
     Route::controller(AreaInformationController::class)->group(function() {
-        Route::get('/areaInformation{personalInformation}', 'index')->name('areaInformation.index');
-        Route::post('/areaInformation/{personalInformation}', 'store')->name('areaInformation.store');
+        Route::get('/areaInformation/{personalInformation}', 'userIndex')->name('userAreaInformation.index');
+        Route::post('/areaInformation/{personalInformation}', 'userStore')->name('userAreaInformation.store');
+        Route::delete('/areaInformation/{area}', 'userDestroy')->name('userAreaInformation.destroy');
     });
 
     Route::controller(LiveStockInformationController::class)->group(function() {
-        Route::get('/liveStockInformation/{personalInformation}', 'index')->name('liveStockInformation.index');
-        Route::post('/liveStockInformation/{personalInformation}', 'store')->name('liveStockInformation.store');
+        Route::get('/liveStockInformation/{personalInformation}', 'userIndex')->name('userLiveStockInformation.index');
+        Route::post('/liveStockInformation/{personalInformation}', 'userStore')->name('userLiveStockInformation.store');
+        Route::delete('/liveStockInformation/{livestock}', 'userDestroy')->name('userLiveStockInformation.destroy');
     });
 
     Route::controller(MachineryInformationController::class)->group(function() {
-        Route::get('/machineryInformation/{personalInformation}', 'index')->name('machineryInformation.index');
-        Route::post('/machineryInformation/{personalInformation}', 'store')->name('machineryInformation.store');
+        Route::get('/machineryInformation/{personalInformation}', 'userIndex')->name('userMachineryInformation.index');
+        Route::post('/machineryInformation/{personalInformation}', 'userStore')->name('userMachineryInformation.store');
+        Route::delete('/machineryInformation/{machinery}', 'userDestroy')->name('userMachineryInformation.destroy');
     });
 
     Route::controller(PoultryInformationController::class)->group(function() {
-        Route::get('/poultryInformation/{personalInformation}', 'index')->name('poultryInformation.index');
-        Route::post('/poultryInformation/{personalInformation}', 'store')->name('poultryInformation.store');
+        Route::get('/poultryInformation/{personalInformation}', 'userIndex')->name('userPoultryInformation.index');
+        Route::post('/poultryInformation/{personalInformation}', 'userStore')->name('userPoultryInformation.store');
+        Route::delete('/poultryInformation/{poultry}', 'userDestroy')->name('userPoultryInformation.destroy');
     });
 
     Route::controller(DogVaccinationinformationController::class)->group(function() {

@@ -6,11 +6,7 @@
     <x-admin.sidebar type="Admin Panel"/>
 
     <section class="w-full min-h-screen overflow-hidden">
-        <header class="bg-[#679f69] px-3 sm:px-6 py-2 sm:py-6">
-            <div class="w-[min(400px,100%)] text-center">
-                <h2 class="font-bold text-3xl sm:text-4xl text-white">Administration Control Panel</h2>
-            </div>
-        </header>
+        <x-admin.controlPanel>Seed Inventory Panel</x-admin.controlPanel>
         <nav class="flex justify-start items-center p-3 sm:p-4 shadow-xl">
             <ul class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
                 <li><a class=" underline font-semibold" href="{{route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])}}">Survey Questions</a></li>

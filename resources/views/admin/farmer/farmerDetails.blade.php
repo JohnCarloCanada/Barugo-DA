@@ -55,9 +55,9 @@
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
-                        <div class="flex items-center gap-3 cursor-pointer">
+                        <a href="{{route('adminAreaInformation.index', ['personalInformation' => $personalInformation])}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Area
-                        </div>
+                        </a>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-10 text-[12px] mt-5">
@@ -87,7 +87,7 @@
                     <td class="text-center">{{$area->Farm_Type}}</td>
                     <td class="flex items-center justify-center gap-4">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
-                        <form action="{{ route('areaInformation.destroy', ['area' => $area]) }}" method="post">
+                        <form action="{{ route('adminAreaInformation.destroy', ['area' => $area]) }}" method="post">
                             @csrf
                             @method('delete')
 
@@ -109,9 +109,9 @@
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
-                        <div class="flex items-center gap-3 cursor-pointer">
+                        <a href="{{route('adminLiveStockInformation.index', ['personalInformation' => $personalInformation])}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add livestock
-                        </div>
+                        </a>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-3 text-[12px] mt-5">
@@ -127,7 +127,7 @@
                     <td class="text-center">{{$livestock->Sex_LS}}</td>
                     <td class="flex items-center justify-center gap-4">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
-                        <form action="{{ route('liveStockInformation.destroy', ['livestock' => $livestock]) }}" method="post">
+                        <form action="{{ route('adminLiveStockInformation.destroy', ['livestock' => $livestock]) }}" method="post">
                             @csrf
                             @method('delete')
 
@@ -149,9 +149,9 @@
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
-                        <div class="flex items-center gap-3 cursor-pointer">
+                        <a href="{{route('adminPoultryInformation.index', ['personalInformation' => $personalInformation])}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Poultry
-                        </div>
+                        </a>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-3 text-[12px] mt-5">
@@ -167,7 +167,7 @@
                     <td class="text-center">{{$poultry->Quantity}}</td>
                     <td class="flex items-center justify-center">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
-                        <form action="{{ route('poultryInformation.destroy', ['poultry' => $poultry]) }}" method="post">
+                        <form action="{{ route('adminPoultryInformation.destroy', ['poultry' => $poultry]) }}" method="post">
                             @csrf
                             @method('delete')
 
@@ -188,9 +188,9 @@
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
-                        <div class="flex items-center gap-3 cursor-pointer">
+                        <a href="{{route('adminMachineryInformation.index', ['personalInformation' => $personalInformation])}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add machinery
-                        </div>
+                        </a>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
                     <th class="grid grid-cols-5 text-[12px] mt-5">
@@ -210,7 +210,7 @@
                     <td class="text-center">₱{{$machinery->Price}}</td>
                     <td class="flex items-center justify-center gap-4">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
-                        <form action="{{ route('machineryInformation.destroy', ['machinery' => $machinery]) }}" method="post">
+                        <form action="{{ route('adminMachineryInformation.destroy', ['machinery' => $machinery]) }}" method="post">
                             @csrf
                             @method('delete')
 

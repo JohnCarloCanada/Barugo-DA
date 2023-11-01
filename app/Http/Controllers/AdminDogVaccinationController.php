@@ -7,7 +7,7 @@ use App\Models\PersonalInformation;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class AdminDogVaccinationController extends Controller
 {
@@ -46,7 +46,9 @@ class AdminDogVaccinationController extends Controller
         $validated_data = $request->validate($validation_rules);
         $Owner = PersonalInformation::find($validated_data['RSBSA_No']);
 
-        $OwnerName = $Owner->Middle_Name == NULL ? $OwnerName = $Owner->First_Name . ' ' . $Owner->Surname : $OwnerName = $Owner->First_Name . ' '. $Owner->Middle_Name . '.' . ' ' . $Owner->Surname;
+        $Initial = Str::upper(Str::substr($Owner->Middle_Name, 0, 1));
+
+        $OwnerName = $Owner->Middle_Name == NULL ? $Owner->First_Name . ' ' . $Owner->Surname : $Owner->First_Name . ' '. $Initial . '.' . ' ' . $Owner->Surname;
 
         DogInformation::create([
             'RSBSA_No' => $Owner->RSBSA_No,
@@ -62,11 +64,12 @@ class AdminDogVaccinationController extends Controller
             'Remarks' => $validated_data['Remarks'] ?? NULL,
         ]);
 
-        return redirect()->route('adminDogVaccinationInformation.index')->with('success', 'Added New Record');
+        return redirect()->route('adminDogVaccinationInformation.index')->with('success', $validated_data['Dog_Name'] . ' '.  'has successfully been added!');
     }
 
     public function destroy(DogInformation $dogInformation): RedirectResponse {
+        $Dog_Name = $dogInformation->Dog_Name;
         $dogInformation->delete();
-        return redirect()->route('adminDogVaccinationInformation.index')->with('success', 'Record Successfully Deleted');
+        return redirect()->route('adminDogVaccinationInformation.index')->with('success', $Dog_Name . ' '.  'has successfully been deleted from the records!');
     }
 }

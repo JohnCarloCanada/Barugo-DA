@@ -34,7 +34,7 @@ class SeedInventoryController extends Controller
 
         $validated_data = $request->validate($validated_rules);
 
-        SeedInventory::create([
+        $newly_added_seed = SeedInventory::create([
             'Seed_Type' => $validated_data['Seed_Type'],
             'Seed_Variety' => $validated_data['Seed_Variety'],
             'Company' => $validated_data['Company'],
@@ -51,10 +51,11 @@ class SeedInventoryController extends Controller
             ]);
         }
         
-        return redirect()->route('adminControlPanelSeed.index')->with('success', 'Seed Succesfully Added');
+        return redirect()->route('adminControlPanelSeed.index')->with('success', $newly_added_seed->Seed_Variety . ' ' . 'Succesfully Added');
     }
 
     public function seedInventoryDestroy(SeedInventory $seedInventory): RedirectResponse {
+        $seed_name = $seedInventory->Seed_Variety;
         $seedInventory->delete();
         $currently_active_season = Season::latest()->where('Status', 'Active')->first();
 
@@ -64,6 +65,6 @@ class SeedInventoryController extends Controller
             ]);
         }
 
-        return redirect()->route('adminControlPanelSeed.index')->with('success', 'Seed Succesfully Deleted');
+        return redirect()->route('adminControlPanelSeed.index')->with('success', $seed_name . ' ' . 'Succesfully Deleted');
     }
 }

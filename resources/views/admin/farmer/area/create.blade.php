@@ -9,15 +9,23 @@
         <section class="w-[100%,900px] my-0 mx-auto bg-white flex flex-col items-center justify-center ">
             <h2 class="text-black font-bold text-3xl sm:text-4xl">Add New Area</h2>
             @if ($errors->any())
-                <ul class="grid grid-cols-2 sm:grid-cols-4 gap-1 mb-3">
-                    @foreach ($errors->all() as $error )
-                        <li class="text-sm sm:text-base text-red-800 font-bold">{{$error}}</li>
-                    @endforeach
-                </ul>
+            <ul class="grid grid-cols-2 sm:grid-cols-4 gap-1 mb-3">
+                @foreach ($errors->all() as $error )
+                    <li class="text-sm sm:text-base text-red-800 font-bold">{{$error}}</li>
+                @endforeach
+            </ul>
             @endif
             <section class="w-full mt-10 overflow-y-auto">
-                <form class="w-full overflow-y-auto" action="{{route('userAreaInformation.store', ['personalInformation' => $personalInformation])}}" method="post">
+                <form class="w-full overflow-y-auto" action="{{route('adminAreaInformation.store', ['personalInformation' => $personalInformation])}}" method="post">
                     @csrf
+
+                    @if ($errors->any())
+                    <ul class="grid grid-cols-2 sm:grid-cols-4 gap-1 mb-3">
+                        @foreach ($errors->all() as $error )
+                            <li class="text-sm sm:text-base text-red-800 font-bold">{{$error}}</li>
+                        @endforeach
+                    </ul>
+                    @endif
                     <h3 class="bg-[#679f69] px-3 py-1 font-bold text-white">Area</h3>
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">

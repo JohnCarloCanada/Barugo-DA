@@ -28,6 +28,9 @@ class UserSeedDistributionController extends Controller
         ];
         $request->validate($validated_rules);
         ClaimedSuccesful::dispatch($request);
-        return redirect()->route('userSeedDistribution.index')->with('success', 'Seed Succesfully Claimed');
+
+        $farmer = PersonalInformation::find($request->id);
+
+        return redirect()->route('userSeedDistribution.index')->with('success', $farmer->Surname . '-' . $farmer->RSBSA_No . ' ' . 'Succesfully Claimed');
     }
 }

@@ -3,7 +3,7 @@
         Barugo | Seed Distribution
     </x-slot:title>
 
-    <x-admin.sidebar type="seed distributions"/>
+    <x-sidebar type="seed distributions"/>
 
     <section class="w-full min-h-screen bg-green-700 p-5 overflow-y-auto">
         <section class="flex flex-col my-2 items-center justify-center gap-y-6">

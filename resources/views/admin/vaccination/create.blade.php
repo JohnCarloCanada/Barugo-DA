@@ -1,9 +1,9 @@
 <x-app>
     <x-slot:title>
-        Add New Dog Record
+        Admin | New Dog Record
     </x-slot:title>
 
-    <x-sidebar type="canine records"/>   
+    <x-admin.sidebar type="canine records"/>   
 
     <section class="w-full min-h-screen p-10">
         <section class="w-[100%,900px] my-0 mx-auto bg-white flex flex-col items-center justify-center ">

@@ -1,6 +1,6 @@
 <x-app>
     <x-slot:title>
-        Barugo | Seed Distribution
+        Admin | Seed Distribution
     </x-slot:title>
 
     <x-admin.sidebar type="seed distributions"/>

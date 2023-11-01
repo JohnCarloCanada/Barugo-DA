@@ -1,6 +1,6 @@
 <x-app>
     <x-slot:title>
-        Add New Farmers
+      Admin | New Farmer
     </x-slot:title>
 
     <x-admin.sidebar type="managed farmers"/>   
