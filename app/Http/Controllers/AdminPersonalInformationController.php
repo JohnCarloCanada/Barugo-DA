@@ -11,11 +11,16 @@ use Illuminate\Support\Facades\Validator;
 
 class AdminPersonalInformationController extends Controller
 {
-    public function farmer(): View {
-        $approvedFarmers = PersonalInformation::latest()->where('is_approved', true)->paginate(5);
+    public function farmer(Request $request): View {
+        $approvedFarmers = PersonalInformation::where(function($query) use ($request) {
+            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%');
+        });
+
+        $approvedFarmers = $approvedFarmers->latest()->where('is_approved', true)->paginate(5);
         $notApprovedFarmersCount = PersonalInformation::where('is_approved', false)->count();
         $needUpdateFarmersCount = PersonalInformation::where('update_status', true)->count();
-        return view('admin.farmer.farmer', ['PersonalInformations' => $approvedFarmers, 'notApprovedCount' => $notApprovedFarmersCount, 'needUpdateFarmersCount' => $needUpdateFarmersCount]);
+        
+        return view('admin.farmer.farmer', ['PersonalInformations' => $approvedFarmers, 'notApprovedCount' => $notApprovedFarmersCount, 'needUpdateFarmersCount' => $needUpdateFarmersCount, 'search' => $request->search]);
     }
 
     public function needApproval(): View {

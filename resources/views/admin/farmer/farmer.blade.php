@@ -10,11 +10,16 @@
         <div class="flex flex-col w-full h-full">
             <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
-                    <th class="w-full px-3 flex flex-col sm:flex-row items-center justify-between gap-y-4 sm:gap-y-0 relative py-2">
-                        <a href="{{route('adminPersonalInformation.create')}}" class="flex items-center gap-3 cursor-pointer">
+                    <th class="w-full px-3 flex flex-col sm:flex-row items-center justify-between gap-y-4 sm:gap-y-0 gap-x-3 relative py-2">
+                        <a href="{{route('adminPersonalInformation.create')}}" class="flex items-center gap-3 cursor-pointer whitespace-nowrap">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Farmer
                         </a>
-                        <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-[50%]" placeholder="Search..." type="text">
+                        <div class="py-2 bg-green-700 text-white w-[25%]">
+                            <form action="{{route('adminPersonalInformation.index')}}" method="GET" class="w-full">
+                                @csrf
+                                <input name="search" class="w-full px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search RSBSA No" type="text" value="{{$search}}">
+                            </form>
+                        </div>
                         <x-admin.navigation type="index" notApprovedCount={{$notApprovedCount}} needUpdateFarmersCount={{$needUpdateFarmersCount}}/>
                     </th>
                     <th class="grid grid-cols-7 text-[12px] mt-5">
@@ -52,22 +57,14 @@
                                     </button>
                                 </div>
                             </form>
-                        </td>		
-                        {{-- <td class="flex items-center justify-center gap-x-2">
-                            <a href="">
-                                <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt="">
-                            </a>
-                            <div>
-                                <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full cursor-pointer" src="{{asset('images/icons/approved.png')}}" alt="">
-                            </div>
-                            <div>
-                                <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full cursor-pointer" src="{{asset('images/icons/reject.png')}}" alt="">
-                            </div>
-                        </td> --}}
+                        </td>
                     </tr>
                 @endforeach
             </table>
             {{ $PersonalInformations->links('pagination::tailwind') }}
+            <div class="w-full">
+                <a class="mt-4 font-bold text-base sm:text-xl bg-green-500 text-white px-2 py-1 rounded-md" href="{{route('downloadAllFarmersRecord')}}">Download xlsx file</a>
+            </div>
         </div>
     </section>
 </x-app>

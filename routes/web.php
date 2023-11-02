@@ -10,6 +10,7 @@ use App\Http\Controllers\AdminPersonalInformationController;
 use App\Http\Controllers\AdminSeedDistributionController;
 use App\Http\Controllers\AreaInformationController;
 use App\Http\Controllers\DogVaccinationinformationController;
+use App\Http\Controllers\ExcelExportsController;
 use App\Http\Controllers\GeoMappingController;
 use App\Http\Controllers\LiveStockInformationController;
 use App\Http\Controllers\MachineryInformationController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\PoultryInformationController;
 use App\Http\Controllers\SeedInventoryController;
 use App\Http\Controllers\UserPersonalInformationController;
 use App\Http\Controllers\UserSeedDistributionController;
+use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +111,11 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::post('/dogVaccinationInformation/store', 'store')->name('adminDogVaccinationInformation.store');
         Route::get('/dogVaccinationInformation/vaccination/{dogInformation}', 'vaccination')->name('adminDogVaccinationInformation.vaccination');
         Route::delete('/dogVaccinationInformation/destroy/{dogInformation}', 'destroy')->name('adminDogVaccinationInformation.destroy');
+    });
+
+
+    Route::controller(ExcelExportsController::class)->group(function() {
+        Route::get('/download/farmers', 'downloadAllFarmersRecord')->name('downloadAllFarmersRecord');
     });
 });
 
