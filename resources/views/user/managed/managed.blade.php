@@ -1,6 +1,6 @@
 <x-app>
     <x-slot:title>
-        barugo | Managed Farmers
+        Employee | Farmers
     </x-slot:title>
 
     <x-sidebar type="managed farmers"/>   

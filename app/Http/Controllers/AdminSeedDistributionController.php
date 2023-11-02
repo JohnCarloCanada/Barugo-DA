@@ -26,11 +26,11 @@ class AdminSeedDistributionController extends Controller
             'Seed_Variety' => 'required|string|max:99',
             'Quantity' => 'required|string|max:99|unique:seed_inventories,Seed_Variety',
         ];
-        $request->validate($validated_rules);
+        $validated_date = $request->validate($validated_rules);
         ClaimedSuccesful::dispatch($request);
 
         $farmer = PersonalInformation::find($request->id);
 
-        return redirect()->route('adminSeedDistribution.index')->with('success', $farmer->Surname . '-' . $farmer->RSBSA_No . ' ' . 'Succesfully Claimed');
+        return redirect()->route('adminSeedDistribution.index')->with('success', $farmer->Surname . '-' . $farmer->RSBSA_No . ' ' . 'succesfully claimed' . ' ' . $validated_date['Quantity']  . 'x' . ' amount of seeds.');
     }
 }

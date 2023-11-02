@@ -1,6 +1,6 @@
 <x-app>
     <x-slot:title>
-        barugo | Managed Farmers
+        Employee | Vaccinations
     </x-slot:title>
 
     <x-sidebar type="canine records"/>   

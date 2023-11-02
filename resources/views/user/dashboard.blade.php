@@ -1,6 +1,6 @@
 <x-app>
     <x-slot:title>
-        barugo | User Dashboard
+        Employee | Dashboard
     </x-slot:title>
 
     <x-sidebar type="dashboard"/>

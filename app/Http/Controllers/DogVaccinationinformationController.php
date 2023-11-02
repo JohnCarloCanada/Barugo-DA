@@ -44,7 +44,7 @@ class DogVaccinationinformationController extends Controller
 
         $OwnerName = $Owner->Middle_Name == NULL ? $Owner->First_Name . ' ' . $Owner->Surname : $Owner->First_Name . ' '. $Initial . '.' . ' ' . $Owner->Surname;
 
-        DogInformation::create([
+        $new_dog = DogInformation::create([
             'RSBSA_No' => $Owner->RSBSA_No,
             'Owner_Name' => $OwnerName,
             'Dog_Name' => $validated_data['Dog_Name'],
@@ -58,7 +58,7 @@ class DogVaccinationinformationController extends Controller
             'Remarks' => $validated_data['Remarks'] ?? NULL,
         ]);
 
-        return redirect()->route('dogVaccinationInformation.index')->with('success', 'Added New Record');
+        return redirect()->route('dogVaccinationInformation.index')->with('success', $new_dog->Dog_Name . ' ' . 'Succesfully been added to the record!');
     }
 
 

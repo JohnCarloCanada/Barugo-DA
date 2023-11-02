@@ -1,6 +1,6 @@
 <x-app>
     <x-slot:title>
-        Add New Dog Record
+        Employee | New Dog Record
     </x-slot:title>
 
     <x-sidebar type="canine records"/>   

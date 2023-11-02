@@ -1,6 +1,6 @@
 <x-app>
     <x-slot:title>
-        Add New Poultry
+        Employee | New Poultry
     </x-slot:title>
 
     <x-sidebar type="managed farmers"/>   

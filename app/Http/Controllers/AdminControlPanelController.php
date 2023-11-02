@@ -89,7 +89,7 @@ class AdminControlPanelController extends Controller
             'Year' => now()->year,
         ]);
 
-        return redirect()->route('adminControlPanelSeason.season')->with('success', $newly_added_season->Season . ' ' . 'Succesfully Added');
+        return redirect()->route('adminControlPanelSeason.season')->with('success', $newly_added_season->Year . '-' . $newly_added_season->Season . ' ' . 'Succesfully Added');
     }
 
     public function seasonDistrubutionEnd(Season $season): RedirectResponse {

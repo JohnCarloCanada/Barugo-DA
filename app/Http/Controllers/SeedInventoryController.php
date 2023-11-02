@@ -51,7 +51,7 @@ class SeedInventoryController extends Controller
             ]);
         }
         
-        return redirect()->route('adminControlPanelSeed.index')->with('success', $newly_added_seed->Seed_Variety . ' ' . 'Succesfully Added');
+        return redirect()->route('adminControlPanelSeed.index')->with('success', $newly_added_seed->Quantity . 'x' . ' amount of ' . $newly_added_seed->Seed_Variety . ' ' . 'seed succesfully added');
     }
 
     public function seedInventoryDestroy(SeedInventory $seedInventory): RedirectResponse {
