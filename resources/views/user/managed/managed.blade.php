@@ -18,7 +18,7 @@
         <section class="w-[100%,900px] h-[600px] mx-auto overflow-x-auto bg-white rounded-lg px-3 shadow-2xl">
             <table class="w-full mt-5 text-center">
                 <thead>
-                    <tr>
+                    <tr class="text-[12px]">
                         <th class="text-sm"></th>
                         <th class="text-sm">RSBSA No.</th>
                         <th class="text-sm">Surname</th>
@@ -31,7 +31,7 @@
         
                 <tbody>
                     @foreach ($PersonalInformations as $PersonalInformation)
-                        <tr class="pt-10 odd:bg-slate-200">
+                        <tr class="pt-10 odd:bg-slate-200 text-[12px]">
                             <td><div class="w-[24px] h-[24px] bg-red-800 {{ $PersonalInformation->update_status  ? '' : 'hidden' }} "></div></td>
                             <td>{{$PersonalInformation->RSBSA_No}}</td>
                             <td>{{$PersonalInformation->Surname}}</td>
@@ -52,5 +52,8 @@
             </table>
             <div class="mt-3 sm:mt-4 shadow-2xl w-full">{{ $PersonalInformations->links('pagination::tailwind') }}</div>
         </section>
+        <div class="w-full mt-2">
+            <a class="font-bold text-base sm:text-xl bg-green-500 text-white px-2 py-1 rounded-md" href="{{route('userDownloadAllFarmersRecord')}}">Download xlsx file</a>
+        </div>
     </section>
 </x-app>

@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminControlPanelController;
 use App\Http\Controllers\AdminDogVaccinationController;
 use App\Http\Controllers\AdminPersonalInformationController;
+use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\AdminSeedDistributionController;
 use App\Http\Controllers\AreaInformationController;
 use App\Http\Controllers\DogVaccinationinformationController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\PersonalInformationController;
 use App\Http\Controllers\PoultryInformationController;
 use App\Http\Controllers\SeedInventoryController;
 use App\Http\Controllers\UserPersonalInformationController;
+use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserSeedDistributionController;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -62,6 +64,8 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::put('/farmers/{personalInformation}/acceptUpdate', 'acceptUpdate')->name('adminPersonalInformation.acceptUpdate');
         Route::get('/farmers/create', 'create')->name('adminPersonalInformation.create');
         Route::post('/farmers/store', 'store')->name('adminPersonalInformation.store');
+        Route::get('/farmers/{personalInformation}/edit', 'edit')->name('adminPersonalInformation.edit');
+        Route::put('/farmers/{personalInformation}/update', 'update')->name('adminPersonalInformation.update');
     });
 
     Route::controller(AreaInformationController::class)->group(function() {
@@ -111,11 +115,17 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::post('/dogVaccinationInformation/store', 'store')->name('adminDogVaccinationInformation.store');
         Route::get('/dogVaccinationInformation/vaccination/{dogInformation}', 'vaccination')->name('adminDogVaccinationInformation.vaccination');
         Route::delete('/dogVaccinationInformation/destroy/{dogInformation}', 'destroy')->name('adminDogVaccinationInformation.destroy');
+        Route::get('/dogVaccinationInformation/{dogInformation}/edit', 'edit')->name('adminDogVaccinationInformation.edit');
+        Route::put('/dogVaccinationInformation/{dogInformation}/update', 'update')->name('adminDogVaccinationInformation.update');
     });
 
+    Route::controller(AdminProfileController::class)->group(function() {
+        Route::get('/profile', 'index')->name('adminProfile.index');
+        Route::patch('/profile/update', 'update')->name('adminProfile.update');
+    });
 
     Route::controller(ExcelExportsController::class)->group(function() {
-        Route::get('/download/farmers', 'downloadAllFarmersRecord')->name('downloadAllFarmersRecord');
+        Route::get('/download/farmers', 'downloadAllFarmersRecord')->name('adminDownloadAllFarmersRecord');
     });
 });
 
@@ -174,6 +184,17 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
         Route::post('/dogVaccinationInformation/store', 'store')->name('dogVaccinationInformation.store');
         Route::get('/dogVaccinationInformation/vaccination/{dogInformation}', 'vaccination')->name('dogVaccinationInformation.vaccination');
         Route::delete('/dogVaccinationInformation/destroy/{dogInformation}', 'destroy')->name('dogVaccinationInformation.destroy');
+        Route::get('/dogVaccinationInformation/{dogInformation}/edit', 'edit')->name('dogVaccinationInformation.edit');
+        Route::put('/dogVaccinationInformation/{dogInformation}/update', 'update')->name('dogVaccinationInformation.update');
+    });
+
+    Route::controller(UserProfileController::class)->group(function() {
+        Route::get('/profile', 'index')->name('userProfile.index');
+        Route::patch('/profile/update', 'update')->name('userProfile.update');
+    });
+
+    Route::controller(ExcelExportsController::class)->group(function() {
+        Route::get('/download/farmers', 'downloadAllFarmersRecord')->name('userDownloadAllFarmersRecord');
     });
 });
 

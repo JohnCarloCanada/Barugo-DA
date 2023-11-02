@@ -33,7 +33,7 @@
                     </th>
                 </tr>
                     @foreach ($PersonalInformations as $PersonalInformation)
-                    <tr class="grid py-1 odd:bg-slate-200 grid-cols-7 w-full">
+                    <tr class="grid py-1 odd:bg-slate-200 grid-cols-7 w-full text-[12px]">
                         <td class="text-center">{{$PersonalInformation->RSBSA_No}}</td>
                         <td class="text-center">{{$PersonalInformation->Surname}}</td>
                         <td class="text-center">{{$PersonalInformation->Address}}</td>
@@ -44,9 +44,9 @@
                             <a href="{{route('admin.farmerDetails', ['personalInformation' => $PersonalInformation, 'currentRoute' => 'area'])}}">
                                 <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt="">
                             </a>
-                            <div>
-                                <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full cursor-pointer" src="{{asset('images/icons/update.png')}}" alt="">
-                            </div>
+                            <a href="{{route('adminPersonalInformation.edit', ['personalInformation' => $PersonalInformation])}}">
+                                <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt="">
+                            </a>
                             <form class="" action="{{ route('adminPersonalInformation.delete', ['personalInformation' => $PersonalInformation]) }}" method="post">
                                 @csrf
                                 @method('delete')
@@ -62,9 +62,9 @@
                 @endforeach
             </table>
             {{ $PersonalInformations->links('pagination::tailwind') }}
-            <div class="w-full">
-                <a class="mt-4 font-bold text-base sm:text-xl bg-green-500 text-white px-2 py-1 rounded-md" href="{{route('downloadAllFarmersRecord')}}">Download xlsx file</a>
-            </div>
+        </div>
+        <div class="w-full mt-2">
+            <a class="font-bold text-base sm:text-xl bg-green-500 text-white px-2 py-1 rounded-md" href="{{route('adminDownloadAllFarmersRecord')}}">Download xlsx file</a>
         </div>
     </section>
 </x-app>

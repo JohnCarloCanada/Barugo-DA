@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\DogInformation;
 use App\Models\Livestock;
 use App\Models\Machinery;
 use App\Models\PersonalInformation;
@@ -92,12 +93,33 @@ class ExcelExportsController extends Controller
             ];
         };
 
+        // Dog Records
+        $dogs = DogInformation::orderBy('RSBSA_No', 'asc')->get();
+        $dogs_array = [];
+        foreach ($dogs as $dog) {
+            $dogs_array[] = [
+                'RSBSA No' => $dog->RSBSA_No,
+                'Dog Name' => $dog->Dog_Name,
+                'Owner_Name' => $dog->Owner_Name,
+                'Species' => $dog->Species,
+                'Sex' => $dog->Sex,
+                'Age' => $dog->Age,
+                'Neutering' => $dog->Neutering,
+                'Color' => $dog->Color,
+                'Registration Date' => $dog->Date_of_Registration,
+                'Last Vac Month' => $dog->Last_Vac_Month,
+                'Remarks' => $dog->Remarks,
+                
+            ];
+        };
+
         $sheets = new SheetCollection([
             'Farmers' => collect($farmer_array),
             'Areas' => collect($area_array),
             'Livestocks' => collect($livestock_array),
-            'poultries' => collect($poultries_array),
-            'machineries' => collect($machineries_array),
+            'Poultries' => collect($poultries_array),
+            'Machineries' => collect($machineries_array),
+            'Dogs Information' => collect($dogs_array),
         ]);
 
 

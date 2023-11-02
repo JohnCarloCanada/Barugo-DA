@@ -18,7 +18,7 @@ class SeedInventoryController extends Controller
             $query->where('Seed_Variety', 'LIKE', '%' . $request->search . '%');
         });
 
-        return view('admin.adminpanel.seed.index', ['seeds' => $seeds->orderBy('Seed_Type', 'asc')->latest()->paginate(10), 'search' => $request->search]);
+        return view('admin.adminpanel.seed.index', ['seeds' => $seeds->orderBy('Seed_Type', 'asc')->latest()->paginate(5), 'search' => $request->search]);
     }
 
     public function seedInventoryStore(Request $request): RedirectResponse {

@@ -54,9 +54,9 @@
                                 <a href="{{route('dogVaccinationInformation.vaccination', ['dogInformation' => $dogInformation])}}">
                                     <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/inject.png')}}" alt="">
                                 </a>
-                                <div>
+                                <a href="{{route('dogVaccinationInformation.edit', ['dogInformation' => $dogInformation])}}">
                                     <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full cursor-pointer" src="{{asset('images/icons/update.png')}}" alt="">
-                                </div>
+                                </a>
                                 <form action="{{route('dogVaccinationInformation.destroy', ['dogInformation' => $dogInformation])}}" method="post">
                                     @csrf
                                     @method('delete')

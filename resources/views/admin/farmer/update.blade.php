@@ -14,7 +14,12 @@
                         <a href="{{route('adminPersonalInformation.create')}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Farmer
                         </a>
-                        <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-[50%]" placeholder="Search..." type="text">
+                        <div class="py-2 bg-green-700 text-white w-[25%]">
+                            <form action="{{route('adminPersonalInformation.needUpdate')}}" method="GET" class="w-full">
+                                @csrf
+                                <input name="search" class="w-full px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search RSBSA No" type="text" value="{{$search}}">
+                            </form>
+                        </div>
                         <x-admin.navigation type="update" notApprovedCount={{$notApprovedCount}} needUpdateFarmersCount={{$needUpdateFarmersCount}}/>
                     </th>
                     <th class="grid grid-cols-7 text-[12px] mt-5">
@@ -28,7 +33,7 @@
                     </th>
                 </tr>
                     @foreach ($PersonalInformations as $PersonalInformation)
-                    <tr class="grid py-1 odd:bg-slate-200 grid-cols-7 w-full">
+                    <tr class="grid py-1 odd:bg-slate-200 grid-cols-7 w-full text-[12px]">
                         <td class="text-center">{{$PersonalInformation->RSBSA_No}}</td>
                         <td class="text-center">{{$PersonalInformation->Surname}}</td>
                         <td class="text-center">{{$PersonalInformation->Address}}</td>

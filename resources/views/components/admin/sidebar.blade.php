@@ -1,14 +1,27 @@
 @props(['type'])
 
+@php
+    $initial = '';
+    if(Auth::user()->middle_name) {
+        $initial = Str::upper(Str::substr(Auth::user()->middle_name, 0, 1)) . '.';
+    } else {
+        $initial = '';
+    }
+@endphp
+
 
 <section data-sidebar class="isActive isHidden">
     <img data-menu class="absolute h-8 w-8 top-2 rounded-full border-2 bg-white border-white -right-4 rotate-180 cursor-pointer rotateReverse" src="{{asset('images/arrow-right.png')}}" alt="">
 
+    <section class="flex items-center gap-x-1">
+        <img class="h-12 w-12 sizeIfHidden" src="{{asset('images/DA-Logo.png')}}" alt="Barugo DA Logo">
+        <div><h3  class="text-xs text-white font-bold hide">Farmers Management Platform</h3></div>
+    </section>
 
     <section class="flex flex-col w-full items-center justify-center gap-x-2 mt-5 hide">
         <img class="h-14 w-14 rounded-full border-2 border-green-900 "  src="{{asset('images/pexels-pixabay-220453.jpg')}}" alt="Profile Image">
         <div class="flex w-full flex-col items-center justify-center">
-            <p class="text-sm text-white font-bold whitespace-nowrap">{{Auth::user()->first_name . " " . Auth::user()->middle_name . " " . Auth::user()->last_name}}</p>
+            <p class="text-sm text-white font-bold whitespace-nowrap">{{Auth::user()->first_name . " " . $initial . " " . Auth::user()->last_name}}</p>
             <p class="text-slate-200 text-xs">Agriculturist</p>
         </div>
     </section>
@@ -69,10 +82,10 @@
                     <p class="hide">Admin Control Panel</p>
                 </a>
             </li>
-            <li class="{{$type == 'settings' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
-                <a aria-label="Go to settings" class="{{$type == 'settings' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="">
-                    <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/icons/setting.png')}}" alt="">
-                    <p class="hide">Settings</p>
+            <li class="{{$type == 'Profile' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
+                <a aria-label="Go to settings" class="{{$type == 'Profile' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('adminProfile.index')}}">
+                    <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/icons/Profile.png')}}" alt="">
+                    <p class="hide">Profile</p>
                 </a>
             </li>
         </ul>

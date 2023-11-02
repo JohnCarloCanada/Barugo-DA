@@ -1,6 +1,6 @@
 <x-app>
     <x-slot:title>
-        User | Location
+        Employee | Location
     </x-slot:title>
 
     <x-sidebar type="farm locations"/>

@@ -72,4 +72,25 @@ class AdminDogVaccinationController extends Controller
         $dogInformation->delete();
         return redirect()->route('adminDogVaccinationInformation.index')->with('success', $Dog_Name . ' '.  'has successfully been deleted from the records!');
     }
+
+    public function edit(DogInformation $dogInformation): View {
+        return view('admin.vaccination.edit', ['DogInformation' => $dogInformation, 'personalInformation' => PersonalInformation::latest()->get()]);
+    }
+
+    public function update(Request $request, DogInformation $dogInformation): RedirectResponse {
+        $validation_rules = [
+            'RSBSA_No' => 'required|numeric',
+            'Dog_Name' => 'required|string|max:99',
+            'Species' => 'required|string|max:99',
+            'Sex' => 'required|string|max:9',
+            'Age' => 'required|numeric',
+            'Neutering' => 'required|string|max:9',
+            'Color' => 'required|string|max:19',
+            'Remarks' => 'nullable|string|max:255',
+        ];
+        $validated_data = $request->validate($validation_rules);
+        $dogInformation->update($validated_data);
+
+        return redirect()->route('adminDogVaccinationInformation.index')->with('success', $dogInformation->Dog_Name . ' ' . 'succesfully updated');
+    }
 }
