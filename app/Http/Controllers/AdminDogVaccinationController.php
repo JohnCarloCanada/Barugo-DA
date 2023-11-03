@@ -32,7 +32,7 @@ class AdminDogVaccinationController extends Controller
 
     public function store(Request $request): RedirectResponse {
         $validation_rules = [
-            'RSBSA_No' => 'required|numeric',
+            'RSBSA_No' => 'required|string',
             'Dog_Name' => 'required|string|max:99',
             'Species' => 'required|string|max:99',
             'Sex' => 'required|string|max:9',
@@ -79,7 +79,7 @@ class AdminDogVaccinationController extends Controller
 
     public function update(Request $request, DogInformation $dogInformation): RedirectResponse {
         $validation_rules = [
-            'RSBSA_No' => 'required|numeric',
+            'RSBSA_No' => 'required|string',
             'Dog_Name' => 'required|string|max:99',
             'Species' => 'required|string|max:99',
             'Sex' => 'required|string|max:9',

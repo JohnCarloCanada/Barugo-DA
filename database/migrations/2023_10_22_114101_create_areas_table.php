@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
             $table->string('Lot_No', 32)->unique();
-            $table->unsignedBigInteger('RSBSA_No');
+            $table->string('RSBSA_No', 24);
             $table->foreign('RSBSA_No')->references('RSBSA_No')->on('personal_informations')->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('Hectares', 10, 2);
             $table->string('Area_Type', 99);

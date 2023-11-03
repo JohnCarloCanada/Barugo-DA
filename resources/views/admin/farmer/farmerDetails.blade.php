@@ -5,7 +5,7 @@
 
     <x-admin.sidebar type="managed farmers"/>
     <div class="w-full min-h-screen overflow-hidden">
-        <div class="grid w-full  px-5 bg-green-700">
+        <div class="grid w-full px-5 bg-green-700">
             <div class="my-3 px-5 text-white flex flex-col sm:flex-row justify-between gap-4">
                 <x-admin.goBack/>
                 <div class="flex items-center justify-start sm:justify-between gap-3">
@@ -51,7 +51,7 @@
 
         {{-- Area information  --}}
 
-        <div class="{{$currentRoute == 'area' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'area' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
@@ -105,7 +105,7 @@
 
         {{-- live stack information  --}}
 
-        <div class="{{$currentRoute == 'livestock' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'livestock' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
@@ -145,7 +145,7 @@
 
         {{-- Poultry Inforamtion --}}
 
-        <div class="{{$currentRoute == 'poultry' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'poultry' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
@@ -184,7 +184,7 @@
 
         {{-- machinery information  --}}
 
-        <div class="{{$currentRoute == 'machinery' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'machinery' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">

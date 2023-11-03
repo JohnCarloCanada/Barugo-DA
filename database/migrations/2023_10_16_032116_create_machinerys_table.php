@@ -17,7 +17,7 @@ return new class extends Migration
             $table->decimal('Price', 14, 2);
             $table->string('Mode_Acqusition', 99);
             $table->string('Use_of_Machinery', 9);
-            $table->unsignedBigInteger('RSBSA_No');
+            $table->string('RSBSA_No', 24);
             $table->foreign('RSBSA_No')->references('RSBSA_No')->on('personal_informations')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

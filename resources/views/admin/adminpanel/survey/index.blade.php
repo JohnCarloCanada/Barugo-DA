@@ -72,7 +72,7 @@
                 <img data-show-close src="{{asset('images/close.png')}}" class="w-[16px] h-[16px] cursor-pointer" alt="close">
             </div>
             <div class="w-full px-3 flex flex-col gap-1">
-                <label for="Option_Name" class="text-[12px] font-semibold">Gender</label>
+                <label for="Option_Name" class="text-[12px] font-semibold">Category</label>
                 <select name="Option_Name" id="Option_Name" class="w-full border text-gray-700 outline-0 px-2 py-1 shadow-md bg-gray-100">
                     <option value="Religion">Religion</option>
                     <option value="Livelihood">Livelihood</option>

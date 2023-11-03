@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('Date_of_Registration');
             $table->date('Last_Vac_Month')->nullable();
             $table->string('Remarks', 255)->nullable();
-            $table->unsignedBigInteger('RSBSA_No');
+            $table->string('RSBSA_No', 24);
             $table->foreign('RSBSA_No')->references('RSBSA_No')->on('personal_informations')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

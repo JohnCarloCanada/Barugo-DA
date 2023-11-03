@@ -13,7 +13,16 @@
         <section class="w-full bg-[#e9ffeb] flex">
             {{$slot}}
         </section>
-
-        @vite('resources/js/sideBarMenu.js')
     </body>
 </html>
+
+
+
+<script>
+    let menu = document.querySelector("[data-menu]");
+    let sidebar = document.querySelector("[data-sidebar]");
+
+    menu.addEventListener("click", () => {
+        sidebar.classList.toggle("isHidden");
+    });
+</script>

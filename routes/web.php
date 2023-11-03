@@ -125,7 +125,7 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     });
 
     Route::controller(ExcelExportsController::class)->group(function() {
-        Route::get('/download/farmers', 'downloadAllFarmersRecord')->name('adminDownloadAllFarmersRecord');
+        Route::get('/download/farmers', 'adminDownloadAllFarmersRecord')->name('adminDownloadAllFarmersRecord');
     });
 });
 
@@ -194,7 +194,7 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
     });
 
     Route::controller(ExcelExportsController::class)->group(function() {
-        Route::get('/download/farmers', 'downloadAllFarmersRecord')->name('userDownloadAllFarmersRecord');
+        Route::get('/download/farmers', 'userDownloadAllFarmersRecord')->name('userDownloadAllFarmersRecord');
     });
 });
 

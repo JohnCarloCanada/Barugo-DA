@@ -37,7 +37,7 @@
 
         {{-- Area information  --}}
 
-        <div class="{{$currentRoute == 'area' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'area' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 flex flex-col sm:flex-row items-start sm:items-center gap-y-4 sm:gap-y-0 justify-between relative py-2">
@@ -91,7 +91,7 @@
 
         {{-- livestock information  --}}
 
-        <div class="{{$currentRoute == 'livestock' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'livestock' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
@@ -131,7 +131,7 @@
 
         {{-- poultry Information --}}
 
-        <div class="{{$currentRoute == 'poultry' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'poultry' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
@@ -170,7 +170,7 @@
 
         {{-- machinery information  --}}
 
-        <div class="{{$currentRoute == 'machinery' ? 'flex flex-col w-[100%,900px] h-[500px] p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'machinery' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">

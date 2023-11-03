@@ -24,7 +24,7 @@ class UserPersonalInformationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validation_rules = [
-            'RSBSA_No' => 'required|numeric|unique:personal_informations,RSBSA_No',
+            'RSBSA_No' => 'required|string||regex:/^\w{2}-\d{2}-\d{2}-\d{3}-\d{6}$/|unique:personal_informations,RSBSA_No',
             'Surname' => 'required|string',
             'First_Name' => 'required|string',
             'Middle_Name' => 'nullable|string',

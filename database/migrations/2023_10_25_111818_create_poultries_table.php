@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('PoultryID');
             $table->string('Poultry_Type', 99);
             $table->integer('Quantity', false, false);
-            $table->unsignedBigInteger('RSBSA_No');
+            $table->string('RSBSA_No', 24);
             $table->foreign('RSBSA_No')->references('RSBSA_No')->on('personal_informations')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
