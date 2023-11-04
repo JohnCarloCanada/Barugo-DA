@@ -109,7 +109,7 @@ class AdminPersonalInformationController extends Controller
             return back()->withErrors($validated_data)->withInput();
         }
         
-        PersonalInformation::create([
+        $newlyaddedfarmer = PersonalInformation::create([
             'RSBSA_No' => $validated_data->validated()['RSBSA_No'],
             'Surname' => $validated_data->validated()['Surname'],
             'First_Name' => $validated_data->validated()['First_Name'],
@@ -127,7 +127,7 @@ class AdminPersonalInformationController extends Controller
             'is_approved' => 1,
         ]);
 
-        activity()->causedBy(Auth::user())->createdAt(now())->log('added a new farmer.');
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedfarmer)->createdAt(now())->log('added a new farmer.');
 
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Added');
     }

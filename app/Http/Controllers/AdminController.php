@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Area;
+use App\Models\DogInformation;
 use App\Models\PersonalInformation;
 use App\Models\SeedInventory;
 use App\Models\User;
@@ -19,8 +20,9 @@ class AdminController extends Controller
         $farmerCounts = PersonalInformation::where('is_approved', true)->count();
         $totalLocations = Area::count();
         $totalSeeds = SeedInventory::sum('Quantity');
+        $totalVaccinations = DogInformation::count();
 
-        return view('admin.dashboard', ['farmersCount' => $farmerCounts, 'locationsCount' => $totalLocations, 'totalSeeds' => $totalSeeds]);
+        return view('admin.dashboard', ['farmersCount' => $farmerCounts, 'locationsCount' => $totalLocations, 'totalSeeds' => $totalSeeds, 'totalVaccinations' => $totalVaccinations]);
     }
 
     public function farmerDetails(PersonalInformation $personalInformation, string $currentRoute): View {

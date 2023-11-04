@@ -45,7 +45,7 @@
                 <img class="w-[5rem]" src="{{asset('images/syringe.png')}}" alt="">
                 <div>
                     <p class="">Vaccinations</p>
-                    <p class="text-3xl">100</p>
+                    <p class="text-3xl">{{$totalVaccinations}}</p>
                 </div>
             </li>
             <a href="{{route('adminLocation.index')}}">

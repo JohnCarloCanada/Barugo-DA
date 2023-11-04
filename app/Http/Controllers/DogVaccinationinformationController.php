@@ -80,7 +80,7 @@ class DogVaccinationinformationController extends Controller
 
     public function update(Request $request, DogInformation $dogInformation): RedirectResponse {
         $validation_rules = [
-            'RSBSA_No' => 'required|numeric',
+            'RSBSA_No' => 'required|string',
             'Dog_Name' => 'required|string|max:99',
             'Species' => 'required|string|max:99',
             'Sex' => 'required|string|max:9',
@@ -90,7 +90,22 @@ class DogVaccinationinformationController extends Controller
             'Remarks' => 'nullable|string|max:255',
         ];
         $validated_data = $request->validate($validation_rules);
-        $dogInformation->update($validated_data);
+
+        $Owner = PersonalInformation::find($validated_data['RSBSA_No']);
+        $Initial = Str::upper(Str::substr($Owner->Middle_Name, 0, 1));
+        $OwnerName = $Owner->Middle_Name == NULL ? $Owner->First_Name . ' ' . $Owner->Surname : $Owner->First_Name . ' '. $Initial . '.' . ' ' . $Owner->Surname;
+
+        $dogInformation->update([
+            'RSBSA_No' => $Owner->RSBSA_No,
+            'Owner_Name' => $OwnerName,
+            'Dog_Name' => $validated_data['Dog_Name'],
+            'Species' => $validated_data['Species'],
+            'Sex' => $validated_data['Sex'],
+            'Age' => $validated_data['Age'],
+            'Neutering' => $validated_data['Neutering'],
+            'Color' => $validated_data['Color'],
+            'Remarks' => $validated_data['Remarks'] ?? NULL,
+        ]);
 
         return redirect()->route('dogVaccinationInformation.index')->with('success', $dogInformation->Dog_Name . ' ' . 'succesfully updated');
     }
