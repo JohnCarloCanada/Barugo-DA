@@ -6,7 +6,7 @@
     <x-sidebar type="managed farmers"/>   
 
     <section class="w-full min-h-screen p-10">
-        <section class="w-[100%,900px] my-0 mx-auto bg-white flex flex-col items-center justify-center ">
+        <section class="w-[100%,900px] p-3 my-0 mx-auto bg-white flex flex-col items-center justify-center ">
             <h2 class="text-black font-bold text-3xl sm:text-4xl">Add New Area</h2>
             @if ($errors->any())
             <ul class="grid grid-cols-2 sm:grid-cols-4 gap-1 mb-3">
@@ -87,14 +87,20 @@
                                 <label class="text-gray-400" for="Rainfed">Rainfed</label>
                             </div>
                         </div>
-                        <label class="sr-only" for="Lat">Latitude: </label>
-                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Lat" id="Lat" placeholder="Latitude">
-                        <label class="sr-only" for="Lon">Longitude: </label>
-                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Lon" id="Lon" placeholder="Longitude">
+                        <div class="hidden">
+                            <label class="sr-only" for="Lat">Latitude: </label>
+                            <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Lat" id="Lat" placeholder="Latitude">
+                            <label class="sr-only" for="Lon">Longitude: </label>
+                            <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Lon" id="Lon" placeholder="Longitude">
+                        </div>
+                    </div>
+                    <div class="">
+                        <p class="py-1 font-semibold text-green-700 bg-green-200 my-1 w-fit px-2 py-1 rounded">Select the location</p>
+                        <div id="map" class="w-full rounded h-[400px]"></div>
                     </div>
 
-                    <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-end gap-3 my-2">
-                        <input class="bg-[#679f69] py-1 px-2 text-white font-bold cursor-pointer" type="submit" value="Add Area">
+                    <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-end gap-3 my-4">
+                        <input class="bg-[#679f69] p-2 text-white font-bold rounded hover:bg-green-400 cursor-pointer" type="submit" value="Add Area">
                     </div>
                 </form>
             </section>
@@ -103,12 +109,14 @@
 </x-app>
 
 <script>
+    const LatInput = document.getElementById("Lat")
+    const LonInput = document.getElementById("Lon")
     const areaTypeBtn = document.querySelectorAll('input[name="Area_Type"]');
     const commodityInput = document.querySelector('[data-commodity]');
 
     const ownerShipTypeBtn = document.querySelectorAll('input[name="Ownership_Type"]');
     const tenantInput = document.querySelector('[data-tenant]');
-
+    
     areaTypeBtn.forEach(btn => {
         btn.addEventListener('change', () => {
             if(btn.value === 'HDCVP') {
@@ -128,4 +136,31 @@
             }
         })
     })
+
+    let map = L.map('map').setView([11.3002, 124.7630], 13);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+
+    map.on('click', function(event) {
+        const latlng = event.latlng;
+        addOrUpdateMarker(latlng.lat,latlng.lng)
+    });
+
+
+
+    const addOrUpdateMarker=(lat, lng)=> {
+        LatInput.value = lat
+        LonInput.value = lng
+        console.log(LonInput.value,LatInput.value)
+        map.eachLayer(function (layer) {
+            if (layer instanceof L.Marker) {
+                map.removeLayer(layer);
+            }
+        });
+
+        const marker = L.marker([parseFloat(lat), parseFloat(lng)]).addTo(map);
+        
+        marker.bindPopup('Selected location').openPopup();
+    }
+
 </script>
