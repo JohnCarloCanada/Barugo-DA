@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Option;
 use App\Models\PersonalInformation;
+use App\Rules\PhilippineNumberFormat;
+use App\Rules\RSBSANoFormat;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -84,13 +86,13 @@ class AdminPersonalInformationController extends Controller
 
     public function store(Request $request): RedirectResponse {
         $validation_rules = [
-            'RSBSA_No' => 'required|string|regex:/^\w{2}-\d{2}-\d{2}-\d{3}-\d{6}$/|unique:personal_informations,RSBSA_No',
+            'RSBSA_No' => ['required', 'string', 'unique:personal_informations,RSBSA_No', new RSBSANoFormat],
             'Surname' => 'required|string',
             'First_Name' => 'required|string',
             'Middle_Name' => 'nullable|string',
             'Extension' => 'nullable|string',
             'Address' => 'required|string',
-            'Mobile_No' => 'required|string',
+            'Mobile_No' => ['required', 'string', new PhilippineNumberFormat],
             'Sex' => 'required|string',
             'Date_of_birth' => 'required|date',
             'Religion' => 'required|string',
@@ -140,7 +142,7 @@ class AdminPersonalInformationController extends Controller
             'Updated_Middle_Name' => 'nullable|string',
             'Updated_Extension' => 'nullable|string',
             'Updated_Address' => 'required|string',
-            'Updated_Mobile_No' => 'required|string',
+            'Updated_Mobile_No' => ['required', 'string', new PhilippineNumberFormat],
             'Updated_Sex' => 'required|string',
             'Updated_Date_of_birth' => 'required|date',
             'Updated_Religion' => 'required|string',

@@ -44,7 +44,7 @@
                         <a href="{{route('userAreaInformation.index', ['personalInformation' => $personalInformation])}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Area
                         </a>
-                        <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search..." type="text">
+                        {{-- <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search..." type="text"> --}}
                     </th>
                     <th class="grid grid-cols-10 text-[12px] mt-5">
                         <div>Lot Number</div>
@@ -98,7 +98,7 @@
                         <a href="{{route('userLiveStockInformation.index', ['personalInformation' => $personalInformation])}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add livestock
                         </a>
-                        <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
+                        {{-- <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text"> --}}
                     </th>
                     <th class="grid grid-cols-3 text-[12px] mt-5">
                         <div>Animal Name</div>
@@ -138,7 +138,7 @@
                         <a href="{{route('userPoultryInformation.index', ['personalInformation' => $personalInformation])}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add Poultry
                         </a>
-                        <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
+                        {{-- <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text"> --}}
                     </th>
                     <th class="grid grid-cols-3 text-[12px] mt-5">
                         <div>Poultry Type</div>
@@ -177,7 +177,7 @@
                         <a href="{{route('userMachineryInformation.index', ['personalInformation' => $personalInformation])}}" class="flex items-center gap-3 cursor-pointer">
                             <img src="{{asset('images/icons/plus.png')}}" class="hover:bg-green-200 w-[25px] h-[25px] border bg-slate-100 rounded-full p-1" alt=""> Add machinery
                         </a>
-                        <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
+                        {{-- <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text"> --}}
                     </th>
                     <th class="grid grid-cols-5 text-[12px] mt-5">
                         <div>Machine Name</div>
