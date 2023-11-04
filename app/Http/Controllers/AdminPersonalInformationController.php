@@ -9,6 +9,7 @@ use App\Rules\RSBSANoFormat;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AdminPersonalInformationController extends Controller
@@ -125,6 +126,8 @@ class AdminPersonalInformationController extends Controller
             'Main_livelihood' => $validated_data->validated()['Main_livelihood'],
             'is_approved' => 1,
         ]);
+
+        activity()->causedBy(Auth::user())->createdAt(now())->log('added a new farmer.');
 
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Added');
     }
