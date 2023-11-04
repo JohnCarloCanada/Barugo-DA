@@ -9,9 +9,9 @@
         <x-admin.controlPanel>Survey Control Panel</x-admin.controlPanel>
         <nav class="flex justify-start items-center p-3 sm:p-4 shadow-xl">
             <ul class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-                <li><a class=" underline font-semibold text-[#72c4ff]" href="{{route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])}}">Survey Questions</a></li>
-                <li><a class=" underline font-semibold" href="{{route('adminControlPanelSeason.season')}}">Season</a></li>
-                <li><a class=" underline font-semibold" href="{{route('adminControlPanelSeed.index')}}">Seed Inventory</a></li>
+                <li><a class=" font-semibold text-green-700 p-2 shadow-md rounded bg-green-200" href="{{route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])}}">Survey Questions</a></li>
+                <li><a class=" p-2 font-semibold" href="{{route('adminControlPanelSeason.season')}}">Season</a></li>
+                <li><a class=" p-2 font-semibold" href="{{route('adminControlPanelSeed.index')}}">Seed Inventory</a></li>
             </ul>
         </nav>
 
@@ -34,13 +34,15 @@
                             </li>
                         </ul>
                     </th>
-                    <th class="grid grid-cols-2 text-[12px] mt-5">
+                    <th class="grid grid-cols-3 text-[12px] mt-5">
+                        <div>Category</div>
                         <div>Option Name</div>
                         <div>Operation</div>
                     </th>
                 </tr>
-                <tr class="grid py-1 grid-cols-2 w-full">
+                <tr class="grid py-1 grid-cols-3 w-full">
                     @foreach ($options as $option)
+                        <td class="text-center">{{$option->Option_Name}}</td>
                         <td class="text-center">{{$option->Name}}</td>
                         <td class="flex items-center justify-center">
                             {{-- <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div> --}}

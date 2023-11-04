@@ -9,9 +9,9 @@
         <x-admin.controlPanel>Season Control Panel</x-admin.controlPanel>
         <nav class="flex justify-start items-center p-3 sm:p-4 shadow-xl">
             <ul class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
-                <li><a class=" underline font-semibold" href="{{route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])}}">Survey Questions</a></li>
-                <li><a class=" underline font-semibold text-[#72c4ff]" href="{{route('adminControlPanelSeason.season')}}">Season</a></li>
-                <li><a class=" underline font-semibold" href="{{route('adminControlPanelSeed.index')}}">Seed Inventory</a></li>
+                <li><a class=" p-2 font-semibold" href="{{route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])}}">Survey Questions</a></li>
+                <li><a class=" font-semibold text-green-700 p-2 shadow-md rounded bg-green-200" href="{{route('adminControlPanelSeason.season')}}">Season</a></li>
+                <li><a class=" p-2 font-semibold" href="{{route('adminControlPanelSeed.index')}}">Seed Inventory</a></li>
             </ul>
         </nav>
 

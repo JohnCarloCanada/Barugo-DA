@@ -16,13 +16,12 @@ class AdminControlPanelController extends Controller
 
     // Survey Page
     public function surveyQuestionsIndex(string $currentRoute): View {
-        if($currentRoute == 'All') {
-            return view('admin.adminpanel.survey.index', ['options' => Option::paginate(5), 'currentRoute' => 'All']);
-        } elseif($currentRoute == 'Religion') {
-            return view('admin.adminpanel.survey.index', ['options' => Option::where('Option_Name', 'Religion')->paginate(5), 'currentRoute' => 'Religion']);
-        } else {
-            return view('admin.adminpanel.survey.index', ['options' => Option::where('Option_Name', 'Livelihood')->paginate(5), 'currentRoute' => 'Livelihood']);
-        }
+        if($currentRoute == 'All')  $temp_options = Option::paginate(5);
+        elseif($currentRoute == 'Religion') $temp_options = Option::where('Option_Name', 'Religion')->paginate(5);
+        else $temp_options = Option::where('Option_Name', 'Livelihood')->paginate(5);
+        
+        $options = ['options'=>$temp_options, 'currentRoute'=>$currentRoute];
+        return view('admin.adminpanel.survey.index',$options);
     }
 
     public function surveyQuestionsStore(Request $request): RedirectResponse {
