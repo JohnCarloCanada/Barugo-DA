@@ -16,6 +16,8 @@ class ExcelExportsController extends Controller
 {
     //
     public function adminDownloadAllFarmersRecord() {
+        set_time_limit(0);
+        ini_set('memory_limit', '1G');
         // Personal Informations
         $farmers = PersonalInformation::latest()->get();
         $farmer_array = [];
