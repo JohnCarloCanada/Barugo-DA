@@ -18,7 +18,6 @@ class SeedInventoryController extends Controller
         $seeds = SeedInventory::where(function($query) use ($request) {
             $query->where('Seed_Variety', 'LIKE', '%' . $request->search . '%');
         });
-
         return view('admin.adminpanel.seed.index', ['seeds' => $seeds->orderBy('Seed_Type', 'asc')->latest()->paginate(5), 'search' => $request->search]);
     }
 

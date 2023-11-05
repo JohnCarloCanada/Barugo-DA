@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class UserPersonalInformationController extends Controller
@@ -19,7 +20,6 @@ class UserPersonalInformationController extends Controller
         $farmers = PersonalInformation::where(function($query) use ($request) {
             $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%');
         });
-
         return view('user.managed.managed', ['PersonalInformations' => $farmers->latest()->where('is_approved', true)->paginate(5), 'search' => $request->search]);
     }
 

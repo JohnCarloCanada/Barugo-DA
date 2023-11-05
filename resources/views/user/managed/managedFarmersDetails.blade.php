@@ -37,7 +37,7 @@
 
         {{-- Area information  --}}
 
-        <div class="{{$currentRoute == 'area' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'area' ? 'flex flex-col w-[100%,900px] p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 flex flex-col sm:flex-row items-start sm:items-center gap-y-4 sm:gap-y-0 justify-between relative py-2">
@@ -61,7 +61,7 @@
                 </tr>
                 @foreach ($properties as $area)
                     
-                <tr class="grid py-1 odd:bg-slate-200 grid-cols-10 w-full">
+                <tr class="grid py-1 odd:bg-slate-200 grid-cols-10 w-full text-xs">
                     <td class="text-center">{{$area->Lot_No}}</td>
                     <td class="text-center">{{$area->Area_Type}}</td>
                     <td class="text-center">{{$area->Commodity_planted}}</td>
@@ -71,7 +71,7 @@
                     <td class="text-center">{{$area->Address}}</td>
                     <td class="text-center">{{$area->Owner_Address}}</td>
                     <td class="text-center">{{$area->Farm_Type}}</td>
-                    <td class="flex items-center justify-center gap-4">
+                    <td class="flex items-center justify-center gap-1 sm:gap-4">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
                         <form action="{{ route('userAreaInformation.destroy', ['area' => $area]) }}" method="post">
                             @csrf
@@ -91,7 +91,7 @@
 
         {{-- livestock information  --}}
 
-        <div class="{{$currentRoute == 'livestock' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'livestock' ? 'flex flex-col w-[100%,900px] p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
@@ -108,10 +108,10 @@
                 </tr>
                 @foreach ($properties as $livestock)
                     
-                <tr class="grid py-1 odd:bg-slate-200 grid-cols-3 w-full">
+                <tr class="grid py-1 odd:bg-slate-200 grid-cols-3 w-full text-xs">
                     <td class="text-center">{{$livestock->LSAnimals}}</td>
                     <td class="text-center">{{$livestock->Sex_LS}}</td>
-                    <td class="flex items-center justify-center gap-4">
+                    <td class="flex items-center justify-center gap-1 sm:gap-4">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
                         <form action="{{ route('userLiveStockInformation.destroy', ['livestock' => $livestock]) }}" method="post">
                             @csrf
@@ -131,7 +131,7 @@
 
         {{-- poultry Information --}}
 
-        <div class="{{$currentRoute == 'poultry' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'poultry' ? 'flex flex-col w-[100%,900px] p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
@@ -148,10 +148,10 @@
                 </tr>
                 @foreach ($properties as $poultry)
                     
-                <tr class="grid py-1 odd:bg-slate-200 grid-cols-3 w-full">
+                <tr class="grid py-1 odd:bg-slate-200 grid-cols-3 w-full text-xs">
                     <td class="text-center">{{$poultry->Poultry_Type}}</td>
                     <td class="text-center">{{$poultry->Quantity}}</td>
-                    <td class="flex items-center justify-center">
+                    <td class="flex items-center justify-center gap-1 sm:gap-4">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
                         <form action="{{ route('userPoultryInformation.destroy', ['poultry' => $poultry]) }}" method="post">
                             @csrf
@@ -170,7 +170,7 @@
 
         {{-- machinery information  --}}
 
-        <div class="{{$currentRoute == 'machinery' ? 'flex flex-col w-[100%,900px] min-h-screen p-5 overflow-x-auto' : 'hidden'}}">
+        <div class="{{$currentRoute == 'machinery' ? 'flex flex-col w-[100%,900px] p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 grid grid-cols-2 relative  py-2">
@@ -189,12 +189,12 @@
                 </tr>
                 @foreach ($properties as $machinery)
                     
-                <tr class="grid py-1 odd:bg-slate-200 grid-cols-5 w-full">
+                <tr class="grid py-1 odd:bg-slate-200 grid-cols-5 w-full text-xs">
                     <td class="text-center">{{$machinery->MachineName}}</td>
                     <td class="text-center">{{$machinery->Mode_Acqusition}}</td>
                     <td class="text-center">{{$machinery->Use_of_Machinery}}</td>
                     <td class="text-center">₱{{$machinery->Price}}</td>
-                    <td class="flex items-center justify-center gap-4">
+                    <td class="flex items-center justify-center gap-1 sm:gap-4">
                         <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
                         <form action="{{ route('userMachineryInformation.destroy', ['machinery' => $machinery]) }}" method="post">
                             @csrf
