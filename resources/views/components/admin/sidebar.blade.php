@@ -70,8 +70,8 @@
                     <p class="hide">Livestock Owner Trackers</p>
                 </a>
             </li>
-            <li class="{{$type == 'notifications' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
-                <a aria-label="Go to notifications" class="{{$type == 'notifications' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="">
+            <li class="{{$type == 'logs' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
+                <a aria-label="Go to notifications" class="{{$type == 'logs' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('activityLogs.index')}}">
                     <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/icons/log.png')}}" alt="">
                     <p class="hide">Logs</p>
                 </a>

@@ -32,7 +32,7 @@ class UserSeedDistributionController extends Controller
 
         $farmer = PersonalInformation::find($request->id);
 
-        activity()->causedBy(Auth::user())->createdAt(now())->log(' : ' . $farmer->RSBSA_No . ' claimed '. $request->Seed_Variety . '.');
+        activity()->causedBy(Auth::user())->createdAt(now())->log('- ' . $farmer->RSBSA_No . 'claimed '. $request->Seed_Variety . '.');
 
         return redirect()->route('userSeedDistribution.index')->with('success', $farmer->Surname . '-' . $farmer->RSBSA_No . ' ' . 'Succesfully Claimed');
     }

@@ -32,7 +32,7 @@ class AdminSeedDistributionController extends Controller
 
         $farmer = PersonalInformation::find($request->id);
 
-        activity()->causedBy(Auth::user())->createdAt(now())->log(' : ' . $farmer->RSBSA_No . ' claimed '. $request->Seed_Variety . '.');
+        activity()->causedBy(Auth::user())->createdAt(now())->log('- ' . $farmer->RSBSA_No . ' claimed '. $request->Seed_Variety . '.');
 
         return redirect()->route('adminSeedDistribution.index')->with('success', $farmer->Surname . '-' . $farmer->RSBSA_No . ' ' . 'succesfully claimed' . ' ' . $validated_date['Quantity']  . 'x' . ' amount of seeds.');
     }

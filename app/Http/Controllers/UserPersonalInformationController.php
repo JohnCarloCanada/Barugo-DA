@@ -56,7 +56,7 @@ class UserPersonalInformationController extends Controller
 
         $data = PersonalInformation::create($validated_data->validated());
 
-        activity()->causedBy(Auth::user())->performedOn($data)->createdAt(now())->log('added a new farmer waiting for approval.');
+        activity()->causedBy(Auth::user())->performedOn($data)->createdAt(now())->log('- Added a new farmer waiting for approval.');
 
         return redirect()->route('userPersonalInformation.index')->with('success', 'Farmer Successfully Added');
     }
@@ -112,7 +112,7 @@ class UserPersonalInformationController extends Controller
             'update_status' => true,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log('edited a farmer waiting for approval.');
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log('- Edited a farmer waiting for approval.');
 
         return redirect()->route('userPersonalInformation.index')->with('success', 'Farmer Successfully Edited');
     }

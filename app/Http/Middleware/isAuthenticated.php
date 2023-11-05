@@ -20,7 +20,7 @@ class isAuthenticated
         $lastRouteName = Session::get('last_route_name') ?? $request->route()->getName();
         if(Auth::check()) {
             if($lastRouteName === 'login.index') {
-                activity()->causedBy(Auth::user())->createdAt(now())->log('logged In');
+                activity()->causedBy(Auth::user())->createdAt(now())->log('- Logged In');
                 return $next($request);
             } else {
                 return $next($request);

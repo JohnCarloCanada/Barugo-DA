@@ -51,7 +51,7 @@ class AdminPersonalInformationController extends Controller
     public function approved(PersonalInformation $personalInformation): RedirectResponse {
         $personalInformation->is_approved = true;
         $personalInformation->save();
-        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log('approved a farmer.');
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log('- Approved a farmer.');
         return redirect()->route('adminPersonalInformation.needApproval')->with('success', 'Farmer Successfully Approved');
     }
 
@@ -59,7 +59,7 @@ class AdminPersonalInformationController extends Controller
         $farmer = $personalInformation;
         $personalInformation->delete();
 
-        activity()->causedBy(Auth::user())->performedOn($farmer)->createdAt(now())->log('deleted a farmer.');
+        activity()->causedBy(Auth::user())->performedOn($farmer)->createdAt(now())->log('- Deleted a farmer.');
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Deleted');
     }
 
@@ -81,7 +81,7 @@ class AdminPersonalInformationController extends Controller
             'update_status' => false,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("accepted a farmer's updated information.");
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("- Accepted a farmer's updated information.");
 
         return redirect()->route('adminPersonalInformation.needUpdate')->with('success', 'Edit Approved');
     }
@@ -133,7 +133,7 @@ class AdminPersonalInformationController extends Controller
             'is_approved' => 1,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($newlyaddedfarmer)->createdAt(now())->log('added a new farmer.');
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedfarmer)->createdAt(now())->log('- Added a new farmer.');
 
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Added');
     }
@@ -184,7 +184,7 @@ class AdminPersonalInformationController extends Controller
             'update_status' => false,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("updated a farmers information.");
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("- Updated a farmers information.");
 
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Edited');
     }

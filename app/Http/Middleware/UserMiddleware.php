@@ -37,7 +37,7 @@ class UserMiddleware
                 return redirect()->route('login.index')->with('status', "Your account has been deactivated!");
             }
 
-            if(Str::lower(Auth::user()->user_role) == 'employee'){
+            if(Str::lower(Auth::user()->appaccess->user_role) == 'employee'){
                 $lastRouteName = $request->route()->getName();
                 Session::put('last_route_name', $lastRouteName);
                 return $next($request);

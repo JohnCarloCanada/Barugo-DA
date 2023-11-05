@@ -49,7 +49,7 @@ class AreaInformationController extends Controller
             'RSBSA_No' => $personalInformation->RSBSA_No,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($newlyaddedarea)->createdAt(now())->log('added a new area.');
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedarea)->createdAt(now())->log('- Added a new area.');
 
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'area', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->area])->with('success', 'Area Successfully Added');
     } 
@@ -59,7 +59,7 @@ class AreaInformationController extends Controller
         $personalinformation = $area->personalinformation;
         $area->delete();
 
-        activity()->causedBy(Auth::user())->performedOn($area)->createdAt(now())->log('deleted an area.');
+        activity()->causedBy(Auth::user())->performedOn($area)->createdAt(now())->log('- Deleted an area.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'area', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->area])->with('success', 'Area Successfully Deleted');
     }
 
@@ -99,7 +99,7 @@ class AreaInformationController extends Controller
             'RSBSA_No' => $personalInformation->RSBSA_No,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($newlyaddedarea)->createdAt(now())->log('added a new area.');
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedarea)->createdAt(now())->log('- Added a new area.');
 
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'area', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->area])->with('success', 'Area Successfully Added');
     } 
@@ -109,7 +109,7 @@ class AreaInformationController extends Controller
         $personalinformation = $area->personalinformation;
         $area->delete();
 
-        activity()->causedBy(Auth::user())->performedOn($area)->createdAt(now())->log('deleted an area.');
+        activity()->causedBy(Auth::user())->performedOn($area)->createdAt(now())->log('- Deleted an area.');
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'area', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->area])->with('success', 'Area Successfully Deleted');
     }
 }

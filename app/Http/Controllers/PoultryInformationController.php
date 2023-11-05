@@ -30,7 +30,7 @@ class PoultryInformationController extends Controller
             'RSBSA_No' => $personalInformation->RSBSA_No
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($newlyaddedpoultry)->createdAt(now())->log('added a new poultry.');
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedpoultry)->createdAt(now())->log('- Added a new poultry.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->poultry])->with('success', 'Poultry Successfully Added');
     }
 
@@ -39,7 +39,7 @@ class PoultryInformationController extends Controller
         $personalinformation = $poultry->personalinformation;
         $poultry->delete();
 
-        activity()->causedBy(Auth::user())->performedOn($poultry)->createdAt(now())->log('delete a poultry.');
+        activity()->causedBy(Auth::user())->performedOn($poultry)->createdAt(now())->log('- Delete a poultry.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->poultry])->with('success', 'Poultry Successfully Deleted');
     }
 
@@ -61,7 +61,7 @@ class PoultryInformationController extends Controller
             'RSBSA_No' => $personalInformation->RSBSA_No
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($newlyaddedpoultry)->createdAt(now())->log('added a new poultry.');
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedpoultry)->createdAt(now())->log('- Added a new poultry.');
 
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->poultry])->with('success', 'Poultry Successfully Added');
     }
@@ -71,7 +71,7 @@ class PoultryInformationController extends Controller
         $personalinformation = $poultry->personalinformation;
         $poultry->delete();
 
-        activity()->causedBy(Auth::user())->performedOn($poultry)->createdAt(now())->log('delete a poultry.');
+        activity()->causedBy(Auth::user())->performedOn($poultry)->createdAt(now())->log('- Delete a poultry.');
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->poultry])->with('success', 'Poultry Successfully Deleted');
     }
 }

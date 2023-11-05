@@ -59,7 +59,7 @@ class DogVaccinationinformationController extends Controller
             'Remarks' => $validated_data['Remarks'] ?? NULL,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($new_dog)->createdAt(now())->log('added a new record.');
+        activity()->causedBy(Auth::user())->performedOn($new_dog)->createdAt(now())->log('- Added a new record.');
 
         return redirect()->route('dogVaccinationInformation.index')->with('success', $new_dog->Dog_Name . ' ' . 'Succesfully been added to the record!');
     }
@@ -69,7 +69,7 @@ class DogVaccinationinformationController extends Controller
         $dogInformation->Last_Vac_Month = now();
         $dogInformation->save();
 
-        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('updated the last vaccination date.');
+        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('- Updated the last vaccination date.');
         return redirect()->route('dogVaccinationInformation.index')->with('success', $dogInformation->Dog_Name . ' ' . 'latest Vaccination Month Added');
     }
 
@@ -77,7 +77,7 @@ class DogVaccinationinformationController extends Controller
         $Dog_Name = $dogInformation->Dog_Name;
         $dogInformation->delete();
 
-        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('deleted a dog record.');
+        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('- Deleted a dog record.');
 
         return redirect()->route('dogVaccinationInformation.index')->with('success', $Dog_Name . ' ' . 'has successfully been deleted from the records!');
     }
@@ -115,7 +115,7 @@ class DogVaccinationinformationController extends Controller
             'Remarks' => $validated_data['Remarks'] ?? NULL,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('edited a dog information.');
+        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('- Edited a dog information.');
 
         return redirect()->route('dogVaccinationInformation.index')->with('success', $dogInformation->Dog_Name . ' ' . 'succesfully updated');
     }

@@ -51,7 +51,7 @@ class SeedInventoryController extends Controller
             ]);
         }
 
-        activity()->causedBy(Auth::user())->performedOn($newly_added_seed)->createdAt(now())->log('succesfully added ' . $newly_added_seed->Quantity . 'x' . ' amount of ' . $newly_added_seed->Seed_Variety . '.');
+        activity()->causedBy(Auth::user())->performedOn($newly_added_seed)->createdAt(now())->log('- Succesfully added ' . $newly_added_seed->Quantity . 'x' . ' amount of ' . $newly_added_seed->Seed_Variety . '.');
         
         return redirect()->route('adminControlPanelSeed.index')->with('success', $newly_added_seed->Quantity . 'x' . ' amount of ' . $newly_added_seed->Seed_Variety . ' ' . 'seed succesfully added');
     }
@@ -67,7 +67,7 @@ class SeedInventoryController extends Controller
             ]);
         }
 
-        activity()->causedBy(Auth::user())->performedOn($seedInventory)->createdAt(now())->log('succesfully deleted ' . $seed_name . '.');
+        activity()->causedBy(Auth::user())->performedOn($seedInventory)->createdAt(now())->log('- Succesfully deleted ' . $seed_name . '.');
 
         return redirect()->route('adminControlPanelSeed.index')->with('success', $seed_name . ' ' . 'Succesfully Deleted');
     }

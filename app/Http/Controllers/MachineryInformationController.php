@@ -35,7 +35,7 @@ class MachineryInformationController extends Controller
             'RSBSA_No' => $personalInformation->RSBSA_No,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($newlyaddedmachine)->createdAt(now())->log('added a new machinery.');
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedmachine)->createdAt(now())->log('- Added a new machinery.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'machinery', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->machinery])->with('success', 'Machinery Successfully Added');
     }
 
@@ -44,7 +44,7 @@ class MachineryInformationController extends Controller
         $personalinformation = $machinery->personalinformation;
         $machinery->delete();
 
-        activity()->causedBy(Auth::user())->performedOn($machinery)->createdAt(now())->log('delete a machinery.');
+        activity()->causedBy(Auth::user())->performedOn($machinery)->createdAt(now())->log('- Delete a machinery.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'machinery', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->machinery])->with('success', 'Machinery Successfully Deleted');
     }
 
@@ -70,7 +70,7 @@ class MachineryInformationController extends Controller
             'RSBSA_No' => $personalInformation->RSBSA_No,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($newlyaddedmachine)->createdAt(now())->log('added a new machinery.');
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedmachine)->createdAt(now())->log('- Added a new machinery.');
 
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'machinery', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->machinery])->with('success', 'Machinery Successfully Added');
     }
@@ -80,7 +80,7 @@ class MachineryInformationController extends Controller
         $personalinformation = $machinery->personalinformation;
         $machinery->delete();
 
-        activity()->causedBy(Auth::user())->performedOn($machinery)->createdAt(now())->log('delete a machinery.');
+        activity()->causedBy(Auth::user())->performedOn($machinery)->createdAt(now())->log('- Delete a machinery.');
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'machinery', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->machinery])->with('success', 'Machinery Successfully Deleted');
     }
 }
