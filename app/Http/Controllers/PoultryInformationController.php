@@ -7,6 +7,7 @@ use App\Models\Poultry;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PoultryInformationController extends Controller
 {
@@ -23,18 +24,22 @@ class PoultryInformationController extends Controller
 
         $validated_data = $request->validate($validation_rules);
 
-        Poultry::create([
+        $newlyaddedpoultry = Poultry::create([
             'Poultry_Type' => $validated_data['Poultry_Type'],
             'Quantity' => $validated_data['Quantity'],
             'RSBSA_No' => $personalInformation->RSBSA_No
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedpoultry)->createdAt(now())->log('added a new poultry.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->poultry])->with('success', 'Poultry Successfully Added');
     }
 
     public function userDestroy(Poultry $poultry): RedirectResponse {
+        $poultry = $poultry;
         $personalinformation = $poultry->personalinformation;
         $poultry->delete();
+
+        activity()->causedBy(Auth::user())->performedOn($poultry)->createdAt(now())->log('delete a poultry.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->poultry])->with('success', 'Poultry Successfully Deleted');
     }
 
@@ -50,18 +55,23 @@ class PoultryInformationController extends Controller
 
         $validated_data = $request->validate($validation_rules);
 
-        Poultry::create([
+        $newlyaddedpoultry = Poultry::create([
             'Poultry_Type' => $validated_data['Poultry_Type'],
             'Quantity' => $validated_data['Quantity'],
             'RSBSA_No' => $personalInformation->RSBSA_No
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedpoultry)->createdAt(now())->log('added a new poultry.');
+
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->poultry])->with('success', 'Poultry Successfully Added');
     }
 
     public function adminDestroy(Poultry $poultry): RedirectResponse {
+        $poultry = $poultry;
         $personalinformation = $poultry->personalinformation;
         $poultry->delete();
+
+        activity()->causedBy(Auth::user())->performedOn($poultry)->createdAt(now())->log('delete a poultry.');
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->poultry])->with('success', 'Poultry Successfully Deleted');
     }
 }

@@ -27,6 +27,6 @@ class HandleUserLogout
         Auth::guard('web')->logout();
         $event->request->session()->invalidate();
         $event->request->session()->regenerateToken();
-        activity()->causedBy($user)->createdAt(now())->log('Logged Out');
+        activity()->causedBy($user)->createdAt(now())->log('logged Out');
     }
 }

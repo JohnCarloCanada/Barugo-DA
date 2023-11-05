@@ -7,6 +7,7 @@ use App\Models\PersonalInformation;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class DogVaccinationinformationController extends Controller
@@ -58,6 +59,8 @@ class DogVaccinationinformationController extends Controller
             'Remarks' => $validated_data['Remarks'] ?? NULL,
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($new_dog)->createdAt(now())->log('added a new record.');
+
         return redirect()->route('dogVaccinationInformation.index')->with('success', $new_dog->Dog_Name . ' ' . 'Succesfully been added to the record!');
     }
 
@@ -65,12 +68,17 @@ class DogVaccinationinformationController extends Controller
     public function vaccination(DogInformation $dogInformation): RedirectResponse {
         $dogInformation->Last_Vac_Month = now();
         $dogInformation->save();
+
+        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('updated the last vaccination date.');
         return redirect()->route('dogVaccinationInformation.index')->with('success', $dogInformation->Dog_Name . ' ' . 'latest Vaccination Month Added');
     }
 
     public function destroy(DogInformation $dogInformation): RedirectResponse {
         $Dog_Name = $dogInformation->Dog_Name;
         $dogInformation->delete();
+
+        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('deleted a dog record.');
+
         return redirect()->route('dogVaccinationInformation.index')->with('success', $Dog_Name . ' ' . 'has successfully been deleted from the records!');
     }
 
@@ -106,6 +114,8 @@ class DogVaccinationinformationController extends Controller
             'Color' => $validated_data['Color'],
             'Remarks' => $validated_data['Remarks'] ?? NULL,
         ]);
+
+        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('edited a dog information.');
 
         return redirect()->route('dogVaccinationInformation.index')->with('success', $dogInformation->Dog_Name . ' ' . 'succesfully updated');
     }

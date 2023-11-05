@@ -9,6 +9,7 @@ use App\Models\SeedInventory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminSeedDistributionController extends Controller
 {
@@ -30,6 +31,8 @@ class AdminSeedDistributionController extends Controller
         ClaimedSuccesful::dispatch($request);
 
         $farmer = PersonalInformation::find($request->id);
+
+        activity()->causedBy(Auth::user())->createdAt(now())->log(' : ' . $farmer->RSBSA_No . ' claimed '. $request->Seed_Variety . '.');
 
         return redirect()->route('adminSeedDistribution.index')->with('success', $farmer->Surname . '-' . $farmer->RSBSA_No . ' ' . 'succesfully claimed' . ' ' . $validated_date['Quantity']  . 'x' . ' amount of seeds.');
     }

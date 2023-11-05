@@ -122,6 +122,7 @@ class ExcelExportsController extends Controller
             'Dogs Information' => collect($dogs_array),
         ]);
 
+        
 
         $header_style = (new Style())->setFontBold()->setCellAlignment('center');
         $rows_style = (new Style())->setBackgroundColor("EDEDED")->setCellAlignment('center');

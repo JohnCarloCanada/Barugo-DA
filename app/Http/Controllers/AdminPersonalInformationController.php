@@ -51,11 +51,15 @@ class AdminPersonalInformationController extends Controller
     public function approved(PersonalInformation $personalInformation): RedirectResponse {
         $personalInformation->is_approved = true;
         $personalInformation->save();
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log('approved a farmer.');
         return redirect()->route('adminPersonalInformation.needApproval')->with('success', 'Farmer Successfully Approved');
     }
 
     public function delete(PersonalInformation $personalInformation): RedirectResponse {
+        $farmer = $personalInformation;
         $personalInformation->delete();
+
+        activity()->causedBy(Auth::user())->performedOn($farmer)->createdAt(now())->log('deleted a farmer.');
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Deleted');
     }
 
@@ -76,6 +80,8 @@ class AdminPersonalInformationController extends Controller
             'Main_livelihood' => $personalInformation->Updated_Main_livelihood,
             'update_status' => false,
         ]);
+
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("accepted a farmer's updated information.");
 
         return redirect()->route('adminPersonalInformation.needUpdate')->with('success', 'Edit Approved');
     }
@@ -177,6 +183,8 @@ class AdminPersonalInformationController extends Controller
             'Main_livelihood' => $validated_data->validated()['Updated_Main_livelihood'],
             'update_status' => false,
         ]);
+
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("updated a farmers information.");
 
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Edited');
     }

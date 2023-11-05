@@ -9,6 +9,7 @@ use App\Models\SeedInventory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminControlPanelController extends Controller
 {
@@ -16,12 +17,17 @@ class AdminControlPanelController extends Controller
 
     // Survey Page
     public function surveyQuestionsIndex(string $currentRoute): View {
-        if($currentRoute == 'All')  $temp_options = Option::paginate(5);
-        elseif($currentRoute == 'Religion') $temp_options = Option::where('Option_Name', 'Religion')->paginate(5);
-        else $temp_options = Option::where('Option_Name', 'Livelihood')->paginate(5);
+        if($currentRoute == 'All') {
+            $temp_options = Option::paginate(5);
+        } elseif($currentRoute == 'Religion') {
+            $temp_options = Option::where('Option_Name', 'Religion')->paginate(5);
+        } else {
+            $temp_options = Option::where('Option_Name', 'Livelihood')->paginate(5);
+        }
         
-        $options = ['options'=>$temp_options, 'currentRoute'=>$currentRoute];
-        return view('admin.adminpanel.survey.index',$options);
+        $options = ['options' => $temp_options, 'currentRoute' => $currentRoute];
+
+        return view('admin.adminpanel.survey.index', $options);
     }
 
     public function surveyQuestionsStore(Request $request): RedirectResponse {
@@ -40,12 +46,18 @@ class AdminControlPanelController extends Controller
             'Name' => $capitalizedName,
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($NewlyCreated)->createdAt(now())->log('added a new ' . $NewlyCreated->Option_Name . '.');
+
         return redirect()->route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])->with('success', $NewlyCreated->Name . ' ' . $NewlyCreated->Option_Name . ' ' . 'Successfully Added');
     }
 
     public function surveyQuestionsDestroy(Option $option): RedirectResponse {
-        $option_name = $option->OptionName;
+        $option = $option;
+        $option_name = $option->Option_Name;
         $option->delete();
+
+        activity()->causedBy(Auth::user())->performedOn($option)->createdAt(now())->log('deleted a ' . $option_name . '.');
+
         return redirect()->route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])->with('success', $option_name . ' ' . 'Successfully Deleted');
     }
 
@@ -88,6 +100,8 @@ class AdminControlPanelController extends Controller
             'Year' => now()->year,
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($newly_added_season)->createdAt(now())->log($newly_added_season->Year . '-' . $newly_added_season->Season . ' ' . 'Succesfully Added');
+
         return redirect()->route('adminControlPanelSeason.season')->with('success', $newly_added_season->Year . '-' . $newly_added_season->Season . ' ' . 'Succesfully Added');
     }
 
@@ -101,6 +115,8 @@ class AdminControlPanelController extends Controller
             'is_claimed' => 0,
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($season)->createdAt(now())->log($Year . '-' . $Season . ' ' . 'Has Ended!');
+
         return redirect()->route('adminControlPanelSeason.season')->with('success', $Year . '-' . $Season . ' ' . 'Has Ended!');
     }
 
@@ -112,6 +128,8 @@ class AdminControlPanelController extends Controller
         $findSeason = Season::find($request->id);
         $findSeason->Season = $validated_data['Season'];
         $findSeason->save();
+
+        activity()->causedBy(Auth::user())->performedOn($findSeason)->createdAt(now())->log('edited a season.');
 
         return redirect()->route('adminControlPanelSeason.season')->with('success', 'Succesfully Edited!');
     }

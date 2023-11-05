@@ -7,6 +7,7 @@ use App\Models\PersonalInformation;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class AdminDogVaccinationController extends Controller
@@ -23,6 +24,9 @@ class AdminDogVaccinationController extends Controller
     public function vaccination(DogInformation $dogInformation): RedirectResponse {
         $dogInformation->Last_Vac_Month = now();
         $dogInformation->save();
+
+        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('updated the last vaccination date.');
+
         return redirect()->route('adminDogVaccinationInformation.index')->with('success', $dogInformation->Dog_Name . ' ' . 'latest Vaccination Month Added');
     }
 
@@ -50,7 +54,7 @@ class AdminDogVaccinationController extends Controller
 
         $OwnerName = $Owner->Middle_Name == NULL ? $Owner->First_Name . ' ' . $Owner->Surname : $Owner->First_Name . ' '. $Initial . '.' . ' ' . $Owner->Surname;
 
-        DogInformation::create([
+        $newlyaddeddogrecord = DogInformation::create([
             'RSBSA_No' => $Owner->RSBSA_No,
             'Owner_Name' => $OwnerName,
             'Dog_Name' => $validated_data['Dog_Name'],
@@ -64,12 +68,18 @@ class AdminDogVaccinationController extends Controller
             'Remarks' => $validated_data['Remarks'] ?? NULL,
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($newlyaddeddogrecord)->createdAt(now())->log('added a new record.');
+
         return redirect()->route('adminDogVaccinationInformation.index')->with('success', $validated_data['Dog_Name'] . ' '.  'has successfully been added!');
     }
 
     public function destroy(DogInformation $dogInformation): RedirectResponse {
+        $dogInformation = $dogInformation;
         $Dog_Name = $dogInformation->Dog_Name;
         $dogInformation->delete();
+
+        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('deleted a dog record.');
+
         return redirect()->route('adminDogVaccinationInformation.index')->with('success', $Dog_Name . ' '.  'has successfully been deleted from the records!');
     }
 
@@ -105,6 +115,8 @@ class AdminDogVaccinationController extends Controller
             'Color' => $validated_data['Color'],
             'Remarks' => $validated_data['Remarks'] ?? NULL,
         ]);
+
+        activity()->causedBy(Auth::user())->performedOn($dogInformation)->createdAt(now())->log('edited a dog information.');
 
         return redirect()->route('adminDogVaccinationInformation.index')->with('success', $dogInformation->Dog_Name . ' ' . 'succesfully updated');
     }

@@ -9,6 +9,7 @@ use App\Rules\RSBSANoFormat;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class UserPersonalInformationController extends Controller
@@ -54,6 +55,8 @@ class UserPersonalInformationController extends Controller
         }
 
         $data = PersonalInformation::create($validated_data->validated());
+
+        activity()->causedBy(Auth::user())->performedOn($data)->createdAt(now())->log('added a new farmer waiting for approval.');
 
         return redirect()->route('userPersonalInformation.index')->with('success', 'Farmer Successfully Added');
     }
@@ -108,6 +111,8 @@ class UserPersonalInformationController extends Controller
             'Updated_Main_livelihood' => $validated_data->validated()['Updated_Main_livelihood'],
             'update_status' => true,
         ]);
+
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log('edited a farmer waiting for approval.');
 
         return redirect()->route('userPersonalInformation.index')->with('success', 'Farmer Successfully Edited');
     }
