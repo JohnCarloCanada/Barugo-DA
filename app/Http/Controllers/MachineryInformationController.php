@@ -7,6 +7,7 @@ use App\Models\PersonalInformation;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class MachineryInformationController extends Controller
@@ -26,7 +27,7 @@ class MachineryInformationController extends Controller
 
         $validated_data = $request->validate($validation_rules);
 
-        Machinery::create([
+        $newlyaddedmachine = Machinery::create([
             'MachineName' => $validated_data['MachineName'],
             'Price' => $validated_data['Price'],
             'Mode_Acqusition' => $validated_data['Mode_Acqusition'],
@@ -34,12 +35,16 @@ class MachineryInformationController extends Controller
             'RSBSA_No' => $personalInformation->RSBSA_No,
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedmachine)->createdAt(now())->log('- Added a new machinery.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'machinery', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->machinery])->with('success', 'Machinery Successfully Added');
     }
 
     public function userDestroy(Machinery $machinery): RedirectResponse {
+        $machinery = $machinery;
         $personalinformation = $machinery->personalinformation;
         $machinery->delete();
+
+        activity()->causedBy(Auth::user())->performedOn($machinery)->createdAt(now())->log('- Delete a machinery.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'machinery', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->machinery])->with('success', 'Machinery Successfully Deleted');
     }
 
@@ -57,7 +62,7 @@ class MachineryInformationController extends Controller
 
         $validated_data = $request->validate($validation_rules);
 
-        Machinery::create([
+        $newlyaddedmachine = Machinery::create([
             'MachineName' => $validated_data['MachineName'],
             'Price' => $validated_data['Price'],
             'Mode_Acqusition' => $validated_data['Mode_Acqusition'],
@@ -65,12 +70,17 @@ class MachineryInformationController extends Controller
             'RSBSA_No' => $personalInformation->RSBSA_No,
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedmachine)->createdAt(now())->log('- Added a new machinery.');
+
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'machinery', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->machinery])->with('success', 'Machinery Successfully Added');
     }
 
     public function adminDestroy(Machinery $machinery): RedirectResponse {
+        $machinery = $machinery;
         $personalinformation = $machinery->personalinformation;
         $machinery->delete();
+
+        activity()->causedBy(Auth::user())->performedOn($machinery)->createdAt(now())->log('- Delete a machinery.');
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'machinery', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->machinery])->with('success', 'Machinery Successfully Deleted');
     }
 }

@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Option;
 use App\Models\PersonalInformation;
+use App\Rules\PhilippineNumberFormat;
+use App\Rules\RSBSANoFormat;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class AdminPersonalInformationController extends Controller
@@ -48,11 +51,15 @@ class AdminPersonalInformationController extends Controller
     public function approved(PersonalInformation $personalInformation): RedirectResponse {
         $personalInformation->is_approved = true;
         $personalInformation->save();
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log('- Approved a farmer.');
         return redirect()->route('adminPersonalInformation.needApproval')->with('success', 'Farmer Successfully Approved');
     }
 
     public function delete(PersonalInformation $personalInformation): RedirectResponse {
+        $farmer = $personalInformation;
         $personalInformation->delete();
+
+        activity()->causedBy(Auth::user())->performedOn($farmer)->createdAt(now())->log('- Deleted a farmer.');
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Deleted');
     }
 
@@ -74,6 +81,8 @@ class AdminPersonalInformationController extends Controller
             'update_status' => false,
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("- Accepted a farmer's updated information.");
+
         return redirect()->route('adminPersonalInformation.needUpdate')->with('success', 'Edit Approved');
     }
 
@@ -84,13 +93,13 @@ class AdminPersonalInformationController extends Controller
 
     public function store(Request $request): RedirectResponse {
         $validation_rules = [
-            'RSBSA_No' => 'required|string|regex:/^\w{2}-\d{2}-\d{2}-\d{3}-\d{6}$/|unique:personal_informations,RSBSA_No',
+            'RSBSA_No' => ['required', 'string', 'unique:personal_informations,RSBSA_No', new RSBSANoFormat],
             'Surname' => 'required|string',
             'First_Name' => 'required|string',
             'Middle_Name' => 'nullable|string',
             'Extension' => 'nullable|string',
             'Address' => 'required|string',
-            'Mobile_No' => 'required|string',
+            'Mobile_No' => ['required', 'string', new PhilippineNumberFormat],
             'Sex' => 'required|string',
             'Date_of_birth' => 'required|date',
             'Religion' => 'required|string',
@@ -106,7 +115,7 @@ class AdminPersonalInformationController extends Controller
             return back()->withErrors($validated_data)->withInput();
         }
         
-        PersonalInformation::create([
+        $newlyaddedfarmer = PersonalInformation::create([
             'RSBSA_No' => $validated_data->validated()['RSBSA_No'],
             'Surname' => $validated_data->validated()['Surname'],
             'First_Name' => $validated_data->validated()['First_Name'],
@@ -124,6 +133,8 @@ class AdminPersonalInformationController extends Controller
             'is_approved' => 1,
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedfarmer)->createdAt(now())->log('- Added a new farmer.');
+
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Added');
     }
 
@@ -140,7 +151,7 @@ class AdminPersonalInformationController extends Controller
             'Updated_Middle_Name' => 'nullable|string',
             'Updated_Extension' => 'nullable|string',
             'Updated_Address' => 'required|string',
-            'Updated_Mobile_No' => 'required|string',
+            'Updated_Mobile_No' => ['required', 'string', new PhilippineNumberFormat],
             'Updated_Sex' => 'required|string',
             'Updated_Date_of_birth' => 'required|date',
             'Updated_Religion' => 'required|string',
@@ -172,6 +183,8 @@ class AdminPersonalInformationController extends Controller
             'Main_livelihood' => $validated_data->validated()['Updated_Main_livelihood'],
             'update_status' => false,
         ]);
+
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("- Updated a farmers information.");
 
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Edited');
     }

@@ -62,14 +62,14 @@ class PersonalInformation extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'RSBSA_No';
+    /* protected $primaryKey = 'RSBSA_No'; */
 
     /**
      * Indicates if the model's ID is auto-incrementing.
      *
      * @var bool
      */
-    public $incrementing = false;
+    /* public $incrementing = false; */
 
     public function livestock(): HasMany {
         return $this->hasMany(Livestock::class, 'RSBSA_No', 'RSBSA_No');

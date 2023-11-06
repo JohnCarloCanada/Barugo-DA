@@ -58,7 +58,7 @@
                         <label class="text-base text-[#979797] whitespace-nowrap" for="RSBSA_No" >RSBSA No</label>
                         <select class="bg-[#e8e8e8]  w-[min(100px,100%)] px-3 py-1 text-gray-400" name="RSBSA_No" id="RSBSA_No">
                             @foreach ($personalInformation as $info)
-                                <option @if ($info->RSBSA_No == $DogInformation->RSBSA_No) selected @endif class="bg-[#e8e8e8]" value="{{$info->RSBSA_No}}">{{$info->RSBSA_No}}</option>
+                                <option @if ($info->RSBSA_No == $DogInformation->RSBSA_No) selected @endif class="bg-[#e8e8e8]" value="{{$info->id}}">{{$info->RSBSA_No}}</option>
                             @endforeach
                         </select>
                     </div>

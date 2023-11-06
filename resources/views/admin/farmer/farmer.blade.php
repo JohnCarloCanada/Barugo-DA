@@ -5,10 +5,10 @@
 
     <x-admin.sidebar type="managed farmers"/>
 
-    <section class="w-full min-h-screen p-5 overflow-y-auto">
+    <section class="w-full min-h-screen p-5 overflow-x-auto">
         <x-admin.titleCard title="Farmers Details" slogan="Farmers Current Information" />
-        <div class="flex flex-col w-full h-full">
-            <table class="flex flex-col overflow-x-auto min-w-[800px] md:max-w-full shadow-md border-2 rounded">
+        <div class="flex flex-col min-w-[800px] md:max-w-full h-full">
+            <table class="flex flex-col shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 flex flex-col sm:flex-row items-center justify-between gap-y-4 sm:gap-y-0 gap-x-3 relative py-2">
                         <div class="py-2 bg-green-700 text-white md:w-[25%] w-full">
@@ -25,9 +25,7 @@
                                 <img src="{{asset('images/icons/export.png')}}" class="w-[15px] h-[15px]" alt=""> Export Excel
                             </a>
                             <x-admin.navigation type="index" notApprovedCount={{$notApprovedCount}} needUpdateFarmersCount={{$needUpdateFarmersCount}}/>
-                        </div>
-                        
-                        
+                        </div>  
                     </th>
                     <th class="grid grid-cols-7 text-[12px] mt-5">
                         <div>RSBSA No</div>
@@ -70,6 +68,5 @@
             </table>
             {{ $PersonalInformations->links('pagination::tailwind') }}
         </div>
-       
     </section>
 </x-app>

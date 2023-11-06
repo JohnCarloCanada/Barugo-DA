@@ -4,16 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Option;
 use App\Models\PersonalInformation;
+use App\Rules\PhilippineNumberFormat;
+use App\Rules\RSBSANoFormat;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Validator;
 
 class UserPersonalInformationController extends Controller
 {
-    public function index(): View
+    public function index(Request $request): View
     {
-        return view('user.managed.managed', ['PersonalInformations' => PersonalInformation::latest()->where('is_approved', true)->paginate(5)]);
+        $farmers = PersonalInformation::where(function($query) use ($request) {
+            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%');
+        });
+        return view('user.managed.managed', ['PersonalInformations' => $farmers->latest()->where('is_approved', true)->paginate(5), 'search' => $request->search]);
     }
 
     public function create()
@@ -24,13 +31,13 @@ class UserPersonalInformationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validation_rules = [
-            'RSBSA_No' => 'required|string||regex:/^\w{2}-\d{2}-\d{2}-\d{3}-\d{6}$/|unique:personal_informations,RSBSA_No',
+            'RSBSA_No' => ['required', 'string', 'unique:personal_informations,RSBSA_No', new RSBSANoFormat],
             'Surname' => 'required|string',
             'First_Name' => 'required|string',
             'Middle_Name' => 'nullable|string',
             'Extension' => 'nullable|string',
             'Address' => 'required|string',
-            'Mobile_No' => 'required|string',
+            'Mobile_No' => ['required', 'string', new PhilippineNumberFormat],
             'Sex' => 'required|string',
             'Date_of_birth' => 'required|date',
             'Religion' => 'required|string',
@@ -48,6 +55,8 @@ class UserPersonalInformationController extends Controller
         }
 
         $data = PersonalInformation::create($validated_data->validated());
+
+        activity()->causedBy(Auth::user())->performedOn($data)->createdAt(now())->log('- Added a new farmer waiting for approval.');
 
         return redirect()->route('userPersonalInformation.index')->with('success', 'Farmer Successfully Added');
     }
@@ -70,7 +79,7 @@ class UserPersonalInformationController extends Controller
             'Updated_Middle_Name' => 'nullable|string',
             'Updated_Extension' => 'nullable|string',
             'Updated_Address' => 'required|string',
-            'Updated_Mobile_No' => 'required|string',
+            'Updated_Mobile_No' => ['required', 'string', new PhilippineNumberFormat],
             'Updated_Sex' => 'required|string',
             'Updated_Date_of_birth' => 'required|date',
             'Updated_Religion' => 'required|string',
@@ -102,6 +111,8 @@ class UserPersonalInformationController extends Controller
             'Updated_Main_livelihood' => $validated_data->validated()['Updated_Main_livelihood'],
             'update_status' => true,
         ]);
+
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log('- Edited a farmer waiting for approval.');
 
         return redirect()->route('userPersonalInformation.index')->with('success', 'Farmer Successfully Edited');
     }

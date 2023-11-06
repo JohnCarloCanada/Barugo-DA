@@ -7,6 +7,8 @@ use App\Models\PersonalInformation;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class AreaInformationController extends Controller
 {
@@ -32,7 +34,7 @@ class AreaInformationController extends Controller
 
         $validated_data = $request->validate($validation_rules);
 
-        Area::create([
+        $newlyaddedarea = Area::create([
             'Lot_No' => $validated_data['Lot_No'],
             'Hectares' => $validated_data['Hectares'],
             'Area_Type' => $validated_data['Area_Type'],
@@ -47,12 +49,17 @@ class AreaInformationController extends Controller
             'RSBSA_No' => $personalInformation->RSBSA_No,
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedarea)->createdAt(now())->log('- Added a new area.');
+
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'area', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->area])->with('success', 'Area Successfully Added');
     } 
 
     public function userDestroy(Area $area): RedirectResponse {
+        $area = $area;
         $personalinformation = $area->personalinformation;
         $area->delete();
+
+        activity()->causedBy(Auth::user())->performedOn($area)->createdAt(now())->log('- Deleted an area.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'area', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->area])->with('success', 'Area Successfully Deleted');
     }
 
@@ -77,7 +84,7 @@ class AreaInformationController extends Controller
 
         $validated_data = $request->validate($validation_rules);
 
-        Area::create([
+        $newlyaddedarea = Area::create([
             'Lot_No' => $validated_data['Lot_No'],
             'Hectares' => $validated_data['Hectares'],
             'Area_Type' => $validated_data['Area_Type'],
@@ -92,12 +99,17 @@ class AreaInformationController extends Controller
             'RSBSA_No' => $personalInformation->RSBSA_No,
         ]);
 
+        activity()->causedBy(Auth::user())->performedOn($newlyaddedarea)->createdAt(now())->log('- Added a new area.');
+
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'area', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->area])->with('success', 'Area Successfully Added');
     } 
 
     public function adminDestroy(Area $area): RedirectResponse {
+        $area = $area;
         $personalinformation = $area->personalinformation;
         $area->delete();
+
+        activity()->causedBy(Auth::user())->performedOn($area)->createdAt(now())->log('- Deleted an area.');
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'area', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->area])->with('success', 'Area Successfully Deleted');
     }
 }

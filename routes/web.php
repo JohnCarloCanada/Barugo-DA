@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ActivityLogsController;
 use App\Http\Controllers\PersonnelController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -126,6 +127,10 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
 
     Route::controller(ExcelExportsController::class)->group(function() {
         Route::get('/download/farmers', 'adminDownloadAllFarmersRecord')->name('adminDownloadAllFarmersRecord');
+    });
+
+    Route::controller(ActivityLogsController::class)->group(function() {
+        Route::get('/activity-logs', 'index')->name('activityLogs.index');
     });
 });
 

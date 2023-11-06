@@ -6,6 +6,7 @@ use App\Events\HandleUser;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Str;
 
@@ -36,7 +37,9 @@ class UserMiddleware
                 return redirect()->route('login.index')->with('status', "Your account has been deactivated!");
             }
 
-            if(Str::lower(Auth::user()->user_role) == 'employee'){
+            if(Str::lower(Auth::user()->appaccess->user_role) == 'employee'){
+                $lastRouteName = $request->route()->getName();
+                Session::put('last_route_name', $lastRouteName);
                 return $next($request);
             } else {
                 return redirect()->route('admin.dashboard');

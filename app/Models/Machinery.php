@@ -33,6 +33,6 @@ class Machinery extends Model
     protected $primaryKey = 'MachineID';
 
     public function personalinformation(): BelongsTo {
-        return $this->belongsTo(PersonalInformation::class, 'RSBSA_No');
+        return $this->belongsTo(PersonalInformation::class, 'RSBSA_No', 'RSBSA_No');
     }
 }

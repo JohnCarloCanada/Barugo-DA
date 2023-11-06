@@ -23,8 +23,10 @@ class HandleUserLogout
     public function handle(HandleUser $event): void
     {
         //
+        $user = Auth::user();
         Auth::guard('web')->logout();
         $event->request->session()->invalidate();
         $event->request->session()->regenerateToken();
+        activity()->causedBy($user)->createdAt(now())->log('- Logged Out');
     }
 }

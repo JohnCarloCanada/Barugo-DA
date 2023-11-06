@@ -69,17 +69,6 @@
                                 </div>
                             </form>
                         </td>		
-                        {{-- <td class="flex items-center justify-center gap-x-2">
-                            <a href="">
-                                <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt="">
-                            </a>
-                            <div>
-                                <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full cursor-pointer" src="{{asset('images/icons/approved.png')}}" alt="">
-                            </div>
-                            <div>
-                                <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full cursor-pointer" src="{{asset('images/icons/reject.png')}}" alt="">
-                            </div>
-                        </td> --}}
                     </tr>
                 @endforeach
             </table>

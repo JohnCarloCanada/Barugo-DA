@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('app_access', function (Blueprint $table) {
+        Schema::connection('secondary')->create('app_access', function (Blueprint $table) {
             $table->integer('id', true);
             $table->integer('user_id', false, false)->autoIncrement(false);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
@@ -26,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('app_access');
+        Schema::connection('secondary')->dropIfExists('app_access');
     }
 };

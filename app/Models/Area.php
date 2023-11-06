@@ -44,6 +44,6 @@ class Area extends Model
     public $incrementing = true;
 
     public function personalinformation(): BelongsTo {
-        return $this->belongsTo(PersonalInformation::class, 'RSBSA_No');
+        return $this->belongsTo(PersonalInformation::class, 'RSBSA_No', 'RSBSA_No');
     }
 }

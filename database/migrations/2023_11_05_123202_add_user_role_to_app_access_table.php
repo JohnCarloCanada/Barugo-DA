@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sequence_tbls', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::connection('secondary')->table('app_access', function (Blueprint $table) {
+            //
+            $table->string('user_role', 30)->nullable();
         });
     }
 
@@ -22,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sequence_tbls');
+        Schema::connection('secondary')->table('app_access', function (Blueprint $table) {
+            //
+            $table->dropColumn('user_role');
+        });
     }
 };

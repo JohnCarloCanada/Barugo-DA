@@ -70,4 +70,17 @@
     td {
         padding: 0.75rem;
     }
+
+    ::-webkit-scrollbar {
+        width: 7px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #d1e5ff;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: linear-gradient(rgb(163, 118, 72), rgb(34, 255, 89));
+        border-radius: 10px;
+    }
 }

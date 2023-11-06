@@ -18,6 +18,8 @@ class AppAccess extends Model
      */
     protected $table = 'app_access';
 
+    protected $connection = 'secondary';
+
     public function user(): BelongsTo {
         return $this->belongsTo(User::class);
     }

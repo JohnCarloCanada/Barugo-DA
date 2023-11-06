@@ -5,17 +5,25 @@
 
     <x-sidebar type="managed farmers"/>   
 
-    <section class="w-full min-h-screen p-5 overflow-y-auto">
-        <section class="flex flex-col my-2 items-start justify-center gap-y-6">
-            <h2 class="w-full text-2xl sm:text-4xl mx-2 font-bold text-black text-center">Managed Farmers</h2>
-            <div class="w-full flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-y-0 justify-between gap-x-3">
-                <a aria-label="Go to add farmers" class="py-2 px-3 bg-[#679f69] rounded flex items-center justify-between gap-x-4" href="{{route('userPersonalInformation.create')}}">
-                    <p class="text-white font-bold text-xs">ADD FARMER</p>
-                    <img aria-hidden="true" class="w-3 h-3 object-contain" src="{{asset('images/icons/plus.png')}}" alt="">
-                </a>
+    <section class="w-full min-h-screen p-5 overflow-hidden">
+        <x-admin.titleCard title="Farmers Details" slogan="Farmers Current Information" />
+        <div class="bg-green-700 w-full px-3 flex flex-col sm:flex-row items-center justify-between gap-y-4 sm:gap-y-0 gap-x-3 relative py-2">
+            <div class="py-2 bg-green-700 text-white md:w-[25%] w-full ">
+                <form action="{{route('userPersonalInformation.index')}}" method="GET" class="w-full">
+                    @csrf
+                    <input name="search" class="w-full px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search RSBSA No" type="text" value="{{$search}}">
+                </form>
             </div>
-        </section>
-        <section class="w-[100%,900px] h-[600px] mx-auto overflow-x-auto bg-white rounded-lg px-3 shadow-2xl">
+            <div class="flex gap-2">
+                <a href="{{route('userPersonalInformation.create')}}" class="hover:bg-slate-200 md:text-sm border text-slate-500 p-2  rounded bg-slate-100 flex items-center gap-3 cursor-pointer whitespace-nowrap">
+                    <img src="{{asset('images/icons/plus.png')}}" class="w-[12px] h-[12px]" alt=""> Add Farmer
+                </a>
+                <a href="{{route('userDownloadAllFarmersRecord')}}" class="hover:bg-slate-200 text-sm border text-slate-500 py-2 p-2  rounded bg-slate-100 flex items-center gap-3 cursor-pointer whitespace-nowrap">
+                    <img src="{{asset('images/icons/export.png')}}" class="w-[15px] h-[15px]" alt=""> Export Excel
+                </a>
+            </div>  
+        </div>
+        <section class="w-[100%,900px] mx-auto overflow-x-auto bg-white rounded-lg px-3 shadow-2xl">
             <table class="w-full mt-5 text-center">
                 <thead>
                     <tr class="text-[12px]">
@@ -52,8 +60,5 @@
             </table>
             <div class="mt-3 sm:mt-4 shadow-2xl w-full">{{ $PersonalInformations->links('pagination::tailwind') }}</div>
         </section>
-        <div class="w-full mt-2">
-            <a class="font-bold text-base sm:text-xl bg-green-500 text-white px-2 py-1 rounded-md" href="{{route('userDownloadAllFarmersRecord')}}">Download xlsx file</a>
-        </div>
     </section>
 </x-app>

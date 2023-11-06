@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('applications', function (Blueprint $table) {
+        Schema::connection('secondary')->create('applications', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('application_name');
             /* $table->timestamps(); */
@@ -20,7 +20,7 @@ return new class extends Migration
         });
 
 
-        DB::table('applications')->insert([
+        DB::connection('secondary')->table('applications')->insert([
             ['application_name' => 'HRM System', 'created_at' => now(), 'updated_at' => now()],
             ['application_name' => 'Treasury Management System', 'created_at' => now(), 'updated_at' => now()],
             ['application_name' => 'Accounting Information System', 'created_at' => now(), 'updated_at' => now()],
@@ -42,6 +42,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('applications');
+        Schema::connection('secondary')->dropIfExists('applications');
     }
 };

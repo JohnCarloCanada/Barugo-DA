@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::connection('secondary')->create('users', function (Blueprint $table) {
             $table->integer('id', true);
             $table->string('employee_id', 10)->unique();
             $table->string('image')->nullable();
@@ -30,7 +30,7 @@ return new class extends Migration
         });
 
 
-        DB::table('users')->insert([
+        DB::connection('secondary')->table('users')->insert([
             'employee_id' => 'EMP-00001',
             'image' => '',
             'first_name' => 'treasury',
@@ -49,6 +49,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::connection('secondary')->dropIfExists('users');
     }
 };

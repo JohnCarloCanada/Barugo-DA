@@ -99,7 +99,7 @@
             if(claimSeedForm.classList == 'hidden') { 
                 claimSeedForm.classList.remove("hidden")
                 if (form && farmer) {
-                    form.id.value = farmer.RSBSA_No;
+                    form.id.value = farmer.id;
                 }
             }
             else {

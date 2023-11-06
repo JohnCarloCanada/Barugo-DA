@@ -49,9 +49,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ]; */
 
-    public function userdetails(): HasOne {
-        return $this->hasOne(UserDetails::class);
-    }
+    protected $connection = 'secondary';
 
     public function appaccess(): HasOne {
         return $this->hasOne(AppAccess::class);

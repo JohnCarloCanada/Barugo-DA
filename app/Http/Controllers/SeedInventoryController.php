@@ -7,6 +7,7 @@ use App\Models\SeedInventory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class SeedInventoryController extends Controller
@@ -17,7 +18,6 @@ class SeedInventoryController extends Controller
         $seeds = SeedInventory::where(function($query) use ($request) {
             $query->where('Seed_Variety', 'LIKE', '%' . $request->search . '%');
         });
-
         return view('admin.adminpanel.seed.index', ['seeds' => $seeds->orderBy('Seed_Type', 'asc')->latest()->paginate(5), 'search' => $request->search]);
     }
 
@@ -50,6 +50,8 @@ class SeedInventoryController extends Controller
                 'Quantity_of_Seeds' => $current_total_seeds,
             ]);
         }
+
+        activity()->causedBy(Auth::user())->performedOn($newly_added_seed)->createdAt(now())->log('- Succesfully added ' . $newly_added_seed->Quantity . 'x' . ' amount of ' . $newly_added_seed->Seed_Variety . '.');
         
         return redirect()->route('adminControlPanelSeed.index')->with('success', $newly_added_seed->Quantity . 'x' . ' amount of ' . $newly_added_seed->Seed_Variety . ' ' . 'seed succesfully added');
     }
@@ -64,6 +66,8 @@ class SeedInventoryController extends Controller
                 'Quantity_of_Seeds' => SeedInventory::sum('Quantity'),
             ]);
         }
+
+        activity()->causedBy(Auth::user())->performedOn($seedInventory)->createdAt(now())->log('- Succesfully deleted ' . $seed_name . '.');
 
         return redirect()->route('adminControlPanelSeed.index')->with('success', $seed_name . ' ' . 'Succesfully Deleted');
     }
