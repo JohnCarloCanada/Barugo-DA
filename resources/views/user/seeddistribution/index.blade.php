@@ -17,8 +17,8 @@
                 </div>
             </div>
         </section>
-        <section class="w-[min(100%,1000px)] h-[500px] overflow-x-auto mx-auto bg-white  rounded-lg">
-            <table class="w-[max(100%,900px)] mt-5 text-center">
+        <section class="w-[min(100%,1300px)] h-[500px] overflow-x-auto mx-auto bg-white  rounded-lg">
+            <table class="w-[max(100%,1100px)] mt-5 text-center">
                 <thead>
                     <tr class="text-xs sm:text-base px-4">
                         <th class="">RSBSA No.</th>
