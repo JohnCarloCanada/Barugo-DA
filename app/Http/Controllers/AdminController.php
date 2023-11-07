@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use App\Models\DogInformation;
+use App\Models\Livestock;
 use App\Models\PersonalInformation;
+use App\Models\Poultry;
 use App\Models\SeedInventory;
 use App\Models\User;
 use App\Models\UserDetails;
@@ -21,8 +23,9 @@ class AdminController extends Controller
         $totalLocations = Area::count();
         $totalSeeds = SeedInventory::sum('Quantity');
         $totalVaccinations = DogInformation::count();
+        $totalAnimals = Livestock::count() + Poultry::sum('Quantity');
 
-        return view('admin.dashboard', ['farmersCount' => $farmerCounts, 'locationsCount' => $totalLocations, 'totalSeeds' => $totalSeeds, 'totalVaccinations' => $totalVaccinations]);
+        return view('admin.dashboard', ['farmersCount' => $farmerCounts, 'locationsCount' => $totalLocations, 'totalSeeds' => $totalSeeds, 'totalVaccinations' => $totalVaccinations, 'totalAnimals' => $totalAnimals]);
     }
 
     public function farmerDetails(PersonalInformation $personalInformation, string $currentRoute): View {

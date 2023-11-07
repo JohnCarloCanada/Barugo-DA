@@ -15,7 +15,7 @@ class Machinery extends Model
         'Price',
         'Mode_Acqusition',
         'Use_of_Machinery',
-        'RSBSA_No',
+        'personal_information_id',
     ];
 
     /**
@@ -25,14 +25,8 @@ class Machinery extends Model
      */
     protected $table = 'machinerys';
 
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'MachineID';
 
     public function personalinformation(): BelongsTo {
-        return $this->belongsTo(PersonalInformation::class, 'RSBSA_No', 'RSBSA_No');
+        return $this->belongsTo(PersonalInformation::class, 'personal_information_id', 'id');
     }
 }

@@ -16,7 +16,7 @@ class Area extends Model
      */
     protected $fillable = [
         'Lot_No',
-        'RSBSA_No',
+        'personal_information_id',
         'Hectares',
         'Area_Type',
         'Commodity_planted',
@@ -26,7 +26,8 @@ class Area extends Model
         'Owner_Address',
         'Lat',
         'Lon',
-        'Farm_Type'
+        'Farm_Type',
+        'is_claimed'
     ];
 
     /**
@@ -36,14 +37,8 @@ class Area extends Model
      */
     protected $table = 'areas';
 
-    /**
-     * Indicates if the model's ID is auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = true;
 
     public function personalinformation(): BelongsTo {
-        return $this->belongsTo(PersonalInformation::class, 'RSBSA_No', 'RSBSA_No');
+        return $this->belongsTo(PersonalInformation::class, 'personal_information_id', 'id');
     }
 }

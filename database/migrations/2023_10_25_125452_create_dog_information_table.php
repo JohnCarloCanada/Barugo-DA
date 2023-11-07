@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('dog_information', function (Blueprint $table) {
-            $table->id('DogID');
+            $table->id();
             $table->string('Dog_Name', 99);
             $table->string('Owner_Name', 99);
             $table->string('Species', 99);
@@ -23,8 +23,8 @@ return new class extends Migration
             $table->date('Date_of_Registration');
             $table->date('Last_Vac_Month')->nullable();
             $table->string('Remarks', 255)->nullable();
-            $table->string('RSBSA_No', 24);
-            $table->foreign('RSBSA_No')->references('RSBSA_No')->on('personal_informations')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('personal_information_id')->nullable()->default(NULL);
+            $table->foreign('personal_information_id')->references('id')->on('personal_informations')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

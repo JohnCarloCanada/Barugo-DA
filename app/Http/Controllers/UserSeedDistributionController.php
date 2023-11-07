@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\ClaimedSuccesful;
+use App\Models\Area;
 use App\Models\PersonalInformation;
 use App\Models\Season;
 use App\Models\SeedInventory;
@@ -10,16 +11,17 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class UserSeedDistributionController extends Controller
 {
     //
     public function userIndex(Request $request): View {
-        $farmers = PersonalInformation::where(function($query) use ($request) {
-            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%');
+        $farmers = Area::where(function($query) use ($request) {
+            $query->where('Lot_No', 'LIKE', '%' . $request->search . '%');
         });
 
-        return view('user.seeddistribution.index', ['farmers' => $farmers->latest()->paginate(10), 'options' => SeedInventory::get(), 'search' => $request->search, 'seasons' => Season::latest()->first()]);
+        return view('user.seeddistribution.index', ['farmers_lot_no' => $farmers->latest()->paginate(10), 'options' => SeedInventory::get(), 'search' => $request->search, 'seasons' => Season::latest()->first()]);
     } 
 
     public function userSeedClaiming(Request $request): RedirectResponse {
@@ -30,10 +32,11 @@ class UserSeedDistributionController extends Controller
         $request->validate($validated_rules);
         ClaimedSuccesful::dispatch($request);
 
-        $farmer = PersonalInformation::find($request->id);
+        if (Session::has('error')) {
+            return redirect()->route('userSeedDistribution.index')->with('error', Session::get('error'));
+        }
 
-        activity()->causedBy(Auth::user())->createdAt(now())->log('- ' . $farmer->RSBSA_No . 'claimed '. $request->Seed_Variety . '.');
-
-        return redirect()->route('userSeedDistribution.index')->with('success', $farmer->Surname . '-' . $farmer->RSBSA_No . ' ' . 'Succesfully Claimed');
+        activity()->causedBy(Auth::user())->createdAt(now())->log('- Lot' . $request->id . ' claimed '. $request->Seed_Variety . '.');
+        return redirect()->route('userSeedDistribution.index')->with('success', $request->id . ' Succesfully Claimed');
     }
 }

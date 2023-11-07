@@ -13,7 +13,7 @@ class Livestock extends Model
     protected $fillable = [
         'LSAnimals',
         'Sex_LS',
-        'RSBSA_No',
+        'personal_information_id',
     ];
 
     /**
@@ -21,9 +21,8 @@ class Livestock extends Model
      *
      * @var string
      */
-    protected $primaryKey = 'LiveStockID';
 
     public function personalinformation(): BelongsTo {
-        return $this->belongsTo(PersonalInformation::class, 'RSBSA_No', 'RSBSA_No');
+        return $this->belongsTo(PersonalInformation::class, 'personal_information_id', 'id');
     }
 }

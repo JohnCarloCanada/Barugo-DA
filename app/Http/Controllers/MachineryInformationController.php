@@ -32,7 +32,7 @@ class MachineryInformationController extends Controller
             'Price' => $validated_data['Price'],
             'Mode_Acqusition' => $validated_data['Mode_Acqusition'],
             'Use_of_Machinery' => $validated_data['Use_of_Machinery'],
-            'RSBSA_No' => $personalInformation->RSBSA_No,
+            'personal_information_id' => $personalInformation->id,
         ]);
 
         activity()->causedBy(Auth::user())->performedOn($newlyaddedmachine)->createdAt(now())->log('- Added a new machinery.');
@@ -67,7 +67,7 @@ class MachineryInformationController extends Controller
             'Price' => $validated_data['Price'],
             'Mode_Acqusition' => $validated_data['Mode_Acqusition'],
             'Use_of_Machinery' => $validated_data['Use_of_Machinery'],
-            'RSBSA_No' => $personalInformation->RSBSA_No,
+            'personal_information_id' => $personalInformation->id,
         ]);
 
         activity()->causedBy(Auth::user())->performedOn($newlyaddedmachine)->createdAt(now())->log('- Added a new machinery.');

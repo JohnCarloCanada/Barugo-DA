@@ -12,38 +12,42 @@
                 <div class="py-2 bg-green-700 text-white">
                     <form action="{{route('userSeedDistribution.index')}}" method="GET" class="w-full">
                         @csrf
-                        <input name="search" class="w-full px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search RSBSA_No" type="text" value="{{$search}}">
+                        <input name="search" class="w-full px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search Lot No" type="text" value="{{$search}}">
                     </form>
                 </div>
             </div>
         </section>
-        <section class="w-[100%,900px] h-[500px] mx-auto overflow-x-auto bg-white rounded-lg">
-            <table class="w-full mt-5 text-center">
+        <section class="w-[min(100%,1000px)] h-[500px] overflow-x-auto mx-auto bg-white  rounded-lg">
+            <table class="w-[max(100%,900px)] mt-5 text-center">
                 <thead>
                     <tr class="text-xs sm:text-base px-4">
                         <th class="">RSBSA No.</th>
+                        <th class="">Lot No.</th>
                         <th class="">Surname</th>
-                        <th class="">Rice Ha</th>
-                        <th class="">Corn Ha</th>
-                        <th class="">HDCVP Ha</th>
+                        <th class="">Area Type</th>
+                        <th class="">Address</th>
+                        <th class="">Owner Address</th>
+                        <th class="">Tenant Name</th>
                         <th class="">Claim Status</th>
                         <th class="">Operation</th>
                     </tr>
                 </thead>
         
                 <tbody>
-                    @foreach ($farmers as $farmer)
+                    @foreach ($farmers_lot_no as $lot_no)
                         <tr class="pt-10 odd:bg-slate-200 text-sm sm:text-base">
-                            <td>{{$farmer->RSBSA_No}}</td>
-                            <td>{{$farmer->Surname}}</td>
-                            <td>{{$farmer->area->where('Area_Type', 'Rice')->sum('Hectares')}}</td>
-                            <td>{{$farmer->area->where('Area_Type', 'Corn')->sum('Hectares')}}</td>
-                            <td>{{$farmer->area->where('Area_Type', 'HDCVP')->sum('Hectares')}}</td>
+                            <td>{{$lot_no->personalinformation->RSBSA_No}}</td>
+                            <td>{{$lot_no->Lot_No}}</td>
+                            <td>{{$lot_no->personalinformation->Surname}}</td>
+                            <td>{{$lot_no->Area_Type}}</td>
+                            <td>{{$lot_no->Address}}</td>
+                            <td>{{$lot_no->Owner_Address}}</td>
+                            <td>{{$lot_no->Tenant_Name}}</td>
                             <td>
-                                <div class="{{$farmer->is_claimed ? 'bg-yellow-600' : 'bg-red-600'}} text-white font-bold text-xs px-2 sm:px-3 py-1 rounded-sm">{{$farmer->is_claimed ? 'Claimed' : 'Not-Claimed'}}</div>
+                                <div class="{{$lot_no->is_claimed ? 'bg-yellow-600' : 'bg-red-600'}} text-white font-bold text-xs px-2 sm:px-3 py-1 rounded-sm">{{$lot_no->is_claimed ? 'Claimed' : 'Not-Claimed'}}</div>
                             </td>
                             <td class="flex items-center justify-center cursor-pointer">
-                                <div onclick="showClaimSeedForm({{$farmer}})" class="{{$seasons && $seasons->Status === 'Active' && $farmer->RSBSA_No && !$farmer->is_claimed && $farmer->area->count() ? '' : 'hidden'}} bg-green-600 text-white font-bold text-base px-2 sm:px-3 py-1 rounded-sm" type="submit">
+                                <div onclick="showClaimSeedForm({{$lot_no}})" class="{{$seasons != NULL && $seasons->Status === 'Active' && $lot_no->personalinformation->RSBSA_No && !$lot_no->is_claimed ? '' : 'hidden'}} bg-green-600 text-white font-bold text-base px-2 sm:px-3 py-1 rounded-sm" type="submit">
                                     Claim
                                 </div>
                             </td>		
@@ -51,7 +55,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="w-full mt-3">{{$farmers->links('pagination::tailwind')}}</div>
+            <div class="w-full mt-3">{{$farmers_lot_no->links('pagination::tailwind')}}</div>
         </section>
     </section>
 </x-app>
@@ -94,12 +98,12 @@
     const claimSeedForm = document.getElementById('claimSeedForm');
     const form = document.getElementById('claimSeedFormInputValue');
 
-    const showClaimSeedForm = (farmer) => {
+    const showClaimSeedForm = (area) => {
         if(claimSeedForm) {
             if(claimSeedForm.classList == 'hidden') { 
                 claimSeedForm.classList.remove("hidden")
-                if (form && farmer) {
-                    form.id.value = farmer.id;
+                if (form && area) {
+                    form.id.value = area.Lot_No;
                 }
             }
             else {

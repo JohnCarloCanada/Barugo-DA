@@ -23,8 +23,8 @@
                 </a>
             </div>  
         </div>
-        <section class="w-[100%,900px] mx-auto overflow-x-auto bg-white rounded-lg px-3 shadow-2xl">
-            <table class="w-full mt-5 text-center">
+        <section class="w-[min(100%,1300px)] overflow-x-auto mx-autobg-white rounded-lg shadow-2xl">
+            <table class="w-[max(100%,1100px)] mt-5 text-center">
                 <thead>
                     <tr class="text-[12px]">
                         <th class="text-sm"></th>
@@ -58,7 +58,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="mt-3 sm:mt-4 shadow-2xl w-full">{{ $PersonalInformations->links('pagination::tailwind') }}</div>
         </section>
+        <div class="w-full mt-3 bg-white rounded-xl px-2 font-bold">{{$PersonalInformations->links('pagination::tailwind')}}</div>
     </section>
 </x-app>

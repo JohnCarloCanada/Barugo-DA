@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('personal_informations', function (Blueprint $table) {
             $table->id();
-            $table->string('RSBSA_No', 24)->unique();
+            $table->string('RSBSA_No', 24)->unique()->nullable()->default(NULL);
 
             $table->string('Surname', 99);
             $table->string('Updated_Surname', 99)->nullable();

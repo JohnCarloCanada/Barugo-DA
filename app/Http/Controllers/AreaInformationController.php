@@ -19,7 +19,7 @@ class AreaInformationController extends Controller
 
     public function userStore(Request $request, PersonalInformation $personalInformation): RedirectResponse {
         $validation_rules = [
-            'Lot_No' => 'required|string|max:32|unique:areas,Lot_No',
+            'Lot_No' => 'required|string|max:32',
             'Hectares' => 'required|decimal:0,2',
             'Area_Type' => 'required|string|max:99',
             'Commodity_planted' => 'nullable|string|max:99',
@@ -34,6 +34,17 @@ class AreaInformationController extends Controller
 
         $validated_data = $request->validate($validation_rules);
 
+        $isClaimed = false;
+        $areas = Area::where('Lot_No', $validated_data['Lot_No'])->get();
+
+        foreach ($areas as $area) {
+            if($area->is_claimed == true) {
+                $isClaimed = true;
+            } else {
+                $isClaimed = false;
+            }
+        }
+
         $newlyaddedarea = Area::create([
             'Lot_No' => $validated_data['Lot_No'],
             'Hectares' => $validated_data['Hectares'],
@@ -46,7 +57,8 @@ class AreaInformationController extends Controller
             'Lat' => $validated_data['Lat'],
             'Lon' => $validated_data['Lon'],
             'Farm_Type' => $validated_data['Farm_Type'],
-            'RSBSA_No' => $personalInformation->RSBSA_No,
+            'personal_information_id' => $personalInformation->id,
+            'is_claimed' => $isClaimed,
         ]);
 
         activity()->causedBy(Auth::user())->performedOn($newlyaddedarea)->createdAt(now())->log('- Added a new area.');
@@ -69,7 +81,7 @@ class AreaInformationController extends Controller
 
     public function adminStore(Request $request, PersonalInformation $personalInformation): RedirectResponse {
         $validation_rules = [
-            'Lot_No' => 'required|string|max:32|unique:areas,Lot_No',
+            'Lot_No' => 'required|string|max:32',
             'Hectares' => 'required|decimal:0,2',
             'Area_Type' => 'required|string|max:99',
             'Commodity_planted' => 'nullable|string|max:99',
@@ -84,6 +96,18 @@ class AreaInformationController extends Controller
 
         $validated_data = $request->validate($validation_rules);
 
+        $isClaimed = false;
+        $areas = Area::where('Lot_No', $validated_data['Lot_No'])->get();
+
+        foreach ($areas as $area) {
+            if($area->is_claimed == true) {
+                $isClaimed = true;
+            } else {
+                $isClaimed = false;
+            }
+        }
+
+
         $newlyaddedarea = Area::create([
             'Lot_No' => $validated_data['Lot_No'],
             'Hectares' => $validated_data['Hectares'],
@@ -96,7 +120,8 @@ class AreaInformationController extends Controller
             'Lat' => $validated_data['Lat'],
             'Lon' => $validated_data['Lon'],
             'Farm_Type' => $validated_data['Farm_Type'],
-            'RSBSA_No' => $personalInformation->RSBSA_No,
+            'personal_information_id' => $personalInformation->id,
+            'is_claimed' => $isClaimed,
         ]);
 
         activity()->causedBy(Auth::user())->performedOn($newlyaddedarea)->createdAt(now())->log('- Added a new area.');
@@ -108,7 +133,7 @@ class AreaInformationController extends Controller
         $area = $area;
         $personalinformation = $area->personalinformation;
         $area->delete();
-
+        
         activity()->causedBy(Auth::user())->performedOn($area)->createdAt(now())->log('- Deleted an area.');
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'area', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->area])->with('success', 'Area Successfully Deleted');
     }

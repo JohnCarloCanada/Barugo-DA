@@ -18,9 +18,9 @@ class UserPersonalInformationController extends Controller
     public function index(Request $request): View
     {
         $farmers = PersonalInformation::where(function($query) use ($request) {
-            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%');
+            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%')->orWhere('Surname', 'LIKE', '%' . $request->search . '%');;
         });
-        return view('user.managed.managed', ['PersonalInformations' => $farmers->latest()->where('is_approved', true)->paginate(5), 'search' => $request->search]);
+        return view('user.managed.managed', ['PersonalInformations' => $farmers->latest()->where('is_approved', true)->paginate(25), 'search' => $request->search]);
     }
 
     public function create()
@@ -31,7 +31,7 @@ class UserPersonalInformationController extends Controller
     public function store(Request $request): RedirectResponse
     {
         $validation_rules = [
-            'RSBSA_No' => ['required', 'string', 'unique:personal_informations,RSBSA_No', new RSBSANoFormat],
+            'RSBSA_No' => ['nullable', 'string', 'max:24', 'unique:personal_informations,RSBSA_No', new RSBSANoFormat],
             'Surname' => 'required|string',
             'First_Name' => 'required|string',
             'Middle_Name' => 'nullable|string',
@@ -45,7 +45,6 @@ class UserPersonalInformationController extends Controller
             'Name_of_Spouse' => 'nullable|string',
             'Highest_education_qualification' => 'required|string',
             'Main_livelihood' => 'required|string',
-    
         ];
         
         $validated_data = Validator::make($request->all(), $validation_rules);
@@ -121,5 +120,21 @@ class UserPersonalInformationController extends Controller
     {
         $personalInformation->delete();
         return redirect()->route('personalInformation.index')->with('success', 'Farmer Successfully Deleted');
+    }
+
+    public function updateRSBSANumber(Request $request, string $currentRoute): RedirectResponse {
+        $validation_rules = [
+            'RSBSA_No' => ['nullable', 'string', 'max:24', 'unique:personal_informations,RSBSA_No' , new RSBSANoFormat],
+        ];
+
+        $validated_data = $request->validate($validation_rules);
+
+        $personalInformation = PersonalInformation::find($request->id);
+        $personalInformation->update([
+            'RSBSA_No' => $validated_data['RSBSA_No'],
+        ]);
+
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("- Updated a farmers rsbsa number.");
+        return redirect()->route('user.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation])->with('success', 'Farmer RSBSA No. Succesfully Updated');
     }
 }

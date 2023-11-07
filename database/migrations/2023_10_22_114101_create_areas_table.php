@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('areas', function (Blueprint $table) {
             $table->id();
-            $table->string('Lot_No', 32)->unique();
-            $table->string('RSBSA_No', 24);
-            $table->foreign('RSBSA_No')->references('RSBSA_No')->on('personal_informations')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('Lot_No', 32);
+            $table->unsignedBigInteger('personal_information_id');
+            $table->foreign('personal_information_id')->references('id')->on('personal_informations')->onDelete('cascade')->onUpdate('cascade');
             $table->decimal('Hectares', 10, 2);
             $table->string('Area_Type', 99);
             $table->string('Commodity_planted', 99)->nullable();
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('Ownership_Type', 10);
             $table->string('Tenant_Name', 99)->nullable();
             $table->string('Owner_Address', 255);
+            $table->boolean('is_claimed')->default(false)->nullable();
             $table->timestamps();
         });
     }

@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('livestocks', function (Blueprint $table) {
-            $table->id('LiveStockID');
-            $table->string('RSBSA_No', 24);
-            $table->foreign('RSBSA_No')->references('RSBSA_No')->on('personal_informations')->onDelete('cascade')->onUpdate('cascade');
+            $table->id();
+            $table->unsignedBigInteger('personal_information_id');
+            $table->foreign('personal_information_id')->references('id')->on('personal_informations')->onDelete('cascade')->onUpdate('cascade');
             $table->string('LSAnimals', 255);
             $table->string('Sex_LS', 10);
             $table->timestamps();

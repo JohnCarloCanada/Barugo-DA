@@ -67,6 +67,7 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::post('/farmers/store', 'store')->name('adminPersonalInformation.store');
         Route::get('/farmers/{personalInformation}/edit', 'edit')->name('adminPersonalInformation.edit');
         Route::put('/farmers/{personalInformation}/update', 'update')->name('adminPersonalInformation.update');
+        Route::patch('/farmers/{currentRoute}', 'updateRSBSANumber')->name('adminPersonalInformation.updateRSBSANO');
     });
 
     Route::controller(AreaInformationController::class)->group(function() {
@@ -157,6 +158,7 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
         Route::post('/personalInformation/store', 'store')->name('userPersonalInformation.store');
         Route::get('/personalInformation/{personalInformation}/edit', 'edit')->name('userPersonalInformation.edit');
         Route::put('/personalInformation/{personalInformation}/update', 'update')->name('userPersonalInformation.update');
+        Route::patch('/farmers/{currentRoute}', 'updateRSBSANumber')->name('userPersonalInformation.updateRSBSANO');
     });
 
     Route::controller(AreaInformationController::class)->group(function() {

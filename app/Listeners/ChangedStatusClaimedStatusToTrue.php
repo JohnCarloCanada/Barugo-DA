@@ -3,9 +3,10 @@
 namespace App\Listeners;
 
 use App\Events\ClaimedSuccesful;
-use App\Models\PersonalInformation;
+use App\Models\Area;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Session;
 
 class ChangedStatusClaimedStatusToTrue
 {
@@ -23,8 +24,12 @@ class ChangedStatusClaimedStatusToTrue
     public function handle(ClaimedSuccesful $event): void
     {
         //
-        $farmer = PersonalInformation::find($event->request->id);
-        $farmer->is_claimed = true;
-        $farmer->update();
+        if (Session::has('error')) {
+            return;
+        } else {
+            Area::where('Lot_No', $event->request->id)->update([
+                'is_claimed' => 1, 
+            ]);
+        }
     }
 }

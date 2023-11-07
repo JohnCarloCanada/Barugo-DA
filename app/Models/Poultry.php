@@ -19,18 +19,11 @@ class Poultry extends Model
     protected $fillable = [
         'Poultry_Type',
         'Quantity',
-        'RSBSA_No'
+        'personal_information_id'
     ];
 
 
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'PoultryID';
-
     public function personalinformation(): BelongsTo {
-        return $this->belongsTo(PersonalInformation::class, 'RSBSA_No', 'RSBSA_No');
+        return $this->belongsTo(PersonalInformation::class, 'personal_information_id', 'id');
     }
 }

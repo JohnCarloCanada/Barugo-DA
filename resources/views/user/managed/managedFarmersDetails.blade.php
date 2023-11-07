@@ -12,8 +12,15 @@
                 <div class="flex items-center justify-start sm:justify-between gap-3">
                     <div class="relative">
                         <img src="{{asset('images/farmer-3.png')}}" class="max-w-[46px] max-h-[46px] rounded-full bg-gray-300 border" alt="">
-                        <img src="{{asset('images/icons/update.png')}}" class="h-[20px] absolute bg-white rounded-full border bottom-0 right-0 cursor-pointer hover:bg-green-200" alt="">
-                        
+                        <img onclick="toggleDropDown()" src="{{asset('images/icons/update.png')}}" class="h-[20px] absolute bg-white rounded-full border bottom-0 right-0 cursor-pointer hover:bg-green-200" alt="">
+                        <div  id="dropdownTarget" class="nav">
+                            <ul class="w-full">
+                                <li onclick="showClaimSeedForm({{$personalInformation}})" class="flex items-center cursor-pointer justify-center gap-2 p-3 hover:bg-slate-200">
+                                    <img src="{{asset('images/icons/edit.png')}}" class="h-[15px] w-[15px]" alt="">
+                                    <p class="text-center text-slate-700 my-1 font-semibold ">Change RSBSA No.</p>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                     <div>
                         <h2 class="font-bold text-2xl">{{$personalInformation->Surname}}</h2>
@@ -212,3 +219,57 @@
         </div>
     </div>
 </x-app>
+
+<div id="updateRSBSAForm" class="hidden">
+    <div class="h-screen w-screen bg-gray-500/50 fixed top-0 left-0 z-2 flex items-center justify-center">
+        <form method="POST" id="updateRSBSAFormInputValue" action="{{route('userPersonalInformation.updateRSBSANO', ['currentRoute' => $currentRoute])}}" class="p-3 w-full gap-2 text-gray-700 grid md:w-2/4 rounded shadow-md bg-white">
+            @csrf
+            @method('patch')
+
+            <div class="text-[20px] font-semibold w-full flex items-center justify-between px-3 my-2">
+                <p>UPDATE RSBSA NO.</p>
+                <img onclick="showClaimSeedForm()" src="{{asset('images/close.png')}}" class="w-[16px] h-[16px] cursor-pointer" alt="close">
+            </div>
+            <input type="text" name="id" id="" class="hidden">
+            <div class="w-full px-3 flex flex-col gap-1">
+                <label for="RSBSA_No" class="text-[12px] font-semibold">RSBSA No</label>
+                <input type="text" name="RSBSA_No" id="RSBSA_No" placeholder="Enter RSBSA NO" class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
+            </div>
+            <div class="px-3">
+                <button type="submit" class="py-2 w-full mt-3 text-white hover:bg-green-500 rounded font-bold bg-green-700">
+                    Update RSBSA No
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const dropDownTarget = document.getElementById("dropdownTarget")
+
+    const toggleDropDown = ()=>{
+        if(dropDownTarget){
+            dropDownTarget.classList.toggle("navShow");
+        }
+    }
+
+
+    const updateRSBSAForm = document.getElementById('updateRSBSAForm');
+    const form = document.getElementById('updateRSBSAFormInputValue');
+
+    const showClaimSeedForm = (farmer) => {
+        if(updateRSBSAForm) {
+            if(updateRSBSAForm.classList == 'hidden') { 
+                updateRSBSAForm.classList.remove("hidden")
+                if (form && farmer) {
+                    form.id.value = farmer.id;
+                    form.RSBSA_No.value = farmer.RSBSA_No;
+                }
+            }
+            else {
+                updateRSBSAForm.classList.add("hidden")
+            }
+        }
+    }
+</script>
+

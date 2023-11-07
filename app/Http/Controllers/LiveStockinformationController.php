@@ -28,7 +28,7 @@ class LiveStockInformationController extends Controller
         $newlyaddedlivestock = Livestock::create([
             'LSAnimals' => $validated_data['LSAnimals'],
             'Sex_LS' => $validated_data['Sex_LS'],
-            'RSBSA_No' => $personalInformation->RSBSA_No
+            'personal_information_id' => $personalInformation->id,
         ]);
 
         activity()->causedBy(Auth::user())->performedOn($newlyaddedlivestock)->createdAt(now())->log('- Added a new livestock.');
@@ -60,7 +60,7 @@ class LiveStockInformationController extends Controller
         $newlyaddedlivestock = Livestock::create([
             'LSAnimals' => $validated_data['LSAnimals'],
             'Sex_LS' => $validated_data['Sex_LS'],
-            'RSBSA_No' => $personalInformation->RSBSA_No
+            'personal_information_id' => $personalInformation->id,
         ]);
 
         activity()->causedBy(Auth::user())->performedOn($newlyaddedlivestock)->createdAt(now())->log('- Added a new livestock.');

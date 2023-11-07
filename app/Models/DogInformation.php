@@ -26,17 +26,11 @@ class DogInformation extends Model
         'Date_of_Registration',
         'Last_Vac_Month',
         'Remarks',
-        'RSBSA_No',
+        'personal_information_id',
     ];
 
-    /**
-     * The primary key associated with the table.
-     *
-     * @var string
-     */
-    protected $primaryKey = 'DogID';
 
     public function personalinformation(): BelongsTo {
-        return $this->belongsTo(PersonalInformation::class, 'RSBSA_No', 'RSBSA_No');
+        return $this->belongsTo(PersonalInformation::class, 'personal_information_id', 'id');
     }
 }

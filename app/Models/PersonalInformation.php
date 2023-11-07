@@ -72,22 +72,22 @@ class PersonalInformation extends Model
     /* public $incrementing = false; */
 
     public function livestock(): HasMany {
-        return $this->hasMany(Livestock::class, 'RSBSA_No', 'RSBSA_No');
+        return $this->hasMany(Livestock::class, 'personal_information_id', 'id');
     }
 
     public function machinery(): HasMany {
-        return $this->hasMany(Machinery::class, 'RSBSA_No', 'RSBSA_No');
+        return $this->hasMany(Machinery::class, 'personal_information_id', 'id');
     }
 
     public function area(): HasMany {
-        return $this->hasMany(Area::class, 'RSBSA_No', 'RSBSA_No');
+        return $this->hasMany(Area::class, 'personal_information_id', 'id');
     }
 
     public function poultry(): HasMany {
-        return $this->hasMany(Poultry::class, 'RSBSA_No', 'RSBSA_No');
+        return $this->hasMany(Poultry::class, 'personal_information_id', 'id');
     }
 
     public function doginformation(): HasMany {
-        return $this->hasMany(DogInformation::class, 'RSBSA_No', 'RSBSA_No'); 
+        return $this->hasMany(DogInformation::class, 'personal_information_id', 'id'); 
     }
 }

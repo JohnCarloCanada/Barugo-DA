@@ -5,12 +5,12 @@
 
     <x-admin.sidebar type="managed farmers"/>
 
-    <section class="w-full min-h-screen p-5 overflow-x-auto">
+    <section class="w-full bg-slate-100 min-h-screen p-5 overflow-hidden">
         <x-admin.titleCard title="Farmers Details" slogan="Farmers Current Information" />
-        <div class="flex flex-col min-w-[800px] md:max-w-full h-full">
-            <table class="flex flex-col shadow-md border-2 rounded">
+        <div class="flex flex-col w-[min(100%,1300px)] overflow-x-auto min-h-[600px] shadow-2xl rounded-2xl">
+            <table class="w-[max(100%,1100px)] flex flex-col shadow-md border-2 rounded">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
-                    <th class="w-full px-3 flex flex-col sm:flex-row items-center justify-between gap-y-4 sm:gap-y-0 gap-x-3 relative py-2">
+                    <th class="w-full px-3 flex flex-col sm:flex-row items-start justify-between gap-y-4 sm:gap-y-0 gap-x-3 relative py-2">
                         <div class="py-2 bg-green-700 text-white md:w-[25%] w-full">
                             <form action="{{route('adminPersonalInformation.index')}}" method="GET" class="w-full">
                                 @csrf

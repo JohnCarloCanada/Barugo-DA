@@ -25,7 +25,7 @@
                 <img class="w-[5rem]" src="{{asset('images/chicken.png')}}" alt="">
                 <div>
                     <p class="">Animals</p>
-                    <p class="text-3xl">100</p>
+                    <p class="text-3xl">{{$totalAnimals}}</p>
                 </div>
             </li>
             <a href="{{route('adminControlPanelSeed.index')}}">

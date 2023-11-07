@@ -16,10 +16,10 @@ class AdminPersonalInformationController extends Controller
 {
     public function farmer(Request $request): View {
         $approvedFarmers = PersonalInformation::where(function($query) use ($request) {
-            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%');
+            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%')->orWhere('Surname', 'LIKE', '%' . $request->search . '%');
         });
 
-        $approvedFarmers = $approvedFarmers->latest()->where('is_approved', true)->paginate(5);
+        $approvedFarmers = $approvedFarmers->latest()->where('is_approved', true)->paginate(25);
         $notApprovedFarmersCount = PersonalInformation::where('is_approved', false)->count();
         $needUpdateFarmersCount = PersonalInformation::where('update_status', true)->count();
         
@@ -28,10 +28,10 @@ class AdminPersonalInformationController extends Controller
 
     public function needApproval(Request $request): View {
         $notApprovedFarmers = PersonalInformation::where(function($query) use ($request) {
-            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%');
+            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%')->orWhere('Surname', 'LIKE', '%' . $request->search . '%');
         });
 
-        $notApprovedFarmers = $notApprovedFarmers->latest()->where('is_approved', false)->paginate(5);
+        $notApprovedFarmers = $notApprovedFarmers->latest()->where('is_approved', false)->paginate(25);
         $notApprovedFarmersCount = PersonalInformation::where('is_approved', false)->count();
         $needUpdateFarmersCount = PersonalInformation::where('update_status', true)->count();
         return view('admin.farmer.approval', ['PersonalInformations' => $notApprovedFarmers, 'notApprovedCount' => $notApprovedFarmersCount, 'needUpdateFarmersCount' => $needUpdateFarmersCount, 'search' => $request->search]);
@@ -39,10 +39,10 @@ class AdminPersonalInformationController extends Controller
 
     public function needUpdate(Request $request): View {
         $needUpdateFarmers = PersonalInformation::where(function($query) use ($request) {
-            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%');
+            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%')->orWhere('Surname', 'LIKE', '%' . $request->search . '%');
         });
 
-        $needUpdateFarmers = $needUpdateFarmers->latest()->where('is_approved', true)->where('update_status', true)->paginate(5);
+        $needUpdateFarmers = $needUpdateFarmers->latest()->where('is_approved', true)->where('update_status', true)->paginate(25);
         $notApprovedFarmersCount = PersonalInformation::where('is_approved', false)->count();
         $needUpdateFarmersCount = PersonalInformation::where('update_status', true)->count();
         return view('admin.farmer.update', ['PersonalInformations' => $needUpdateFarmers, 'notApprovedCount' => $notApprovedFarmersCount, 'needUpdateFarmersCount' => $needUpdateFarmersCount, 'search' => $request->search]);
@@ -93,7 +93,7 @@ class AdminPersonalInformationController extends Controller
 
     public function store(Request $request): RedirectResponse {
         $validation_rules = [
-            'RSBSA_No' => ['required', 'string', 'unique:personal_informations,RSBSA_No', new RSBSANoFormat],
+            'RSBSA_No' => ['nullable', 'string', 'max:24', 'unique:personal_informations,RSBSA_No', new RSBSANoFormat],
             'Surname' => 'required|string',
             'First_Name' => 'required|string',
             'Middle_Name' => 'nullable|string',
@@ -187,5 +187,22 @@ class AdminPersonalInformationController extends Controller
         activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("- Updated a farmers information.");
 
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Edited');
+    }
+
+    public function updateRSBSANumber(Request $request, string $currentRoute): RedirectResponse {
+        $validation_rules = [
+            'RSBSA_No' => ['nullable', 'string', 'max:24', 'unique:personal_informations,RSBSA_No' , new RSBSANoFormat],
+        ];
+
+        $validated_data = $request->validate($validation_rules);
+
+        $personalInformation = PersonalInformation::find($request->id);
+        $personalInformation->update([
+            'RSBSA_No' => $validated_data['RSBSA_No'],
+        ]);
+
+
+        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("- Updated a farmers rsbsa number.");
+        return redirect()->route('admin.farmerDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation])->with('success', 'Farmer RSBSA No. Succesfully Updated');
     }
 }

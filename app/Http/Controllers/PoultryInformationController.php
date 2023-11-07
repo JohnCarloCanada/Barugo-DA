@@ -27,7 +27,7 @@ class PoultryInformationController extends Controller
         $newlyaddedpoultry = Poultry::create([
             'Poultry_Type' => $validated_data['Poultry_Type'],
             'Quantity' => $validated_data['Quantity'],
-            'RSBSA_No' => $personalInformation->RSBSA_No
+            'personal_information_id' => $personalInformation->id,
         ]);
 
         activity()->causedBy(Auth::user())->performedOn($newlyaddedpoultry)->createdAt(now())->log('- Added a new poultry.');
@@ -58,7 +58,7 @@ class PoultryInformationController extends Controller
         $newlyaddedpoultry = Poultry::create([
             'Poultry_Type' => $validated_data['Poultry_Type'],
             'Quantity' => $validated_data['Quantity'],
-            'RSBSA_No' => $personalInformation->RSBSA_No
+            'personal_information_id' => $personalInformation->id,
         ]);
 
         activity()->causedBy(Auth::user())->performedOn($newlyaddedpoultry)->createdAt(now())->log('- Added a new poultry.');

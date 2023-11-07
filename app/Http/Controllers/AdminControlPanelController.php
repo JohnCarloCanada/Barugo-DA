@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\Option;
 use App\Models\PersonalInformation;
 use App\Models\Season;
@@ -80,7 +81,7 @@ class AdminControlPanelController extends Controller
             ]);
         }
 
-        PersonalInformation::where('is_claimed', 1)->update([
+        Area::where('is_claimed', 1)->update([
             'is_claimed' => 0,
         ]);
 
@@ -111,7 +112,7 @@ class AdminControlPanelController extends Controller
         $season->Status = 'Inactive';
         $season->save();
 
-        PersonalInformation::where('is_claimed', 1)->update([
+        Area::where('is_claimed', 1)->update([
             'is_claimed' => 0,
         ]);
 

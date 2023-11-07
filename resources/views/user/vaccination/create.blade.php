@@ -61,11 +61,6 @@
                         <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Color" id="Color" placeholder="Color">
                     </div>
                     <div class="w-full flex flex-col sm:flex-row gap-3 my-2">
-                        {{-- <div class="w-full bg-[#e8e8e8] flex flex-col sm:flex-row items-start sm:items-center justify-start gap-2 px-3 py-1">
-                            <label class="text-gray-400 text-base whitespace-nowrap" for="Date_of_Registration">Date of Registration: </label>
-                            <input class="bg-[#e8e8e8] w-full px-3 py-1 text-gray-400 border-gray-400 border-1" type="date" name="Date_of_Registration" id="Date_of_Registration">
-                        </div> --}}
-
                         <div class="w-full bg-[#e8e8e8] flex flex-col sm:flex-row items-start sm:items-center justify-start gap-2 px-3 py-1">
                             <label class="text-gray-400 text-base whitespace-nowrap" for="Last_Vac_Month">Last Vaccination: </label>
                             <input class="bg-[#e8e8e8] w-[min(100%,300px)] px-3 py-1 text-gray-400 border-gray-400 border-1" type="date" name="Last_Vac_Month" id="Last_Vac_Month">
@@ -75,12 +70,27 @@
                     <h3 class="bg-[#679f69] px-3 py-1 font-bold text-white">Part II: Owner Profile</h3>
                     <div class="w-full flex flex-col sm:flex-row items-center gap-3 my-2">
                         <label class="text-base text-[#979797] whitespace-nowrap" for="RSBSA_No" >RSBSA No</label>
-                        <select class="bg-[#e8e8e8]  w-[min(100px,100%)] px-3 py-1 text-gray-400" name="RSBSA_No" id="RSBSA_No">
+                        <select class="w-full bg-[#e8e8e8] px-3 py-1 text-gray-400" name="RSBSA_No" id="RSBSA_No">
                             @foreach ($personalInformation as $info)
                                 <option class="bg-[#e8e8e8]" value="{{$info->id}}">{{$info->RSBSA_No}}</option>
                             @endforeach
                         </select>
+                        <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-start gap-2 bg-[#e8e8e8] px-3 py-1">
+                            <p class="font-semibold text-base text-gray-400 mr-3 whitespace-nowrap">Have RSBSA No.</p>
+                            <div class="flex items-center justify-center gap-1 mr-3">
+                                <input checked class="w-full" type="radio" name="choice" id="true" value="true">
+                                <label class="text-gray-400" for="true">Yes</label>
+                            </div>
+                            <div class="flex items-center justify-center gap-1 mr-3">
+                                <input type="radio" name="choice" id="false" value="false">
+                                <label class="text-gray-400" for="false">No</label>
+                            </div>
+                        </div>
+
+                        <label class="sr-only" for="Owner_Name">Owner_Name: </label>
+                        <input disabled class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Owner_Name" id="Owner_Name" placeholder="Dog Name">
                     </div>
+                    
 
                     <h3 class="bg-[#679f69] px-3 py-1 font-bold text-white">Part III: Remarks</h3>
                     <div class="w-full flex flex-col gap-3 my-2">
@@ -96,3 +106,19 @@
         </section>
     </section>
 </x-app>
+
+
+<script>
+    const choiceBtn = document.querySelectorAll('input[name="choice"]');
+    const ownerNameInput = document.querySelector('input[name="Owner_Name"]');
+
+    choiceBtn.forEach(btn => {
+        btn.addEventListener('change', () => {
+            if(btn.value === 'true') {
+                ownerNameInput.disabled = true;
+            } else {
+                ownerNameInput.disabled = false;
+            }
+        })
+    })
+</script>

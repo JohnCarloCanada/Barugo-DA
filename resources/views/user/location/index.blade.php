@@ -57,12 +57,14 @@
 
 <script>
     const locations = {{Js::From($locations)}}
+
+    console.log(locations);
     
     let map = L.map('map').setView([11.3002, 124.7630], 13);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
 
     locations.forEach(location => {
         var marker = L.marker([parseFloat(location.Lat), parseFloat(location.Lon)]).addTo(map);
-        marker.bindPopup(` ${location.RSBSA_No}: ${location.Lot_No}-${location.Area_Type} Area`).openPopup();
+        marker.bindPopup(` ${location.RSBSA_No ?? 'NO RSBSA Number '} : ${location.Lot_No}-${location.Area_Type} Area`).openPopup();
     });
 </script>

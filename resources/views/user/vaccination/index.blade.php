@@ -16,13 +16,13 @@
                 <div class="py-2 bg-green-700 text-white w-full">
                     <form action="{{route('dogVaccinationInformation.index')}}" method="GET" class="w-full">
                         @csrf
-                        <input name="search" class="w-full px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search..." type="text" value="{{$search}}">
+                        <input name="search" class="w-full px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search Dog Name or Owner Name" type="text" value="{{$search}}">
                     </form>
                 </div>
             </div>
         </section>
-        <section class="w-[100%,900px] h-[500px] mx-auto overflow-x-auto bg-white rounded-lg">
-            <table class="w-full mt-5 text-center">
+        <section class="w-[min(100%,1300px)] h-[500px] overflow-x-auto mx-auto bg-white rounded-lg">
+            <table class="w-[max(100%,1100px)] mt-5 text-center">
                 <thead>
                     <tr>
                         <th class="whitespace-nowrap">Date of Registration</th>
@@ -40,7 +40,7 @@
         
                 <tbody>
                     @foreach ($DogInformations as $dogInformation)
-                        <tr class="pt-10 odd:bg-slate-200">
+                        <tr class="pt-10 odd:bg-slate-300">
                             <td>{{$dogInformation->Date_of_Registration}}</td>
                             <td>{{$dogInformation->Dog_Name}}</td>
                             <td>{{$dogInformation->Age}}</td>
@@ -70,8 +70,8 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="mt-3 sm:mt-4 shadow-2xl w-full">{{ $DogInformations->links('pagination::tailwind')}}</div>
         </section>
+        <div class="w-full mt-3 bg-white rounded-xl px-2 font-bold">{{$DogInformations->links('pagination::tailwind')}}</div>
     </section>
 </x-app>
 

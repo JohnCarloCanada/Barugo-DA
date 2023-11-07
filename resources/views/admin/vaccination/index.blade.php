@@ -6,7 +6,7 @@
     <x-admin.sidebar type="canine records"/>
 
     <section class="w-full min-h-screen bg-green-700 p-5 overflow-y-auto">
-        <section class="flex flex-col my-2 items-start justify-center gap-y-6">
+        <section class="flex flex-col my-2 items-center justify-center gap-y-6">
             <h2 class="text-2xl sm:text-4xl mx-2 font-bold text-white">Canine Vaccination Records</h2>
             <div class="flex flex-col sm:flex-row items-start sm:items-center gap-y-3 sm:gap-y-0 justify-center gap-x-3">
                 <a aria-label="Go to add farmers" class="py-2 px-6 bg-[#679f69] rounded flex items-center justify-between gap-x-4" href="{{route('adminDogVaccinationInformation.create')}}">
@@ -16,15 +16,15 @@
                 <div class="py-2 bg-green-700 text-white w-full">
                     <form action="{{route('adminDogVaccinationInformation.index')}}" method="GET" class="w-full">
                         @csrf
-                        <input name="search" class="w-full px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search RSBSA_No or Owner Name" type="text" value="{{$search}}">
+                        <input name="search" class="w-full px-3 py-1 font-normal bg-slate-100 rounded outline-0 text-ms text-slate-800" placeholder="Search Dog Name or Owner Name" type="text" value="{{$search}}">
                     </form>
                 </div>
             </div>
         </section>
-        <section class="w-[100%,900px] h-[500px] mx-auto overflow-x-auto bg-white rounded-lg">
-            <table class="w-full mt-5 text-center">
+        <section class="w-[min(100%,1300px)] h-[500px] overflow-x-auto mx-auto bg-white rounded-lg">
+            <table class="w-[max(100%,1100px)] mt-5 text-center">
                 <thead>
-                    <tr>
+                    <tr class="text-xs sm:text-base px-4">
                         <th class="whitespace-nowrap">Date of Registration</th>
                         <th class="">Name</th>
                         <th class="">Age</th>
@@ -40,7 +40,7 @@
         
                 <tbody>
                     @foreach ($DogInformations as $dogInformation)
-                        <tr class="pt-10 odd:bg-slate-200">
+                        <tr class="pt-10 odd:bg-slate-200 text-sm sm:text-base"">
                             <td>{{$dogInformation->Date_of_Registration}}</td>
                             <td>{{$dogInformation->Dog_Name}}</td>
                             <td>{{$dogInformation->Age}}</td>
@@ -70,7 +70,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="w-full mt-3">{{$DogInformations->links('pagination::tailwind')}}</div>
         </section>
+        <div class="w-full mt-3 bg-white rounded-xl px-2 font-bold">{{$DogInformations->links('pagination::tailwind')}}</div>
     </section>
 </x-app>

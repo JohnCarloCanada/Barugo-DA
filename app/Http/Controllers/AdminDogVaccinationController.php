@@ -15,10 +15,10 @@ class AdminDogVaccinationController extends Controller
     //
     public function index(Request $request): View {
         $dogs = DogInformation::where(function($query) use ($request) {
-            $query->where('Owner_Name', 'LIKE', '%' . $request->search . '%')->orWhere('Dog_Name', 'LIKE', '%' . $request->search . '%')->orWhere('RSBSA_No', 'LIKE', '%' . $request->search . '%');
+            $query->where('Owner_Name', 'LIKE', '%' . $request->search . '%')->orWhere('Dog_Name', 'LIKE', '%' . $request->search . '%');
         });
 
-        return view('admin.vaccination.index', ['DogInformations' => $dogs->paginate(10), 'search' => $request->search]);
+        return view('admin.vaccination.index', ['DogInformations' => $dogs->latest()->paginate(100), 'search' => $request->search]);
     }
 
     public function vaccination(DogInformation $dogInformation): RedirectResponse {
@@ -31,12 +31,12 @@ class AdminDogVaccinationController extends Controller
     }
 
     public function create(): View {
-        return view('admin.vaccination.create', ['personalInformation' => PersonalInformation::where('is_approved', true)->get()]);
+        return view('admin.vaccination.create', ['personalInformation' => PersonalInformation::where('is_approved', true)->whereNotNull('RSBSA_No')->get()]);
     }
 
     public function store(Request $request): RedirectResponse {
         $validation_rules = [
-            'RSBSA_No' => 'required|string',
+            'RSBSA_No' => 'nullable|string',
             'Dog_Name' => 'required|string|max:99',
             'Species' => 'required|string|max:99',
             'Sex' => 'required|string|max:9',
@@ -45,17 +45,24 @@ class AdminDogVaccinationController extends Controller
             'Color' => 'required|string|max:19',
             'Last_Vac_Month' => 'nullable|date',
             'Remarks' => 'nullable|string|max:255',
+            'Owner_Name' => 'nullable|string|max:99',
         ];
 
         $validated_data = $request->validate($validation_rules);
-        $Owner = PersonalInformation::find($validated_data['RSBSA_No']);
 
-        $Initial = Str::upper(Str::substr($Owner->Middle_Name, 0, 1));
+        $Owner = NULL;
+        $OwnerName = '';
 
-        $OwnerName = $Owner->Middle_Name == NULL ? $Owner->First_Name . ' ' . $Owner->Surname : $Owner->First_Name . ' '. $Initial . '.' . ' ' . $Owner->Surname;
+        if($request->choice === 'true') {
+            $Owner = PersonalInformation::find($validated_data['RSBSA_No']);
+            $Initial = Str::upper(Str::substr($Owner->Middle_Name, 0, 1));
+            $OwnerName = $Owner->Middle_Name == NULL ? $Owner->First_Name . ' ' . $Owner->Surname : $Owner->First_Name . ' '. $Initial . '.' . ' ' . $Owner->Surname;
+        } else {
+            $OwnerName = $validated_data['Owner_Name'];
+        }
 
         $newlyaddeddogrecord = DogInformation::create([
-            'RSBSA_No' => $Owner->RSBSA_No,
+            'personal_information_id' => $Owner->id ?? NULL,
             'Owner_Name' => $OwnerName,
             'Dog_Name' => $validated_data['Dog_Name'],
             'Species' => $validated_data['Species'],
@@ -84,7 +91,7 @@ class AdminDogVaccinationController extends Controller
     }
 
     public function edit(DogInformation $dogInformation): View {
-        return view('admin.vaccination.edit', ['DogInformation' => $dogInformation, 'personalInformation' => PersonalInformation::latest()->get()]);
+        return view('admin.vaccination.edit', ['DogInformation' => $dogInformation, 'personalInformation' => PersonalInformation::latest()->whereNotNull('RSBSA_No')->get()]);
     }
 
     public function update(Request $request, DogInformation $dogInformation): RedirectResponse {
@@ -105,7 +112,7 @@ class AdminDogVaccinationController extends Controller
         $OwnerName = $Owner->Middle_Name == NULL ? $Owner->First_Name . ' ' . $Owner->Surname : $Owner->First_Name . ' '. $Initial . '.' . ' ' . $Owner->Surname;
 
         $dogInformation->update([
-            'RSBSA_No' => $Owner->RSBSA_No,
+            'personal_information_id' => $Owner->id,
             'Owner_Name' => $OwnerName,
             'Dog_Name' => $validated_data['Dog_Name'],
             'Species' => $validated_data['Species'],

@@ -31,12 +31,38 @@ class GeoMappingController extends Controller
             ['path' => LengthAwarePaginator::resolveCurrentPath()],
         );
 
-        return view('user.location.index', ['locations' => Area::get(), 'farmers' => $paginatedResearchResult, 'currentFarmer' => NULL]);
+        $areas = Area::get();
+        $areasArray = [];
+
+        foreach ($areas as $area) {
+            $areasArray[] = [
+                "RSBSA_No" => $area->personalinformation->RSBSA_No ?? null,
+                "Lot_No" => $area->Lot_No,
+                "Area_Type" => $area->Area_Type,
+                "Lat" => $area->Lat,
+                "Lon" => $area->Lon,
+            ];
+        }
+
+        return view('user.location.index', ['locations' => collect($areasArray), 'farmers' => $paginatedResearchResult, 'currentFarmer' => NULL]);
     }
 
     public function userShowSpecificFarmerMap(PersonalInformation $personalInformation): View {
         $SpecificFarmerArea = $personalInformation->area()->get();
-        return view('user.location.index', ['locations' => $SpecificFarmerArea, 'farmers' => PersonalInformation::where('is_approved', true)->paginate(5), 'currentFarmer' => $personalInformation, 'search' => '']);
+
+        $areasArray = [];
+
+        foreach ($SpecificFarmerArea as $area) {
+            $areasArray[] = [
+                "RSBSA_No" => $area->personalinformation->RSBSA_No ?? null,
+                "Lot_No" => $area->Lot_No,
+                "Area_Type" => $area->Area_Type,
+                "Lat" => $area->Lat,
+                "Lon" => $area->Lon,
+            ];
+        }
+        
+        return view('user.location.index', ['locations' => collect($areasArray), 'farmers' => PersonalInformation::where('is_approved', true)->paginate(5), 'currentFarmer' => $personalInformation, 'search' => '']);
     }
 
     //Admin
@@ -59,11 +85,37 @@ class GeoMappingController extends Controller
             ['path' => LengthAwarePaginator::resolveCurrentPath()],
         );
 
-        return view('admin.location.index', ['locations' => Area::get(), 'farmers' => $paginatedResearchResult, 'currentFarmer' => NULL]);
+        $areas = Area::get();
+        $areasArray = [];
+
+        foreach ($areas as $area) {
+            $areasArray[] = [
+                "RSBSA_No" => $area->personalinformation->RSBSA_No ?? null,
+                "Lot_No" => $area->Lot_No,
+                "Area_Type" => $area->Area_Type,
+                "Lat" => $area->Lat,
+                "Lon" => $area->Lon,
+            ];
+        }
+
+        return view('admin.location.index', ['locations' => collect($areasArray), 'farmers' => $paginatedResearchResult, 'currentFarmer' => NULL]);
     }
 
     public function adminShowSpecificFarmerMap(PersonalInformation $personalInformation): View {
         $SpecificFarmerArea = $personalInformation->area()->get();
-        return view('admin.location.index', ['locations' => $SpecificFarmerArea, 'farmers' => PersonalInformation::where('is_approved', true)->paginate(5), 'currentFarmer' => $personalInformation, 'search' => '']);
+
+        $areasArray = [];
+
+        foreach ($SpecificFarmerArea as $area) {
+            $areasArray[] = [
+                "RSBSA_No" => $area->personalinformation->RSBSA_No ?? null,
+                "Lot_No" => $area->Lot_No,
+                "Area_Type" => $area->Area_Type,
+                "Lat" => $area->Lat,
+                "Lon" => $area->Lon,
+            ];
+        }
+        
+        return view('admin.location.index', ['locations' => collect($areasArray), 'farmers' => PersonalInformation::where('is_approved', true)->paginate(5), 'currentFarmer' => $personalInformation, 'search' => '']);
     }
 }
