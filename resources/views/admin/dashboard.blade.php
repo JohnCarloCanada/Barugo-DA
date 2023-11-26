@@ -10,50 +10,50 @@
         <ol class="grid md:grid-cols-3 max-auto grid-cols-1 mt-5 gap-4 relative">
             <a href="{{route('adminPersonalInformation.index')}}">
                 <li
-                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border-2 border-slate-500 shadow-md rounded-lg h-[10rem] hover:scale-105 duration-200"
             >
-                    <img class="w-[5rem]" src="{{asset('images/farmer-3.png')}}" alt="">
-                    <div>
+                    <img class="w-[5rem]" src="{{asset('images/icons/peasant.png')}}" alt="">
+                    <div class="flex flex-col items-center">
                         <p class="">Farmers</p>
                         <p class="text-3xl">{{$farmersCount}}</p>
                     </div>
                 </li>
             </a>
             <li
-                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl  border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border-2 border-slate-500 shadow-md rounded-lg h-[10rem] hover:scale-105 duration-200"
             >
-                <img class="w-[5rem]" src="{{asset('images/chicken.png')}}" alt="">
-                <div>
+                <img class="w-[5rem]" src="{{asset('images/icons/Animals-Icon.png')}}" alt="">
+                <div class="flex flex-col items-center">
                     <p class="">Animals</p>
                     <p class="text-3xl">{{$totalAnimals}}</p>
                 </div>
             </li>
             <a href="{{route('adminControlPanelSeed.index')}}">
                 <li
-                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl  border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border-2 border-slate-500 shadow-md rounded-lg h-[10rem] hover:scale-105 duration-200"
             >
-                <img class="w-[5rem]" src="{{asset('images/seeding.png')}}" alt="">
-                <div>
+                <img class="w-[5rem]" src="{{asset('images/icons/Seed-Icon.png')}}" alt="">
+                <div class="flex flex-col items-center">
                     <p class="">Seeds</p>
                     <p class="text-3xl">{{$totalSeeds}}</p>
                 </div>
             </li>
             </a>
             <li
-                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl  border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+                class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border-2 border-slate-500 shadow-md rounded-lg h-[10rem] hover:scale-105 duration-200"
             >
-                <img class="w-[5rem]" src="{{asset('images/syringe.png')}}" alt="">
-                <div>
+                <img class="w-[5rem]" src="{{asset('images/icons/inject.png')}}" alt="">
+                <div class="flex flex-col items-center">
                     <p class="">Vaccinations</p>
                     <p class="text-3xl">{{$totalVaccinations}}</p>
                 </div>
             </li>
             <a href="{{route('adminLocation.index')}}">
                 <li
-                    class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl  border-2 border-slate-500 shadow-md rounded-lg h-[10rem]"
+                    class="flex items-center cursor-pointer bg-green-200 justify-around font-bold text-2xl border-2 border-slate-500 shadow-md rounded-lg h-[10rem] hover:scale-105 duration-200"
                 >
-                    <img class="w-[5rem]" src="{{asset('images/map.png')}}" alt="">
-                    <div>
+                    <img class="w-[5rem]" src="{{asset('images/icons/location.png')}}" alt="">
+                    <div class="flex flex-col items-center">
                         <p class="">Locations</p>
                         <p class="text-3xl">{{$locationsCount}}</p>
                     </div>

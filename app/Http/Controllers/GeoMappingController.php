@@ -7,6 +7,7 @@ use App\Models\PersonalInformation;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 
 class GeoMappingController extends Controller
 {
@@ -35,12 +36,22 @@ class GeoMappingController extends Controller
         $areasArray = [];
 
         foreach ($areas as $area) {
+
+            // Get Middle Initial if there is
+            $initial = '';
+            if($area->personalinformation->Middle_Name) {
+                $initial = Str::upper(Str::substr($area->personalinformation->Middle_Name, 0, 1)) . '.';
+            } else {
+                $initial = '';
+            }
+
             $areasArray[] = [
                 "RSBSA_No" => $area->personalinformation->RSBSA_No ?? null,
                 "Lot_No" => $area->Lot_No,
                 "Area_Type" => $area->Area_Type,
                 "Lat" => $area->Lat,
                 "Lon" => $area->Lon,
+                "Name" => $area->personalinformation->First_Name . ' ' . $initial . ' ' . $area->personalinformation->Surname,
             ];
         }
 
@@ -53,12 +64,21 @@ class GeoMappingController extends Controller
         $areasArray = [];
 
         foreach ($SpecificFarmerArea as $area) {
+            // Get Middle Initial if there is
+            $initial = '';
+            if($area->personalinformation->Middle_Name) {
+                $initial = Str::upper(Str::substr($area->personalinformation->Middle_Name, 0, 1)) . '.';
+            } else {
+                $initial = '';
+            }
+            
             $areasArray[] = [
                 "RSBSA_No" => $area->personalinformation->RSBSA_No ?? null,
                 "Lot_No" => $area->Lot_No,
                 "Area_Type" => $area->Area_Type,
                 "Lat" => $area->Lat,
                 "Lon" => $area->Lon,
+                "Name" => $area->personalinformation->First_Name . ' ' . $initial . ' ' . $area->personalinformation->Surname,
             ];
         }
         
@@ -89,12 +109,22 @@ class GeoMappingController extends Controller
         $areasArray = [];
 
         foreach ($areas as $area) {
+
+            // Get Middle Initial if there is
+            $initial = '';
+            if($area->personalinformation->Middle_Name) {
+                $initial = Str::upper(Str::substr($area->personalinformation->Middle_Name, 0, 1)) . '.';
+            } else {
+                $initial = '';
+            }
+
             $areasArray[] = [
                 "RSBSA_No" => $area->personalinformation->RSBSA_No ?? null,
                 "Lot_No" => $area->Lot_No,
                 "Area_Type" => $area->Area_Type,
                 "Lat" => $area->Lat,
                 "Lon" => $area->Lon,
+                "Name" => $area->personalinformation->First_Name . ' ' . $initial . ' ' . $area->personalinformation->Surname,
             ];
         }
 
@@ -107,12 +137,22 @@ class GeoMappingController extends Controller
         $areasArray = [];
 
         foreach ($SpecificFarmerArea as $area) {
+
+            // Get Middle Initial if there is
+            $initial = '';
+            if($area->personalinformation->Middle_Name) {
+                $initial = Str::upper(Str::substr($area->personalinformation->Middle_Name, 0, 1)) . '.';
+            } else {
+                $initial = '';
+            }
+
             $areasArray[] = [
                 "RSBSA_No" => $area->personalinformation->RSBSA_No ?? null,
                 "Lot_No" => $area->Lot_No,
                 "Area_Type" => $area->Area_Type,
                 "Lat" => $area->Lat,
                 "Lon" => $area->Lon,
+                "Name" => $area->personalinformation->First_Name . ' ' . $initial . ' ' . $area->personalinformation->Surname,
             ];
         }
         

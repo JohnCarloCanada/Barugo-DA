@@ -63,6 +63,6 @@
 
     locations.forEach(location => {
         var marker = L.marker([parseFloat(location.Lat), parseFloat(location.Lon)]).addTo(map);
-        marker.bindPopup(` ${location.RSBSA_No ?? 'NO RSBSA Number '} : ${location.Lot_No}-${location.Area_Type} Area`).openPopup();
+        marker.bindPopup(` ${location.RSBSA_No ?? 'NO RSBSA Number '}-${location.Name} : ${location.Lot_No}-${location.Area_Type} Area`).openPopup();
     });
 </script>
