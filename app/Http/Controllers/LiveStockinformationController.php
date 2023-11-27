@@ -31,7 +31,7 @@ class LiveStockInformationController extends Controller
             'personal_information_id' => $personalInformation->id,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($newlyaddedlivestock)->createdAt(now())->log('- Added a new livestock.');
+        activity('Activity Logs')->causedBy(Auth::user())->performedOn($newlyaddedlivestock)->createdAt(now())->log('- Added a new livestock.');
 
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock])->with('success', 'Livestock Successfully Added');
     }
@@ -41,7 +41,7 @@ class LiveStockInformationController extends Controller
         $personalinformation = $livestock->personalinformation;
         $livestock->delete();
 
-        activity()->causedBy(Auth::user())->performedOn($livestock)->createdAt(now())->log('- Delete a livestock.');
+        activity('Activity Logs')->causedBy(Auth::user())->performedOn($livestock)->createdAt(now())->log('- Delete a livestock.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->livestock])->with('success', 'Livestock Successfully Deleted');
     }
 
@@ -63,7 +63,7 @@ class LiveStockInformationController extends Controller
             'personal_information_id' => $personalInformation->id,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($newlyaddedlivestock)->createdAt(now())->log('- Added a new livestock.');
+        activity('Activity Logs')->causedBy(Auth::user())->performedOn($newlyaddedlivestock)->createdAt(now())->log('- Added a new livestock.');
 
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock])->with('success', 'Livestock Successfully Added');
     }
@@ -73,7 +73,7 @@ class LiveStockInformationController extends Controller
         $personalinformation = $livestock->personalinformation;
         $livestock->delete();
 
-        activity()->causedBy(Auth::user())->performedOn($livestock)->createdAt(now())->log('- Delete a livestock.');
+        activity('Activity Logs')->causedBy(Auth::user())->performedOn($livestock)->createdAt(now())->log('- Delete a livestock.');
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->livestock])->with('success', 'Livestock Successfully Deleted');
     }
 }

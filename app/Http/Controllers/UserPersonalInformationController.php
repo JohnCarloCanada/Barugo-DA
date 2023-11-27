@@ -55,7 +55,7 @@ class UserPersonalInformationController extends Controller
 
         $data = PersonalInformation::create($validated_data->validated());
 
-        activity()->causedBy(Auth::user())->performedOn($data)->createdAt(now())->log('- Added a new farmer waiting for approval.');
+        activity('Activity Logs')->causedBy(Auth::user())->performedOn($data)->createdAt(now())->log('- Added a new farmer waiting for approval.');
 
         return redirect()->route('userPersonalInformation.index')->with('success', 'Farmer Successfully Added');
     }
@@ -111,7 +111,7 @@ class UserPersonalInformationController extends Controller
             'update_status' => true,
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log('- Edited a farmer waiting for approval.');
+        activity('Activity Logs')->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log('- Edited a farmer waiting for approval.');
 
         return redirect()->route('userPersonalInformation.index')->with('success', 'Farmer Successfully Edited');
     }
@@ -134,7 +134,7 @@ class UserPersonalInformationController extends Controller
             'RSBSA_No' => $validated_data['RSBSA_No'],
         ]);
 
-        activity()->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("- Updated a farmers rsbsa number.");
+        activity('Activity Logs')->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("- Updated a farmers rsbsa number.");
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => $currentRoute, 'personalInformation' => $personalInformation])->with('success', 'Farmer RSBSA No. Succesfully Updated');
     }
 }

@@ -19,6 +19,14 @@ class SeedInventory extends Model
         'Seed_Type',
         'Seed_Variety',
         'Company',
-        'Quantity'
+        'Quantity',
+        'Description'
     ];
+
+    // Accessor
+    public function getDescriptionAttribute($value)
+    {
+        // Return the default value if the actual value is null or empty
+        return filled($value) ? $value : NULL;
+    }
 }

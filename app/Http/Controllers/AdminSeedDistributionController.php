@@ -36,7 +36,7 @@ class AdminSeedDistributionController extends Controller
             return redirect()->route('adminSeedDistribution.index')->with('error', Session::get('error'));
         }
 
-        activity()->causedBy(Auth::user())->createdAt(now())->log('- Lot' . $request->id . ' claimed '. $request->Seed_Variety . '.');
+        activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Lot' . $request->id . ' claimed '. $request->Seed_Variety . '.');
         return redirect()->route('adminSeedDistribution.index')->with('success', $request->id . '-' . 'succesfully claimed' . ' ' . $validated_date['Quantity']  . 'x' . ' amount of seeds.');
     }
 }

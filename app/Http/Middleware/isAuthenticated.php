@@ -22,7 +22,8 @@ class isAuthenticated
         $lastRouteName = Session::get('last_route_name') ?? $request->route()->getName();
         if(Auth::check()) {
             if($lastRouteName === 'login.index') {
-                activity()->causedBy(Auth::user())->createdAt(now())->log('- Logged In');
+                // DA System Logs
+                activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Logged In');
 
                 // HRMS Users Logs
                 $todayDate = new DateTime();

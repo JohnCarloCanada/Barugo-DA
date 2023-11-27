@@ -29,7 +29,9 @@ class HandleUserLogout
         Auth::guard('web')->logout();
         $event->request->session()->invalidate();
         $event->request->session()->regenerateToken();
-        activity()->causedBy($user)->createdAt(now())->log('- Logged Out');
+
+        // DA System Logs
+        activity('Activity Logs')->causedBy($user)->createdAt(now())->log('- Logged Out');
 
         // HRMS User Logs
         $todayDate = new DateTime();

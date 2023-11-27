@@ -40,13 +40,15 @@
                         <div>Operation</div>
                     </th>
                 </tr>
-                <tr class="grid py-1 grid-cols-3 w-full">
+                
                     @foreach ($options as $option)
-                        <td class="text-center">{{$option->Option_Name}}</td>
-                        <td class="text-center">{{$option->Name}}</td>
-                        <td class="flex items-center justify-center">
+                    <h1></h1>
+                    <tr class="grid py-1 grid-cols-3 w-full font-bold @if($option->deleted_at) bg-red-600 text-white @endif">
+                        <td class="text-center @if($option->deleted_at) text-line-across @endif">{{$option->Option_Name}}</td>
+                        <td class="text-center @if($option->deleted_at) text-line-across @endif">{{$option->Name}}</td>
+                        <td class="flex items-center justify-center gap-x-3">
                             {{-- <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div> --}}
-                            <form action="{{route('adminControlPanelSurvey.destroy', ['option' => $option])}}" method="post">
+                            <form action="{{route('adminControlPanelSurvey.destroy', ['id' => $option->id])}}" method="post">
                                 @csrf
                                 @method('delete')
 
@@ -54,9 +56,29 @@
                                     <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/delete.png')}}" alt="delete button">
                                 </button>
                             </form>
+
+                            @if ($option->deleted_at == NULL)
+                                <form action="{{route('adminControlPanelSurvey.disable', ['option' => $option])}}" method="post">
+                                    @csrf
+                                    @method('delete')
+
+                                    <button type="submit">
+                                        <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/disable-icon.png')}}" alt="disable button">
+                                    </button>
+                                </form>                                
+                            @else
+                                <form action="{{route('adminControlPanelSurvey.restore', ['id' => $option->id])}}" method="post">
+                                    @csrf
+                                    @method('put')
+
+                                    <button type="submit">
+                                        <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/restore-icon.png')}}" alt="restore button">
+                                    </button>
+                                </form>
+                            @endif
                         </td>
+                    </tr>
                     @endforeach
-                </tr>
             </table>
             <div class="w-full mt-3">{{$options->links('pagination::tailwind')}}</div>
         </section>
