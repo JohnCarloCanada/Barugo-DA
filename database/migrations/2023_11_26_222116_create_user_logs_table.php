@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->integer('user_id', false, false)->autoIncrement(false);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('app_id', false, false)->autoIncrement(false)->nullable();
+            $table->foreign('app_id')->references('id')->on('applications')->onDelete('cascade')->onUpdate('cascade');
             $table->string('description', 255)->nullable();
             $table->string('date_time', 255)->nullable();
             $table->timestamps();

@@ -94,38 +94,35 @@ class AdminControlPanelController extends Controller
             'Season' => 'required|string|max:24',
         ];
         $validated_data = $request->validate($validation_rules);
-
-        $lastSeason = Season::latest()->first();
-
-        if($lastSeason) {
-            $lastSeason->update([
-                'Status' => 'Inactive',
-            ]);
-        }
-
-        Area::where('is_claimed', 1)->update([
-            'is_claimed' => 0,
-        ]);
-
         
-        $totalSeeds = SeedInventory::sum('Quantity');
-        $current_total_seeds = 0;
+        $currentYear = now()->year;
+        $season = new Season();
 
-        if($lastSeason && $lastSeason->Quantity_of_Seeds === $totalSeeds) {
-            $current_total_seeds = $lastSeason->Quantity_of_Seeds;
+        /* This code block is responsible for adding a new season to the database. */
+        if($season->checkIfRecordExists($currentYear, $validated_data['Season'])) {
+            return redirect()->route('adminControlPanelSeason.season')->with('error', "Error Adding New Season - Season Already Exist or Can't Have 3 Seasons In A Single Year!");
         } else {
-            $current_total_seeds = $totalSeeds;
-        }
+            $totalSeeds = SeedInventory::sum('Quantity');
+            $lastSeason = Season::latest()->first();
 
-        $newly_added_season = Season::create([
-            'Season' => $validated_data['Season'],
-            'Quantity_of_Seeds' => $current_total_seeds,
-            'Year' => now()->year,
-        ]);
+            if($lastSeason && $lastSeason->Status == 'Active') {
+                $lastSeason->update([
+                    'Status' => 'Inactive',
+                ]);
+            }
 
-        activity('Activity Logs')->causedBy(Auth::user())->performedOn($newly_added_season)->createdAt(now())->log('- ' . $newly_added_season->Year . '-' . $newly_added_season->Season . ' ' . 'Succesfully Added');
+            Area::where('is_claimed', 1)->update([
+                'is_claimed' => 0,
+            ]);
 
-        return redirect()->route('adminControlPanelSeason.season')->with('success', $newly_added_season->Year . '-' . $newly_added_season->Season . ' ' . 'Succesfully Added');
+            $newly_added_season = Season::create([
+                'Season' => $validated_data['Season'],
+                'Quantity_of_Seeds' => $totalSeeds,
+                'Year' => now()->year,
+            ]);
+            activity('Activity Logs')->causedBy(Auth::user())->performedOn($newly_added_season)->createdAt(now())->log('- ' . $newly_added_season->Year . '-' . $newly_added_season->Season . ' ' . 'Succesfully Added');
+            return redirect()->route('adminControlPanelSeason.season')->with('success', $newly_added_season->Year . '-' . $newly_added_season->Season . ' ' . 'Succesfully Added');
+        } 
     }
 
     public function seasonDistrubutionEnd(Season $season): RedirectResponse {

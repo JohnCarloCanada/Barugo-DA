@@ -36,7 +36,8 @@ class HandleUserLogout
         // HRMS User Logs
         $todayDate = new DateTime();
         $user_id = $user->id;
-        $activityLog = ['user_id'=> $user_id, 'description' => 'Has log out', 'date_time' => $todayDate->format('D, M j, Y g:i A'), 'created_at' => now(), 'updated_at' => now()];
+        $app_id = $user->appaccess->app_id;
+        $activityLog = ['user_id'=> $user_id, 'app_id' => $app_id, 'description' => 'Has log out', 'date_time' => $todayDate->format('D, M j, Y g:i A'), 'created_at' => now(), 'updated_at' => now()];
         DB::connection('secondary')->table('user_logs')->insert($activityLog);
     }
 }

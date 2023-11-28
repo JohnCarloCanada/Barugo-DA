@@ -20,4 +20,19 @@ class Season extends Model
         'Year',
         'Status'
     ];
+
+    public function checkIfRecordExists($year, $season) {
+        $count = Season::where('Year', $year)->count();
+        $findSeason = Season::where('Year', $year)->get()->first();
+
+        if($count >= 2) {
+            return true;
+        } else {
+            if($count && $findSeason->Season === $season) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
 }
