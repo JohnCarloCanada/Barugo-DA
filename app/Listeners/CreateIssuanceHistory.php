@@ -3,12 +3,12 @@
 namespace App\Listeners;
 
 use App\Events\ClaimedSuccesful;
-use App\Models\Area;
+use App\Models\SeedIssuanceHistory;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Session;
 
-class ChangedStatusClaimedStatusToTrue
+class CreateIssuanceHistory
 {
     /**
      * Create the event listener.
@@ -24,14 +24,14 @@ class ChangedStatusClaimedStatusToTrue
     public function handle(ClaimedSuccesful $event): void
     {
         //
-        if (Session::has('error')) {
+        if(Session::has('error')) {
             return;
         } else {
-            $Lot_No = $event->area->Lot_No;
-
-
-            Area::where('Lot_No', $Lot_No)->update([
-                'is_claimed' => 1, 
+            $newly_created_seed_issuance = SeedIssuanceHistory::create([
+                'season_id' => $event->season->id,
+                'area_id' => $event->area->id,
+                'Seed_Variety' => $event->request->Seed_Variety,
+                'Quantity' => $event->request->Quantity
             ]);
         }
     }

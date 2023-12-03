@@ -10,7 +10,7 @@
 @endphp
 
 
-<section data-sidebar class="isActive isHidden">
+<section data-sidebar class="isActive">
     <img data-menu class="absolute h-8 w-8 top-2 rounded-full border-2 bg-white border-white -right-4 rotate-180 cursor-pointer rotateReverse" src="{{asset('images/arrow-right.png')}}" alt="">
 
     <section class="flex items-center gap-x-1">
@@ -34,12 +34,6 @@
                     <p class="hide">Dashboard</p>
                 </a>
             </li>
-            {{-- <li class="{{$type == 'personnel' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
-                <a aria-label="Go to personnel" class="{{$type == 'personnel' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('personnel.index')}}">
-                    <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/icons/people.png')}}" alt="">
-                    <p class="hide">Personnel</p>
-                </a>
-            </li> --}}
             <li class="{{$type == 'managed farmers' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
                 <a aria-label="Go to managed farmers" class="{{$type == 'managed farmers' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('adminPersonalInformation.index')}}">
                     <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/icons/peasant.png')}}" alt="">

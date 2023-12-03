@@ -3,7 +3,7 @@
         Add New Area
     </x-slot:title>
 
-    <x-sidebar type="managed farmers"/>   
+    <x-admin.sidebar type="managed farmers"/>   
 
     <section class="w-full min-h-screen p-10">
         <section class="w-[100%,900px] my-0 mx-auto bg-white flex flex-col items-center justify-center ">
@@ -19,24 +19,25 @@
                 <form class="w-full overflow-y-auto" action="{{route('adminAreaInformation.store', ['personalInformation' => $personalInformation])}}" method="post">
                     @csrf
 
-                    @if ($errors->any())
-                    <ul class="grid grid-cols-2 sm:grid-cols-4 gap-1 mb-3">
-                        @foreach ($errors->all() as $error )
-                            <li class="text-sm sm:text-base text-red-800 font-bold">{{$error}}</li>
-                        @endforeach
-                    </ul>
-                    @endif
                     <h3 class="bg-[#679f69] px-3 py-1 font-bold text-white">Area</h3>
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
                         <label class="sr-only" for="Lot_No">Lot No: </label>
-                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Lot_No" id="Lot_No" placeholder="Lot No">
+
+                        <select class="bg-[#e8e8e8] w-full px-3 py-1" name="Lot_No" id="Lot_No">
+                            <option value="custom" selected>Enter Lot No.</option>
+                            @foreach ($areas as $area)
+                                <option value={{$area->Lot_No}}>{{$area->Lot_No}}</option>
+                            @endforeach
+                        </select>
+                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="customValue" id="customValue" placeholder="Lot No">
+
                         <label class="sr-only" for="Hectares">Hectares: </label>
                         <input class="bg-[#e8e8e8] w-full px-3 py-1" step="0.01" type="number" name="Hectares" id="Hectares" placeholder="Hectares">
                         <label class="sr-only" for="Address">Address: </label>
                         <input class="bg-[#e8e8e8] w-[min(100%,300px)] px-3 py-1" type="text" name="Address" id="Address" placeholder="Address">
                         <label class="sr-only" for="Owner_Address">Owner Address: </label>
-                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Owner_Address" id="Owner_Address" placeholder="Owner Address">
+                        <input readonly class="bg-[#e8e8e8] w-full px-3 py-1 outline-none" type="text" name="Owner_Address" id="Owner_Address" placeholder="Owner Address" value={{$personalInformation->Address}}>
                     </div>
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
@@ -108,6 +109,22 @@
 
     const ownerShipTypeBtn = document.querySelectorAll('input[name="Ownership_Type"]');
     const tenantInput = document.querySelector('[data-tenant]');
+
+    const areaOption = document.getElementById('Lot_No');
+
+    let customValue = document.getElementById('customValue');
+    customValue.required = true;
+    
+    areaOption.addEventListener('change', () => {
+        if(areaOption.value === 'custom') {
+            customValue.disabled = false;
+            customValue.required = true;
+        } else {
+            customValue.disabled = true;
+            customValue.value = "";
+            customValue.required = false;
+        }
+    })
 
     areaTypeBtn.forEach(btn => {
         btn.addEventListener('change', () => {

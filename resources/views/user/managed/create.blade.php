@@ -61,7 +61,11 @@
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
                         <label class="sr-only" for="Address">Address: </label>
-                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Address" id="Address" placeholder="Address" value="{{old('Address')}}">
+                        <select class="bg-[#e8e8e8] w-full px-3 py-1" name="Address" id="Address">
+                            @foreach ($Address as $address)
+                                <option value={{$address}}>{{$address}} </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">

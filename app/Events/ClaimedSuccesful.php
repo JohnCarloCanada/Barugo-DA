@@ -2,7 +2,9 @@
 
 namespace App\Events;
 
+use App\Models\Area;
 use App\Models\PersonalInformation;
+use App\Models\Season;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -19,7 +21,7 @@ class ClaimedSuccesful
     /**
      * Create a new event instance.
      */
-    public function __construct(public Request $request)
+    public function __construct(public Request $request, public Area $area, public Season $season)
     {
         //
     }

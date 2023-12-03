@@ -14,6 +14,7 @@ use App\Http\Controllers\AreaInformationController;
 use App\Http\Controllers\DogVaccinationinformationController;
 use App\Http\Controllers\ExcelExportsController;
 use App\Http\Controllers\GeoMappingController;
+use App\Http\Controllers\IssuanceExcelController;
 use App\Http\Controllers\LiveStockInformationController;
 use App\Http\Controllers\MachineryInformationController;
 use App\Http\Controllers\PersonalInformationController;
@@ -54,6 +55,8 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
     Route::controller(AdminSeedDistributionController::class)->group(function() {
         Route::get('/seedDistribution', 'adminIndex')->name('adminSeedDistribution.index');
         Route::put('/seedDistribution', 'adminSeedClaiming')->name('adminSeedDistribution.claim');
+        Route::get('/seedDistribution/{season}/seed-issuance', 'adminSeedIssuance')->name('adminSeedDistribution.Issuance');
+        Route::get('/seedDistribution/{area}/{season}/seed-claimer', 'adminShowClaimer')->name('adminShowClaimer');
     });
 
     Route::controller(AdminPersonalInformationController::class)->group(function() {
@@ -61,8 +64,6 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::put('/farmers/{personalInformation}', 'approved')->name('adminPersonalInformation.approved');
         Route::delete('/farmers/{personalInformation}', 'delete')->name('adminPersonalInformation.delete');
         Route::get('/farmers/needApproval', 'needApproval')->name('adminPersonalInformation.needApproval');
-        Route::get('/farmers/needUpdate', 'needUpdate')->name('adminPersonalInformation.needUpdate');
-        Route::put('/farmers/{personalInformation}/acceptUpdate', 'acceptUpdate')->name('adminPersonalInformation.acceptUpdate');
         Route::get('/farmers/create', 'create')->name('adminPersonalInformation.create');
         Route::post('/farmers/store', 'store')->name('adminPersonalInformation.store');
         Route::get('/farmers/{personalInformation}/edit', 'edit')->name('adminPersonalInformation.edit');
@@ -104,6 +105,7 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::get('/adminControlPanel/season', 'seasonDistrubutionIndex')->name('adminControlPanelSeason.season');
         Route::post('/adminControlPanel/season', 'seasonDistrubutionStore')->name('adminControlPanelSeason.store');
         Route::put('/adminControlPanel/{season}/seed/end', 'seasonDistrubutionEnd')->name('adminControlPanelSeason.end');
+        Route::put('/adminControlPanel/{season}/seed/re-end', 'seasonDistributionReEnd')->name('adminControlPanelSeason.reend');
         Route::put('/adminControlPanel/season/edit', 'seasonDistrubutionEdit')->name('adminControlPanelSeason.edit');
     });
 
@@ -133,6 +135,10 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::get('/download/farmers', 'adminDownloadAllFarmersRecord')->name('adminDownloadAllFarmersRecord');
     });
 
+    Route::controller(IssuanceExcelController::class)->group(function() {
+        Route::get('/download/{season}/seed-issuance', 'seedIssuanceExportedExcel')->name('adminSeedIssuanceDownload');
+    });
+
     Route::controller(ActivityLogsController::class)->group(function() {
         Route::get('/activity-logs', 'index')->name('activityLogs.index');
     });
@@ -153,14 +159,13 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
     Route::controller(UserSeedDistributionController::class)->group(function() {
         Route::get('/seedDistribution', 'userIndex')->name('userSeedDistribution.index');
         Route::put('/seedDistribution', 'userSeedClaiming')->name('userSeedDistribution.claim');
+        Route::get('/seedDistribution/{area}/{season}//seed-claimer', 'userShowClaimer')->name('userShowClaimer');
     });
 
     Route::controller(UserPersonalInformationController::class)->group(function() {
         Route::get('/personalInformation', 'index')->name('userPersonalInformation.index');
         Route::get('/personalInformation/create', 'create')->name('userPersonalInformation.create');
         Route::post('/personalInformation/store', 'store')->name('userPersonalInformation.store');
-        Route::get('/personalInformation/{personalInformation}/edit', 'edit')->name('userPersonalInformation.edit');
-        Route::put('/personalInformation/{personalInformation}/update', 'update')->name('userPersonalInformation.update');
         Route::patch('/farmers/{currentRoute}', 'updateRSBSANumber')->name('userPersonalInformation.updateRSBSANO');
     });
 

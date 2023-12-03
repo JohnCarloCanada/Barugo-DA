@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Area extends Model
 {
@@ -37,6 +38,9 @@ class Area extends Model
      */
     protected $table = 'areas';
 
+    public function seedissuancehistory(): HasOne {
+        return $this->hasOne(SeedIssuanceHistory::class, 'area_id', 'id');
+    }
 
     public function personalinformation(): BelongsTo {
         return $this->belongsTo(PersonalInformation::class, 'personal_information_id', 'id');

@@ -31,7 +31,7 @@ class SeedInventoryController extends Controller
             'Seed_Type' => 'required|string|max:24',
             'Seed_Variety' => 'required|string|max:99|unique:seed_inventories,Seed_Variety',
             'Company' => 'required|string|max:99',
-            'Quantity' => 'required|numeric',
+            'Quantity' => 'required|decimal:0,2',
             'Description' => 'nullable|string|max:255'
         ];
 
@@ -87,7 +87,7 @@ class SeedInventoryController extends Controller
             'Seed_Type' => 'required|string|max:24',
             'Seed_Variety' => ['required', 'string', 'max:99', Rule::unique('seed_inventories')->ignore($request->id)],
             'Company' => 'required|string|max:99',
-            'Quantity' => 'required|numeric',
+            'Quantity' => 'required|decimal:0,2',
             'Description' => 'nullable|string|max:255'
         ];
 

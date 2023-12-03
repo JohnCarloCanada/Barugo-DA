@@ -6,6 +6,7 @@ use App\Events\ClaimedSuccesful;
 use App\Events\HandleError;
 use App\Events\HandleUser;
 use App\Listeners\ChangedStatusClaimedStatusToTrue;
+use App\Listeners\CreateIssuanceHistory;
 use App\Listeners\HandleUserLogout;
 use App\Listeners\SendSomeError;
 use App\Listeners\UpdateInventoryAfterClaiming;
@@ -31,6 +32,7 @@ class EventServiceProvider extends ServiceProvider
         ClaimedSuccesful::class => [
             UpdateInventoryAfterClaiming::class,
             ChangedStatusClaimedStatusToTrue::class,
+            CreateIssuanceHistory::class
         ],
         HandleError::class => [
             SendSomeError::class,

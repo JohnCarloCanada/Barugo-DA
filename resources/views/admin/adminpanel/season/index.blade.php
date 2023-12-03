@@ -45,15 +45,21 @@
                         <td class="text-center w-full flex items-center justify-center">
                             <div class="{{Str::lower($season->Status) == 'inactive' ? 'bg-red-600' : 'bg-yellow-600'}} font-bold text-white py-1 px-3 rounded-sm text-sm">{{$season->Status}}</div>
                         </td>
-                        <td class="text-center flex flex-col md:flex-row items-center justify-center gap-2">
+                        <td class="text-center grid grid-cols-1 sm:grid-cols-3 place-content-center gap-2">
                             <div onclick="showPersonnelEditForm({{$season}})" class="{{ Str::lower($season->Status) == 'inactive' ? 'hidden' : '' }} bg-green-600 font-bold text-white py-1 px-3 rounded-sm text-xs sm:text-sm cursor-pointer">Edit</div>
                             <div data-seed-show class="{{ Str::lower($season->Status) == 'inactive' ? 'hidden' : '' }} bg-green-500 font-bold text-white py-1 px-3 rounded-sm text-xs sm:text-sm cursor-pointer">Seeds</div>
-                            <div class="{{ Str::lower($season->Status) == 'inactive' ? '' : 'hidden' }} bg-green-500 font-bold text-white py-1 px-3 rounded-sm text-xs sm:text-sm cursor-pointer">View</div>
-                            <form class="{{ Str::lower($season->Status) == 'inactive' ? 'hidden' : '' }}" action="{{route('adminControlPanelSeason.end', ['season' => $season])}}" method="post">
+                            <a href="{{route('adminSeedDistribution.Issuance', ['season' => $season])}}" class="bg-green-500 font-bold text-white py-1 px-3 rounded-sm text-xs sm:text-sm cursor-pointer">View</a>
+                            <form action="{{route('adminControlPanelSeason.reend', ['season' => $season])}}" method="post">
                                 @csrf
                                 @method('put')
 
-                                <button type="submit" class="bg-red-600 font-bold text-white py-1 px-3 rounded-sm text-xs sm:text-sm cursor-pointer whitespace-nowrap">End</button>
+                                <button type="submit" class="{{ Str::lower($season->Status) == 'inactive' && $loop->index == 0 ? '' : 'hidden' }} bg-red-600 font-bold text-white py-1 px-3 rounded-sm text-xs sm:text-sm cursor-pointer whitespace-nowrap">Re-End</button>
+                            </form>
+                            <form class="w-full {{ Str::lower($season->Status) == 'inactive' ? 'hidden' : '' }}" action="{{route('adminControlPanelSeason.end', ['season' => $season])}}" method="post">
+                                @csrf
+                                @method('put')
+
+                                <button type="submit" class="bg-red-600 font-bold text-white py-1 px-3 rounded-sm text-xs sm:text-sm cursor-pointer whitespace-nowrap w-full">End</button>
                             </form>
                         </td>
                     </tr>

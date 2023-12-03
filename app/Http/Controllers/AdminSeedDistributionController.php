@@ -27,16 +27,47 @@ class AdminSeedDistributionController extends Controller
     public function adminSeedClaiming(Request $request): RedirectResponse {
         $validated_rules = [
             'Seed_Variety' => 'required|string|max:99',
-            'Quantity' => 'required|string|max:99|unique:seed_inventories,Seed_Variety',
+            'Quantity' => 'required|decimal:0,2',
         ];
-        $validated_date = $request->validate($validated_rules);
-        ClaimedSuccesful::dispatch($request);
+        $validated_data = $request->validate($validated_rules);
+
+        $area = Area::find($request->id);
+        $season = Season::latest()->first();
+
+
+        ClaimedSuccesful::dispatch($request, $area, $season);
 
         if (Session::has('error')) {
             return redirect()->route('adminSeedDistribution.index')->with('error', Session::get('error'));
         }
 
-        activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Lot' . $request->id . ' claimed '. $request->Seed_Variety . '.');
-        return redirect()->route('adminSeedDistribution.index')->with('success', $request->id . '-' . 'succesfully claimed' . ' ' . $validated_date['Quantity']  . 'x' . ' amount of seeds.');
+        activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Lot' . $area->Lot_No . ' claimed '. $request->Seed_Variety . '.');
+        return redirect()->route('adminSeedDistribution.index')->with('success', $area->Lot_No . '-' . 'succesfully claimed' . ' ' . $validated_data['Quantity']  . 'x' . ' amount of seeds.');
+    }
+
+    public function adminSeedIssuance(Season $season): View {
+        $status = $season->Status == 'Inactive' ? 'Ended' : 'Ongoing';
+        $seedsClaimedPerBrgyAndSeason = [];
+
+        foreach ($season->seedissuancehistory as $brgy_name) {
+            $seedsClaimedPerBrgyAndSeason[] = [
+                'Brgy_Name' => $brgy_name->area->Owner_Address,
+            ];
+        }
+
+        return view('admin.adminpanel.season.issuance', ['issuance_history' => $season->seedissuancehistory()->latest()->paginate(25), 'Season' => $season, 'season' => $season->Season, 'year' => $season->Year, 'status' => $status, 'barangay_names' => collect($seedsClaimedPerBrgyAndSeason)]);
+    }
+
+    public function adminShowClaimer(Area $area, Season $season){
+        $all_areas = Area::where('Lot_No', $area->Lot_No)->get();
+
+        foreach($all_areas as $areas) {
+            foreach ($season->seedissuancehistory as $area_issuance) {
+                if($areas->id == $area_issuance->area_id) {
+                    return view('admin.seeddistribution.checkClaimer', ['area' => $areas, 'issuanceExist' => true]);
+                }
+            }
+        }
+        return view('admin.seeddistribution.checkClaimer', ['area' => $area, 'issuanceExist' => false]);
     }
 }

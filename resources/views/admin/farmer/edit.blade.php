@@ -62,8 +62,12 @@
                     </div>
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
-                        <label class="sr-only" for="Address">Address: </label>
-                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Updated_Address" id="Address" placeholder="Address" value="@if(old('Updated_Address')) {{old('Updated_Address')}} @elseif($PersonalInformations->Address) {{$PersonalInformations->Address}} @endif">
+                        <label class="sr-only" for="Updated_Address">Address: </label>
+                        <select class="bg-[#e8e8e8] w-full px-3 py-1" name="Updated_Address" id="Updated_Address">
+                            @foreach ($Address as $address)
+                                <option @if ($address == $PersonalInformations->Address) selected @endif value={{$address}}>{{$address}} </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">

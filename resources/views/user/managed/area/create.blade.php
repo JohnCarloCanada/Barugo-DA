@@ -22,13 +22,20 @@
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
                         <label class="sr-only" for="Lot_No">Lot No: </label>
-                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Lot_No" id="Lot_No" placeholder="Lot No">
+
+                        <select class="bg-[#e8e8e8] w-full px-3 py-1" name="Lot_No" id="Lot_No">
+                            <option value="custom" selected>Enter Lot No.</option>
+                            @foreach ($areas as $area)
+                                <option value={{$area->Lot_No}}>{{$area->Lot_No}}</option>
+                            @endforeach
+                        </select>
+                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="customValue" id="customValue" placeholder="Lot No">
                         <label class="sr-only" for="Hectares">Hectares: </label>
                         <input class="bg-[#e8e8e8] w-full px-3 py-1" step="0.01" type="number" name="Hectares" id="Hectares" placeholder="Hectares">
                         <label class="sr-only" for="Address">Address: </label>
                         <input class="bg-[#e8e8e8] w-[min(100%,300px)] px-3 py-1" type="text" name="Address" id="Address" placeholder="Address">
                         <label class="sr-only" for="Owner_Address">Owner Address: </label>
-                        <input class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Owner_Address" id="Owner_Address" placeholder="Owner Address">
+                        <input readonly class="bg-[#e8e8e8] w-full px-3 py-1 outline-none" type="text" name="Owner_Address" id="Owner_Address" placeholder="Owner Address" value={{$personalInformation->Address}}>
                     </div>
 
                     <div class="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 my-2">
@@ -100,6 +107,23 @@
 
     const ownerShipTypeBtn = document.querySelectorAll('input[name="Ownership_Type"]');
     const tenantInput = document.querySelector('[data-tenant]');
+
+    const areaOption = document.getElementById('Lot_No');
+
+    let customValue = document.getElementById('customValue');
+    customValue.required = true;
+
+    areaOption.addEventListener('change', () => {
+        if(areaOption.value === 'custom') {
+            customValue.disabled = false;
+            customValue.required = true;
+        } else {
+            customValue.disabled = true;
+            customValue.value = "";
+            customValue.required = false;
+        }
+    })
+
 
     areaTypeBtn.forEach(btn => {
         btn.addEventListener('change', () => {

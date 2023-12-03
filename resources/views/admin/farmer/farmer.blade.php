@@ -24,7 +24,7 @@
                             <a href="{{route('adminDownloadAllFarmersRecord')}}" class="hover:bg-slate-200 text-sm border text-slate-500 py-2 p-2  rounded bg-slate-100 flex items-center gap-3 cursor-pointer whitespace-nowrap">
                                 <img src="{{asset('images/icons/export.png')}}" class="w-[15px] h-[15px]" alt=""> Export Excel
                             </a>
-                            <x-admin.navigation type="index" notApprovedCount={{$notApprovedCount}} needUpdateFarmersCount={{$needUpdateFarmersCount}}/>
+                            <x-admin.navigation type="index" notApprovedCount={{$notApprovedCount}}/>
                         </div>  
                     </th>
                     <th class="grid grid-cols-7 text-[12px] mt-5">

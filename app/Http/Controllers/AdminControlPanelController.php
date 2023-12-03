@@ -140,17 +140,51 @@ class AdminControlPanelController extends Controller
         return redirect()->route('adminControlPanelSeason.season')->with('success', $Year . '-' . $Season . ' ' . 'Has Ended!');
     }
 
+    public function seasonDistributionReEnd(Season $season) {
+        $Season = $season->Season;
+        $Year = $season->Year;
+        
+        $areas = Area::get();
+        foreach ($areas as $area) {
+            if($area->is_claimed == 1) {
+                continue;
+            } else {
+                foreach ($season->seedissuancehistory as $seedissuancehistory) {
+                    Area::where('Lot_No', $seedissuancehistory->area->Lot_No)->update([
+                        'is_claimed' => 1,
+                    ]);
+                }
+            }
+        }
+        $season->Status = 'Active';
+        $season->save();
+        activity('Activity Logs')->causedBy(Auth::user())->performedOn($season)->createdAt(now())->log('- ' . $Year . '-' . $Season . ' ' . 'Cancelled the end of season!');
+        return redirect()->route('adminControlPanelSeason.season')->with('success', $Year . '-' . $Season . ' ' . 'Cancelled the end of season!');
+    }
+
     public function seasonDistrubutionEdit(Request $request): RedirectResponse {
         $validation_rules = [
             'Season' => 'required|string|max:24',
         ];
         $validated_data = $request->validate($validation_rules);
+
+        $current_year_inactve_season = Season::where('Year', now()->year)->where('Status', 'Inactive')->first();
         $findSeason = Season::find($request->id);
-        $findSeason->Season = $validated_data['Season'];
-        $findSeason->save();
 
-        activity('Activity Logs')->causedBy(Auth::user())->performedOn($findSeason)->createdAt(now())->log('- Edited a season.');
+        if($current_year_inactve_season) {
+            if($validated_data['Season'] == $current_year_inactve_season->Season) {
+                return redirect()->route('adminControlPanelSeason.season')->with('error', "Error Adding New Season - Season Already Exist or Can't Have 3 Seasons In A Single Year!");
+            }
 
-        return redirect()->route('adminControlPanelSeason.season')->with('success', 'Succesfully Edited!');
+            $findSeason->Season = $validated_data['Season'];
+            $findSeason->save();
+            activity('Activity Logs')->causedBy(Auth::user())->performedOn($findSeason)->createdAt(now())->log('- Edited a season.');
+            return redirect()->route('adminControlPanelSeason.season')->with('success', 'Succesfully Edited!');
+        } else {
+            $findSeason->Season = $validated_data['Season'];
+            $findSeason->save();
+            activity('Activity Logs')->causedBy(Auth::user())->performedOn($findSeason)->createdAt(now())->log('- Edited a season.');
+            return redirect()->route('adminControlPanelSeason.season')->with('success', 'Succesfully Edited!');
+        }
     }
 }

@@ -37,7 +37,7 @@
                     @foreach ($farmers_lot_no as $lot_no)
                         <tr class="pt-10 odd:bg-slate-200 text-sm sm:text-base">
                             <td>{{$lot_no->personalinformation->RSBSA_No}}</td>
-                            <td>{{$lot_no->Lot_No}}</td>
+                            <td class="whitespace-nowrap">{{$lot_no->Lot_No}}</td>
                             <td>{{$lot_no->personalinformation->Surname}}</td>
                             <td>{{$lot_no->Area_Type}}</td>
                             <td>{{$lot_no->Address}}</td>
@@ -47,9 +47,13 @@
                                 <div class="{{$lot_no->is_claimed ? 'bg-yellow-600' : 'bg-red-600'}} text-white font-bold text-xs px-2 sm:px-3 py-1 rounded-sm">{{$lot_no->is_claimed ? 'Claimed' : 'Not-Claimed'}}</div>
                             </td>
                             <td class="flex items-center justify-center cursor-pointer">
-                                <div onclick="showClaimSeedForm({{$lot_no}})" class="{{$seasons != NULL && $seasons->Status === 'Active' && $lot_no->personalinformation->RSBSA_No && !$lot_no->is_claimed ? '' : 'hidden'}} bg-green-600 text-white font-bold text-base px-2 sm:px-3 py-1 rounded-sm" type="submit">
+                                <div onclick="showClaimSeedForm({{$lot_no}})" class="{{$seasons != NULL && $seasons->Status === 'Active' && $lot_no->personalinformation->RSBSA_No && !$lot_no->is_claimed ? '' : 'hidden'}} bg-green-600 text-white font-bold text-base px-2 sm:px-3 py-1 rounded-sm">
                                     Claim
                                 </div>
+
+                                <a href="{{route('adminShowClaimer', ['area' => $lot_no, 'season' => $seasons])}}" class="{{$seasons != NULL && $seasons->Status === 'Active' && $lot_no->personalinformation->RSBSA_No && $lot_no->is_claimed ? '' : 'hidden'}} bg-green-600 text-white font-bold text-base px-2 sm:px-3 py-1 rounded-sm whitespace-nowrap">
+                                    Check-Claimer
+                                </a>
                             </td>		
                         </tr>
                     @endforeach
@@ -82,7 +86,7 @@
             </div>
             <div class="w-full px-3 flex flex-col gap-1">
                 <label for="Quantity" class="text-[12px] font-semibold">Seed Quantity</label>
-                <input type="number" name="Quantity" id="Quantity" placeholder="Enter Quantity of Seeds" class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
+                <input type="number" name="Quantity" id="Quantity" placeholder="Enter Quantity of Seeds" step="0.01" class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
             </div>
             <div class="px-3">
                 <button type="submit" class="py-2 w-full mt-3 text-white hover:bg-green-500 rounded font-bold bg-green-700">
@@ -93,7 +97,6 @@
     </div>
 </div>
 
-
 <script>
     const claimSeedForm = document.getElementById('claimSeedForm');
     const form = document.getElementById('claimSeedFormInputValue');
@@ -103,7 +106,7 @@
             if(claimSeedForm.classList == 'hidden') { 
                 claimSeedForm.classList.remove("hidden")
                 if (form && area) {
-                    form.id.value = area.Lot_No;
+                    form.id.value = area.id;
                 }
             }
             else {

@@ -27,16 +27,33 @@ class UserSeedDistributionController extends Controller
     public function userSeedClaiming(Request $request): RedirectResponse {
         $validated_rules = [
             'Seed_Variety' => 'required|string|max:99',
-            'Quantity' => 'required|string|max:99|unique:seed_inventories,Seed_Variety',
+            'Quantity' => 'required|decimal:0,2',
         ];
         $request->validate($validated_rules);
-        ClaimedSuccesful::dispatch($request);
+
+        $area = Area::find($request->id);
+        $season = Season::latest()->first();
+
+        ClaimedSuccesful::dispatch($request, $area, $season);
 
         if (Session::has('error')) {
             return redirect()->route('userSeedDistribution.index')->with('error', Session::get('error'));
         }
 
-        activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Lot' . $request->id . ' claimed '. $request->Seed_Variety . '.');
-        return redirect()->route('userSeedDistribution.index')->with('success', $request->id . ' Succesfully Claimed');
+        activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Lot' . $area->Lot_No . ' claimed '. $request->Seed_Variety . '.');
+        return redirect()->route('userSeedDistribution.index')->with('success', $area->Lot_No . ' Succesfully Claimed');
+    }
+
+    public function userShowClaimer(Area $area, Season $season){
+        $all_areas = Area::where('Lot_No', $area->Lot_No)->get();
+
+        foreach($all_areas as $areas) {
+            foreach ($season->seedissuancehistory as $area_issuance) {
+                if($areas->id == $area_issuance->area_id) {
+                    return view('user.seeddistribution.checkClaimer', ['area' => $areas, 'issuanceExist' => true]);
+                }
+            }
+        }
+        return view('user.seeddistribution.checkClaimer', ['area' => $area, 'issuanceExist' => false]);
     }
 }

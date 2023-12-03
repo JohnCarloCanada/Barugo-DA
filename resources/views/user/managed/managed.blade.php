@@ -27,7 +27,6 @@
             <table class="w-[max(100%,1100px)] mt-5 text-center">
                 <thead>
                     <tr class="text-[12px]">
-                        <th class="text-sm"></th>
                         <th class="text-sm">RSBSA No.</th>
                         <th class="text-sm">Surname</th>
                         <th class="text-sm">Address</th>
@@ -40,7 +39,6 @@
                 <tbody>
                     @foreach ($PersonalInformations as $PersonalInformation)
                         <tr class="pt-10 odd:bg-slate-200 text-[12px]">
-                            <td><div class="w-[24px] h-[24px] bg-red-800 {{ $PersonalInformation->update_status  ? '' : 'hidden' }} "></div></td>
                             <td>{{$PersonalInformation->RSBSA_No}}</td>
                             <td>{{$PersonalInformation->Surname}}</td>
                             <td>{{$PersonalInformation->Address}}</td>
@@ -50,9 +48,9 @@
                                 <a href="{{route('user.managedFarmersDetails', ['personalInformation' => $PersonalInformation, 'currentRoute' => 'area'])}}">
                                     <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/view.png')}}" alt="">
                                 </a>
-                                <a href="{{route('userPersonalInformation.edit', ['personalInformation' => $PersonalInformation])}}">
+                                {{-- <a href="{{route('userPersonalInformation.edit', ['personalInformation' => $PersonalInformation])}}">
                                     <img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt="">
-                                </a>
+                                </a> --}}
                             </td>		
                         </tr>
                     @endforeach

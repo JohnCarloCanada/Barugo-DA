@@ -10,7 +10,7 @@
 @endphp
 
 
-<section data-sidebar class="isActive isHidden">
+<section data-sidebar class="isActive">
     <img data-menu class="absolute h-8 w-8 top-2 rounded-full border-2 bg-white border-white -right-4 rotate-180 cursor-pointer rotateReverse" src="{{asset('images/arrow-right.png')}}" alt="">
 
     <section class="flex items-center gap-x-1">

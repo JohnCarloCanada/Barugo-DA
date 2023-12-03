@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('seed_inventories', function (Blueprint $table) {
+        Schema::create('seed_issuance_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('Seed_Type', 24);
-            $table->string('Seed_Variety', 99)->unique();
-            $table->string('Company', 99);
-            // $table->integer('Quantity', false, true)->default(0);
-            $table->decimal('Quantity', 14, 2, true)->default(0);
+            $table->foreignId('season_id')->constrained();
+            $table->unsignedBigInteger('area_id');
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade')->onUpdate('cascade');
+            $table->string('Seed_Variety', 99);
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('seed_inventories');
+        Schema::dropIfExists('seed_issuance_histories');
     }
 };

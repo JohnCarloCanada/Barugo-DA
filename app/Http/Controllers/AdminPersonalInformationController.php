@@ -21,9 +21,9 @@ class AdminPersonalInformationController extends Controller
 
         $approvedFarmers = $approvedFarmers->latest()->where('is_approved', true)->paginate(25);
         $notApprovedFarmersCount = PersonalInformation::where('is_approved', false)->count();
-        $needUpdateFarmersCount = PersonalInformation::where('update_status', true)->count();
+        /* $needUpdateFarmersCount = PersonalInformation::where('update_status', true)->count(); */
         
-        return view('admin.farmer.farmer', ['PersonalInformations' => $approvedFarmers, 'notApprovedCount' => $notApprovedFarmersCount, 'needUpdateFarmersCount' => $needUpdateFarmersCount, 'search' => $request->search]);
+        return view('admin.farmer.farmer', ['PersonalInformations' => $approvedFarmers, 'notApprovedCount' => $notApprovedFarmersCount, 'search' => $request->search]);
     }
 
     public function needApproval(Request $request): View {
@@ -35,17 +35,6 @@ class AdminPersonalInformationController extends Controller
         $notApprovedFarmersCount = PersonalInformation::where('is_approved', false)->count();
         $needUpdateFarmersCount = PersonalInformation::where('update_status', true)->count();
         return view('admin.farmer.approval', ['PersonalInformations' => $notApprovedFarmers, 'notApprovedCount' => $notApprovedFarmersCount, 'needUpdateFarmersCount' => $needUpdateFarmersCount, 'search' => $request->search]);
-    }
-
-    public function needUpdate(Request $request): View {
-        $needUpdateFarmers = PersonalInformation::where(function($query) use ($request) {
-            $query->where('RSBSA_No', 'LIKE', '%' . $request->search . '%')->orWhere('Surname', 'LIKE', '%' . $request->search . '%');
-        });
-
-        $needUpdateFarmers = $needUpdateFarmers->latest()->where('is_approved', true)->where('update_status', true)->paginate(25);
-        $notApprovedFarmersCount = PersonalInformation::where('is_approved', false)->count();
-        $needUpdateFarmersCount = PersonalInformation::where('update_status', true)->count();
-        return view('admin.farmer.update', ['PersonalInformations' => $needUpdateFarmers, 'notApprovedCount' => $notApprovedFarmersCount, 'needUpdateFarmersCount' => $needUpdateFarmersCount, 'search' => $request->search]);
     }
 
     public function approved(PersonalInformation $personalInformation): RedirectResponse {
@@ -63,31 +52,49 @@ class AdminPersonalInformationController extends Controller
         return redirect()->route('adminPersonalInformation.index')->with('success', 'Farmer Successfully Deleted');
     }
 
-    public function acceptUpdate(PersonalInformation $personalInformation): RedirectResponse {
-        $personalInformation->update([
-            'Surname' => $personalInformation->Updated_Surname,
-            'First_Name' => $personalInformation->Updated_First_Name,
-            'Middle_Name' => $personalInformation->Updated_Middle_Name,
-            'Extension' => $personalInformation->Updated_Extension,
-            'Address' => $personalInformation->Updated_Address,
-            'Mobile_No' => $personalInformation->Updated_Mobile_No,
-            'Sex' => $personalInformation->Updated_Sex,
-            'Date_of_birth' => $personalInformation->Updated_Date_of_birth,
-            'Religion' => $personalInformation->Updated_Religion,
-            'Civil_Status' => $personalInformation->Updated_Civil_Status,
-            'Name_of_Spouse' => $personalInformation->Updated_Name_of_Spouse,
-            'Highest_education_qualification' => $personalInformation->Updated_Highest_education_qualification,
-            'Main_livelihood' => $personalInformation->Updated_Main_livelihood,
-            'update_status' => false,
-        ]);
-
-        activity('Activity Logs')->causedBy(Auth::user())->performedOn($personalInformation)->createdAt(now())->log("- Accepted a farmer's updated information.");
-
-        return redirect()->route('adminPersonalInformation.needUpdate')->with('success', 'Edit Approved');
-    }
 
     public function create(): view {
-        return view('admin.farmer.create', ['Religions' => Option::where('Option_Name', 'Religion')->get(), 'Livelihood' => Option::where('Option_Name', 'Livelihood')->get()]);
+        $barugo_brgy_list = [
+            'Abango',
+            'Amahit',
+            'Balire',
+            'Balud',
+            'Bukid',
+            'Bulod',
+            'Busay',
+            'Cabarasan',
+            'Cabolo-an',
+            'Calingcaguing',
+            'Can-isag',
+            'Canomantag',
+            'Cuta',
+            'Domogdog',
+            'Duka',
+            'Guindaohan',
+            'Hiagsam',
+            'Hilaba',
+            'Hinugayan',
+            'Ibag',
+            'Minuhang',
+            'Minuswang',
+            'Pikas',
+            'Pitogo',
+            'Poblacion-Dist.-I',
+            'Poblacion-Dist.-II',
+            'Poblacion-Dist.-III',
+            'Poblacion-Dist.-IV',
+            'Poblacion-Dist.-V',
+            'Poblacion-Dist.-VI-(New-Road)',
+            'Pongso',
+            'Roosevelt',
+            'San-Isidro',
+            'San-Roque',
+            'Santa-Rosa',
+            'Santarin',
+            'Tutug-an',
+        ];
+
+        return view('admin.farmer.create', ['Religions' => Option::where('Option_Name', 'Religion')->get(), 'Livelihood' => Option::where('Option_Name', 'Livelihood')->get(), 'Address' => collect($barugo_brgy_list)]);
     }
 
 
@@ -140,7 +147,46 @@ class AdminPersonalInformationController extends Controller
 
     public function edit(PersonalInformation $personalInformation): View
     {
-        return view('admin.farmer.edit', ['PersonalInformations' => $personalInformation, 'Religions' => Option::where('Option_Name', 'Religion')->get(), 'Livelihood' => Option::where('Option_Name', 'Livelihood')->get()]);
+        $barugo_brgy_list = [
+            'Abango',
+            'Amahit',
+            'Balire',
+            'Balud',
+            'Bukid',
+            'Bulod',
+            'Busay',
+            'Cabarasan',
+            'Cabolo-an',
+            'Calingcaguing',
+            'Can-isag',
+            'Canomantag',
+            'Cuta',
+            'Domogdog',
+            'Duka',
+            'Guindaohan',
+            'Hiagsam',
+            'Hilaba',
+            'Hinugayan',
+            'Ibag',
+            'Minuhang',
+            'Minuswang',
+            'Pikas',
+            'Pitogo',
+            'Poblacion-Dist.-I',
+            'Poblacion-Dist.-II',
+            'Poblacion-Dist.-III',
+            'Poblacion-Dist.-IV',
+            'Poblacion-Dist.-V',
+            'Poblacion-Dist.-VI-(New-Road)',
+            'Pongso',
+            'Roosevelt',
+            'San-Isidro',
+            'San-Roque',
+            'Santa-Rosa',
+            'Santarin',
+            'Tutug-an',
+        ];
+        return view('admin.farmer.edit', ['PersonalInformations' => $personalInformation, 'Religions' => Option::where('Option_Name', 'Religion')->get(), 'Livelihood' => Option::where('Option_Name', 'Livelihood')->get(), 'Address' => collect($barugo_brgy_list)]);
     }
 
     public function update(Request $request, PersonalInformation $personalInformation)
