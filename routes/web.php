@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminControlPanelController;
 use App\Http\Controllers\AdminDogVaccinationController;
+use App\Http\Controllers\AdminLivestockTrackerOwnerController;
 use App\Http\Controllers\AdminPersonalInformationController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\AdminSeedDistributionController;
@@ -20,10 +21,10 @@ use App\Http\Controllers\MachineryInformationController;
 use App\Http\Controllers\PersonalInformationController;
 use App\Http\Controllers\PoultryInformationController;
 use App\Http\Controllers\SeedInventoryController;
+use App\Http\Controllers\UserLivestockTrackerOwnerController;
 use App\Http\Controllers\UserPersonalInformationController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\UserSeedDistributionController;
-use Maatwebsite\Excel\Facades\Excel;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,6 +140,11 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::get('/download/{season}/seed-issuance', 'seedIssuanceExportedExcel')->name('adminSeedIssuanceDownload');
     });
 
+    Route::controller(AdminLivestockTrackerOwnerController::class)->group(function() {
+        Route::get('/livestock-owner-tracker', 'index')->name('adminLivestockOwnerTracker.index');
+        Route::put('/livestock-owner-tracker', 'livestockChangeOwner')->name('adminLivestockOwnerTracker.changedOwner');
+    });
+
     Route::controller(ActivityLogsController::class)->group(function() {
         Route::get('/activity-logs', 'index')->name('activityLogs.index');
     });
@@ -206,6 +212,11 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
     Route::controller(UserProfileController::class)->group(function() {
         Route::get('/profile', 'index')->name('userProfile.index');
         Route::patch('/profile/update', 'update')->name('userProfile.update');
+    });
+
+    Route::controller(UserLivestockTrackerOwnerController::class)->group(function() {
+        Route::get('/livestock-owner-tracker', 'index')->name('userLivestockOwnerTracker.index');
+        Route::put('/livestock-owner-tracker', 'livestockChangeOwner')->name('userLivestockOwnerTracker.changedOwner');
     });
 
     Route::controller(ExcelExportsController::class)->group(function() {

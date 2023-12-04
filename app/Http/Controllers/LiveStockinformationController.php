@@ -21,6 +21,7 @@ class LiveStockInformationController extends Controller
         $validation_rules = [
             'LSAnimals' => 'required|string',
             'Sex_LS' => 'required|string',
+            'Livestock_Name' => 'required|string|max:99'
         ];
 
         $validated_data = $request->validate($validation_rules);
@@ -28,6 +29,7 @@ class LiveStockInformationController extends Controller
         $newlyaddedlivestock = Livestock::create([
             'LSAnimals' => $validated_data['LSAnimals'],
             'Sex_LS' => $validated_data['Sex_LS'],
+            'Livestock_Name' => $validated_data['Livestock_Name'],
             'personal_information_id' => $personalInformation->id,
         ]);
 
@@ -53,6 +55,7 @@ class LiveStockInformationController extends Controller
         $validation_rules = [
             'LSAnimals' => 'required|string',
             'Sex_LS' => 'required|string',
+            'Livestock_Name' => 'required|string|max:99'
         ];
 
         $validated_data = $request->validate($validation_rules);
@@ -60,6 +63,7 @@ class LiveStockInformationController extends Controller
         $newlyaddedlivestock = Livestock::create([
             'LSAnimals' => $validated_data['LSAnimals'],
             'Sex_LS' => $validated_data['Sex_LS'],
+            'Livestock_Name' => $validated_data['Livestock_Name'],
             'personal_information_id' => $personalInformation->id,
         ]);
 

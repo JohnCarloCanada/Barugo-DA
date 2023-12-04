@@ -21,7 +21,7 @@
                 <form class="w-full flex flex-col justify-center items-center mt-5 sm:mt-6" action="{{route('adminLiveStockInformation.store', ['personalInformation' => $personalInformation])}}" method="post">
                     @csrf 
 
-                    <div class="w-[min(100%,300px)] flex items-center sm:items-end justify-center flex-col gap-y-3">
+                    <div class="w-[min(100%,300px)] flex items-center sm:items-center justify-center flex-col gap-y-3">
                         <div class="flex flex-col sm:flex-row gap-4">
                             <label class="text-base sm:text-xl font-bold text-[#979797]" for="LSAnimals">Livestocks</label>
                             <select class="bg-green-600 px-5 py-1 rounded-3xl text-white font-bold cursor-pointer" name="LSAnimals" id="LSAnimals">
@@ -41,8 +41,13 @@
                             </select>
                         </div>
 
+                        <div class="flex items-center flex-col sm:flex-row gap-x-4">
+                            <label class="text-base sm:text-xl font-bold text-[#979797]" for="Livestock_Name">Name</label>
+                            <input class="bg-green-600 rounded-xl px-3 py-1 text-white font-bold" type="text" name="Livestock_Name" id="Livestock_Name">
+                        </div>
+
                         <div class="w-full flex flex-col sm:flex-row items-center justify-end gap-3 my-2">
-                            <input class="bg-[#679f69] py-1 px-2 text-white font-bold cursor-pointer" type="submit" value="Add Farmer">
+                            <input class="bg-[#679f69] py-1 px-2 text-white font-bold cursor-pointer" type="submit" value="Add Livestock">
                         </div>
                     </div>
                 </form>

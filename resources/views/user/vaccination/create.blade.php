@@ -88,7 +88,7 @@
                         </div>
 
                         <label class="sr-only" for="Owner_Name">Owner_Name: </label>
-                        <input disabled class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Owner_Name" id="Owner_Name" placeholder="Dog Name">
+                        <input disabled class="bg-[#e8e8e8] w-full px-3 py-1" type="text" name="Owner_Name" id="Owner_Name" placeholder="Owner Name">
                     </div>
                     
 
@@ -116,8 +116,10 @@
         btn.addEventListener('change', () => {
             if(btn.value === 'true') {
                 ownerNameInput.disabled = true;
+                ownerNameInput.required = false;
             } else {
                 ownerNameInput.disabled = false;
+                ownerNameInput.required = true;
             }
         })
     })

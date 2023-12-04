@@ -3,7 +3,7 @@
         Add New Machinery
     </x-slot:title>
 
-    <x-sidebar type="managed farmers"/>   
+    <x-admin.sidebar type="managed farmers"/>   
 
     <section class="w-full min-h-screen p-10">
         <section class="w-[100%,900px] my-0 mx-auto bg-white flex flex-col items-center justify-center ">
@@ -63,7 +63,7 @@
                         </div>
 
                         <div class="w-full flex flex-col sm:flex-row items-center justify-start gap-3 my-2">
-                            <input class="bg-[#679f69] py-1 px-2 text-white font-bold cursor-pointer" type="submit" value="Add Farmer">
+                            <input class="bg-[#679f69] py-1 px-2 text-white font-bold cursor-pointer" type="submit" value="Add Machinery">
                         </div>
                     </div>
                 </form>

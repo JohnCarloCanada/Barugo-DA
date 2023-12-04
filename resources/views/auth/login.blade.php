@@ -12,7 +12,7 @@
         @endif
         <section class="w-[min(100%,900px)] custom-bg bg-overlay before:z-10 rounded-3xl mx-5 lg:mx-0 flex flex-col items-center justify-center sm:flex-row">
             <section class="w-full flex flex-col items-center justify-center px-5 py-5 sm:py-5 z-[20]">
-                <img src="{{ asset('images/DA-logo.png') }}" class="w-24 h-24 mb-5" alt="">
+                <img src="{{ asset('images/icons/DA-logo.png') }}" class="w-24 h-24 mb-5" alt="">
                 <form class="w-full sm:w-[80%]" action="{{route('login.store')}}" method="POST">
                     @csrf
 

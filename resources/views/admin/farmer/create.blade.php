@@ -97,7 +97,7 @@
                             <p class="font-semibold text-base text-gray-400 mr-3">Highest Education Qualification</p>
                             <div class="flex items-center justify-center gap-1 mr-3">
                                 <input class="w-full" type="radio" name="Highest_education_qualification" id="Pre School" value="Pre School">
-                                <label class="text-gray-400 whitespace-nowrap" for="Pre_School">Pre School</label>
+                                <label class="text-gray-400 whitespace-nowrap" for="Pre School">Pre School</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
                                 <input type="radio" name="Highest_education_qualification" id="Elementary" value="Elementary">
@@ -105,7 +105,7 @@
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
                                 <input type="radio" name="Highest_education_qualification" id="High School" value="High School">
-                                <label class="text-gray-400" for="High_School">High School</label>
+                                <label class="text-gray-400" for="High School">High School</label>
                             </div>
                             <div class="flex items-center justify-center gap-1 mr-3">
                                 <input type="radio" name="Highest_education_qualification" id="College" value="College">
