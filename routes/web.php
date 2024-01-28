@@ -147,6 +147,7 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
 
     Route::controller(ActivityLogsController::class)->group(function() {
         Route::get('/activity-logs', 'index')->name('activityLogs.index');
+        Route::get('/activity-logs/filter', 'filterLogs')->name('activityLogs.filter');
     });
 });
 

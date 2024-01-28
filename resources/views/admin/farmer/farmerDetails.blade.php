@@ -7,7 +7,6 @@
     <div class="w-full min-h-screen overflow-hidden">
         <div class="grid w-full px-5 bg-green-700">
             <div class="my-3 px-5 text-white flex flex-col sm:flex-row justify-between gap-4">
-                <x-admin.goBack/>
                 <div class="flex items-center justify-start sm:justify-between gap-3">
                     <div class="relative">
                         <img src="{{asset('images/farmer-3.png')}}" class="max-w-[46px] max-h-[46px] rounded-full bg-gray-300 border" alt="">
@@ -29,6 +28,7 @@
                         </div>
                     </div>
                 </div>
+                <x-admin.goBack/>
             </div>
             
 
