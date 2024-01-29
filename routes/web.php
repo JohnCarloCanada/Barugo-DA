@@ -82,6 +82,7 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::get('/liveStockInformation/{personalInformation}', 'adminIndex')->name('adminLiveStockInformation.index');
         Route::post('/liveStockInformation/{personalInformation}', 'adminStore')->name('adminLiveStockInformation.store');
         Route::delete('/liveStockInformation/{livestock}', 'adminDestroy')->name('adminLiveStockInformation.destroy');
+        Route::patch('/livestockInformation/Action', 'adminAction')->name('adminLiveStockInformation.action');
     });
 
     Route::controller(MachineryInformationController::class)->group(function() {
@@ -140,10 +141,10 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::get('/download/{season}/seed-issuance', 'seedIssuanceExportedExcel')->name('adminSeedIssuanceDownload');
     });
 
-    Route::controller(AdminLivestockTrackerOwnerController::class)->group(function() {
+    /* Route::controller(AdminLivestockTrackerOwnerController::class)->group(function() {
         Route::get('/livestock-owner-tracker', 'index')->name('adminLivestockOwnerTracker.index');
         Route::put('/livestock-owner-tracker', 'livestockChangeOwner')->name('adminLivestockOwnerTracker.changedOwner');
-    });
+    }); */
 
     Route::controller(ActivityLogsController::class)->group(function() {
         Route::get('/activity-logs', 'index')->name('activityLogs.index');

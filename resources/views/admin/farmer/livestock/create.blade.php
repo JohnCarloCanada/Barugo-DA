@@ -3,7 +3,7 @@
         Add New Livestock
     </x-slot:title>
 
-    <x-sidebar type="managed farmers"/>   
+    <x-admin.sidebar type="managed farmers"/>   
 
     <section class="w-full min-h-screen p-10">
         <section class="w-[100%,900px] my-0 mx-auto bg-white flex flex-col items-center justify-center ">
@@ -42,8 +42,8 @@
                         </div>
 
                         <div class="flex items-center flex-col sm:flex-row gap-x-4">
-                            <label class="text-base sm:text-xl font-bold text-[#979797]" for="Livestock_Name">Name</label>
-                            <input class="bg-green-600 rounded-xl px-3 py-1 text-white font-bold" type="text" name="Livestock_Name" id="Livestock_Name">
+                            <label class="text-base sm:text-xl font-bold text-[#979797]" for="quantity">Quantity</label>
+                            <input class="bg-[#679f69] rounded-xl px-3 py-1 text-white font-bold" type="number" name="quantity" id="quantity">
                         </div>
 
                         <div class="w-full flex flex-col sm:flex-row items-center justify-end gap-3 my-2">

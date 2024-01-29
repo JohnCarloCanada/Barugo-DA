@@ -99,7 +99,7 @@
         </div>
 
 
-        {{-- live stack information  --}}
+        {{-- live stock information  --}}
 
         <div class="{{$currentRoute == 'livestock' ? 'flex flex-col w-[100%,900px] p-5 overflow-x-auto' : 'hidden'}}">
             <table class="w-[700px] h-full sm:w-full flex flex-col shadow-2xl border-2 rounded">
@@ -110,19 +110,21 @@
                         </a>
                         <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text">
                     </th>
-                    <th class="grid grid-cols-3 text-[12px] mt-5">
+                    <th class="grid grid-cols-4 text-[12px] mt-5">
                         <div>Animal Name</div>
                         <div>Gender</div>
+                        <div>Quantity</div>
                         <div>Operation</div>
                     </th>
                 </tr>
                 @foreach ($properties as $livestock)
                     
-                <tr class="grid py-1 odd:bg-slate-200 grid-cols-3 w-full text-xs">
+                <tr class="grid py-1 odd:bg-slate-200 grid-cols-4 w-full text-xs">
                     <td class="text-center">{{$livestock->LSAnimals}}</td>
                     <td class="text-center">{{$livestock->Sex_LS}}</td>
+                    <td class="text-center">{{$livestock->quantity}}</td>
                     <td class="flex items-center justify-center gap-1 sm:gap-4">
-                        <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
+                        <div><img onclick="showLivestockFormModal({{$livestock}})" class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
                         <form action="{{ route('adminLiveStockInformation.destroy', ['livestock' => $livestock]) }}" method="post">
                             @csrf
                             @method('delete')
@@ -248,6 +250,71 @@
     </div>
 </div>
 
+{{-- Livestock --}}
+<div id="showLivestockForm" class="hidden">
+    <div class="h-screen w-screen bg-gray-500/50 fixed top-0 left-0 z-2 flex items-center justify-center">
+        <form method="POST" id="showLivestockFormInputValue" action="{{route('adminLiveStockInformation.action')}}" class="p-3 w-full gap-2 text-gray-700 grid md:w-2/4 rounded shadow-md bg-white">
+            @csrf
+            @method('patch')
+            
+            <div class="text-[20px] font-semibold w-full flex items-center justify-between px-3 my-2">
+                <p>Livestocks</p>
+                <img onclick="showLivestockFormModal()" src="{{asset('images/close.png')}}" class="w-[16px] h-[16px] cursor-pointer" alt="close">
+            </div>
+            <input type="text" name="id" class="hidden">
+            <div class="w-full px-3 flex flex-col gap-1 mt-3">
+                <label for="Action" class="text-[12px] font-semibold mr-1">Action:</label>
+                <div>
+                    <div class="whitespace-nowrap">
+                        <input checked required type="radio" name="Action" id="Transfer" value="Transfer">
+                        <label class="text-gray-400" for="Transfer">Transfer Livestock</label>
+                    </div>
+                    <div class="whitespace-nowrap">
+                        <input required type="radio" name="Action" id="Remove" value="Remove">
+                        <label class="text-gray-400" for="Remove">Remove Livestock</label>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="w-full px-3 flex flex-col gap-1">
+                <label for="Quantity" class="text-[12px] font-semibold">Livestock Quantity</label>
+                <input type="number" name="Quantity" id="Quantity" placeholder="Enter Quantity of Livestock" class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
+            </div>
+
+            <div class="w-full px-3 flex flex-col gap-1">
+                <label for="personal_information_id" class="text-[12px] font-semibold">Owner</label>
+                <select name="personal_information_id" id="personal_information_id" class="w-full border text-gray-700 outline-0 px-2 py-1 shadow-md bg-gray-100">
+                    @foreach($Farmers as $farmer)
+                    
+                    @php
+                        if($personalInformation->RSBSA_No == $farmer->RSBSA_No){
+                            continue;
+                        }
+
+                        $initial = '';
+                        if($farmer->Middle_Name) {
+                            $initial = Str::upper(Str::substr($farmer->Middle_Name, 0, 1)) . '.';
+                        } else {
+                            $initial = '';
+                        }
+
+                        $fullname = $farmer->First_Name . " " . $initial . " " . $farmer->Surname
+                    @endphp
+                        <option value="{{$farmer->id}}">{{$farmer->RSBSA_No . ' - ' . $fullname}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="px-3">
+                <button type="submit" class="py-2 w-full mt-3 text-white hover:bg-green-500 rounded font-bold bg-green-700">
+                    Accept
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
     const dropDownTarget = document.getElementById("dropdownTarget")
 
@@ -260,7 +327,7 @@
 
     const updateRSBSAForm = document.getElementById('updateRSBSAForm');
     const form = document.getElementById('updateRSBSAFormInputValue');
-
+    
     const showClaimSeedForm = (farmer) => {
         if(updateRSBSAForm) {
             if(updateRSBSAForm.classList == 'hidden') { 
@@ -272,6 +339,24 @@
             }
             else {
                 updateRSBSAForm.classList.add("hidden")
+            }
+        }
+    }
+
+    const showLivestockForm = document.getElementById('showLivestockForm');
+    const livestockForm = document.getElementById('showLivestockFormInputValue');
+
+    const showLivestockFormModal = (livestock) => {
+        if(showLivestockForm) {
+            if(showLivestockForm.classList == 'hidden') { 
+                showLivestockForm.classList.remove("hidden")
+                if (livestockForm && livestock) {
+                    console.log(livestock.id)
+                    livestockForm.id.value = livestock.id;
+                }
+            }
+            else {
+                showLivestockForm.classList.add("hidden")
             }
         }
     }

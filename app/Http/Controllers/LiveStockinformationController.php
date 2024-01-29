@@ -21,7 +21,7 @@ class LiveStockInformationController extends Controller
         $validation_rules = [
             'LSAnimals' => 'required|string',
             'Sex_LS' => 'required|string',
-            'Livestock_Name' => 'required|string|max:99'
+            'quantity' => 'required|numeric'
         ];
 
         $validated_data = $request->validate($validation_rules);
@@ -29,7 +29,7 @@ class LiveStockInformationController extends Controller
         $newlyaddedlivestock = Livestock::create([
             'LSAnimals' => $validated_data['LSAnimals'],
             'Sex_LS' => $validated_data['Sex_LS'],
-            'Livestock_Name' => $validated_data['Livestock_Name'],
+            'quantity' => $validated_data['quantity'],
             'personal_information_id' => $personalInformation->id,
         ]);
 
@@ -55,15 +55,28 @@ class LiveStockInformationController extends Controller
         $validation_rules = [
             'LSAnimals' => 'required|string',
             'Sex_LS' => 'required|string',
-            'Livestock_Name' => 'required|string|max:99'
+            'quantity' => 'required|numeric'
         ];
 
         $validated_data = $request->validate($validation_rules);
 
+        $livestocks = $personalInformation->livestock()->latest()->get();
+
+        // Create when certain livestock and gender exist
+        foreach ($livestocks as $livestock) {
+            if($livestock->LSAnimals === $validated_data['LSAnimals'] && $livestock->Sex_LS === $validated_data['Sex_LS']) {
+                $livestock->increment('quantity', $validated_data['quantity']);
+
+                activity('Activity Logs')->causedBy(Auth::user())->performedOn($livestock)->createdAt(now())->log('- Added a new livestock.');
+                return redirect()->route('admin.farmerDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->livestock])->with('success', 'Livestock Successfully Added');
+            }
+        }
+
+        // Create when certain livestock and gender dont exist
         $newlyaddedlivestock = Livestock::create([
             'LSAnimals' => $validated_data['LSAnimals'],
             'Sex_LS' => $validated_data['Sex_LS'],
-            'Livestock_Name' => $validated_data['Livestock_Name'],
+            'quantity' => $validated_data['quantity'],
             'personal_information_id' => $personalInformation->id,
         ]);
 
@@ -79,5 +92,57 @@ class LiveStockInformationController extends Controller
 
         activity('Activity Logs')->causedBy(Auth::user())->performedOn($livestock)->createdAt(now())->log('- Delete a livestock.');
         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->livestock])->with('success', 'Livestock Successfully Deleted');
+    }
+
+    public function adminAction(Request $request): RedirectResponse {
+        $findLivestock = Livestock::find($request->id);
+        $personalinformation = $findLivestock->personalinformation;
+
+        if($request->Action == 'Transfer') {
+            $findFarmer = PersonalInformation::find($request->personal_information_id);
+            $livestocks = $findFarmer->livestock()->get();
+
+            // Create when certain livestock and gender exist
+            if($livestocks) {
+                foreach ($livestocks as $livestock) {
+                    if($livestock->LSAnimals === $findLivestock->LSAnimals && $livestock->Sex_LS === $findLivestock->Sex_LS) {
+                        $livestock->increment('quantity', $request->Quantity);
+                        if($findLivestock->quantity < $request->Quantity) {
+                            $quantity = $findLivestock->quantity;
+                            $findLivestock->decrement('quantity', $quantity);
+                        } else {
+                            $findLivestock->decrement('quantity', $request->Quantity);
+                        }
+                        activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Livestock Removed Successfully.');
+                        return redirect()->route('admin.farmerDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->livestock])->with('success', 'Livestock Removed Successfully');
+                    } 
+                }
+            } 
+
+            Livestock::create([
+                'LSAnimals' => $findLivestock->LSAnimals,
+                'Sex_LS' => $findLivestock->Sex_LS,
+                'quantity' => $request->Quantity,
+                'personal_information_id' => $request->personal_information_id,
+            ]);
+
+            if($findLivestock->quantity < $request->Quantity) {
+                $quantity = $findLivestock->quantity;
+                $findLivestock->decrement('quantity', $quantity);
+            } else {
+                $findLivestock->decrement('quantity', $request->Quantity);
+            }
+            
+        } else {
+            if($findLivestock->quantity < $request->Quantity) {
+                $quantity = $findLivestock->quantity;
+                $findLivestock->decrement('quantity', $quantity);
+            } else {
+                $findLivestock->decrement('quantity', $request->Quantity);
+            }
+        }
+
+        activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Livestock Removed Successfully.');
+        return redirect()->route('admin.farmerDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->livestock])->with('success', 'Livestock Removed Successfully');
     }
 }

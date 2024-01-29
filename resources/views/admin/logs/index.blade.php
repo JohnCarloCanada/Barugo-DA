@@ -43,21 +43,13 @@
                 </form>
             </section>
             <section class="bg-white flex flex-col gap-y-2 sm:gap-y-3 justify-start h-[calc(100vh-140px)] shadow-2xl overflow-y-scroll">
-                @if ($logs)
-                    @foreach ($logs as $log)
+                @foreach ($logs as $log)
                     <div class="flex flex-col justify-start odd:bg-gray-300 p-2">
                         <p class="text-xs text-gray-500 font-semibold">{{$log->created_at->format('M j, Y g:i A')}}</p>
                         <p class="font-bold text-sm text-black whitespace-nowrap">{{$log->causer->employee_id}} <span class="bg-green-200 text-green-800 font-semibold px-[6px] h-fit text-[8px] md:text-[10px] rounded-md mr-1">{{$log->causer->appaccess->user_role}}</span></p> 
                         <h3 class="text-sm text-black">{{$log->description}}</h3>
                     </div>
-                    @endforeach
-                @else 
-                    <div class="h-full flex items-center justify-center">
-                        <div>NO DATA</div>
-                    </div>
-                @endif
-
-                
+                @endforeach
             </section>
         </main>
     </section>

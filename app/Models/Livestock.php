@@ -14,7 +14,7 @@ class Livestock extends Model
         'LSAnimals',
         'Sex_LS',
         'personal_information_id',
-        'Livestock_Name'
+        'quantity'
     ];
 
     /**
