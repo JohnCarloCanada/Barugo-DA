@@ -107,19 +107,21 @@
                         </a>
                         {{-- <input class="px-3 py-1 bg-slate-100 rounded outline-0 text-ms text-slate-800 w-full" placeholder="Search..." type="text"> --}}
                     </th>
-                    <th class="grid grid-cols-3 text-[12px] mt-5">
+                    <th class="grid grid-cols-4 text-[12px] mt-5">
                         <div>Animal Name</div>
                         <div>Gender</div>
+                        <div>Quantity</div>
                         <div>Operation</div>
                     </th>
                 </tr>
                 @foreach ($properties as $livestock)
                     
-                <tr class="grid py-1 odd:bg-slate-200 grid-cols-3 w-full text-xs">
+                <tr class="grid py-1 odd:bg-slate-200 grid-cols-4 w-full text-xs">
                     <td class="text-center">{{$livestock->LSAnimals}}</td>
                     <td class="text-center">{{$livestock->Sex_LS}}</td>
+                    <td class="text-center">{{$livestock->quantity}}</td>
                     <td class="flex items-center justify-center gap-1 sm:gap-4">
-                        <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
+                        <div><img onclick="showLivestockFormModal({{$livestock}})" class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
                         <form action="{{ route('userLiveStockInformation.destroy', ['livestock' => $livestock]) }}" method="post">
                             @csrf
                             @method('delete')
@@ -159,7 +161,9 @@
                     <td class="text-center">{{$poultry->Poultry_Type}}</td>
                     <td class="text-center">{{$poultry->Quantity}}</td>
                     <td class="flex items-center justify-center gap-1 sm:gap-4">
-                        <div><img class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt=""></div>
+                        <div>
+                            <img onclick="showPoultryFormModal({{$poultry}})" class="max-w-[34px] p-1 hover:bg-green-300/50 rounded-full" src="{{asset('images/icons/update.png')}}" alt="">
+                        </div>
                         <form action="{{ route('userPoultryInformation.destroy', ['poultry' => $poultry]) }}" method="post">
                             @csrf
                             @method('delete')
@@ -244,6 +248,136 @@
     </div>
 </div>
 
+{{-- Livestock --}}
+<div id="showLivestockForm" class="hidden">
+    <div class="h-screen w-screen bg-gray-500/50 fixed top-0 left-0 z-2 flex items-center justify-center">
+        <form method="POST" id="showLivestockFormInputValue" action="{{route('userLiveStockInformation.action')}}" class="p-3 w-full gap-2 text-gray-700 grid md:w-2/4 rounded shadow-md bg-white">
+            @csrf
+            @method('patch')
+            
+            <div class="text-[20px] font-semibold w-full flex items-center justify-between px-3 my-2">
+                <p>Livestocks</p>
+                <img onclick="showLivestockFormModal()" src="{{asset('images/close.png')}}" class="w-[16px] h-[16px] cursor-pointer" alt="close">
+            </div>
+            <input type="text" name="id" class="hidden">
+            <div class="w-full px-3 flex flex-col gap-1 mt-3">
+                <label for="Action" class="text-[12px] font-semibold mr-1">Action:</label>
+                <div>
+                    <div class="whitespace-nowrap">
+                        <input checked required type="radio" name="Action" id="Transfer" value="Transfer">
+                        <label class="text-gray-400" for="Transfer">Transfer Livestock</label>
+                    </div>
+                    <div class="whitespace-nowrap">
+                        <input required type="radio" name="Action" id="Remove" value="Remove">
+                        <label class="text-gray-400" for="Remove">Remove Livestock</label>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="w-full px-3 flex flex-col gap-1">
+                <label for="Quantity" class="text-[12px] font-semibold">Livestock Quantity</label>
+                <input required type="number" name="Quantity" id="Quantity" placeholder="Enter Quantity of Livestock" class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
+            </div>
+
+            <div class="w-full px-3 flex flex-col gap-1">
+                <label for="personal_information_id" class="text-[12px] font-semibold">Owner</label>
+                <select name="personal_information_id" id="personal_information_id" class="w-full border text-gray-700 outline-0 px-2 py-1 shadow-md bg-gray-100">
+                    @foreach($Farmers as $farmer)
+                    
+                    @php
+                        if($personalInformation->RSBSA_No == $farmer->RSBSA_No){
+                            continue;
+                        }
+
+                        $initial = '';
+                        if($farmer->Middle_Name) {
+                            $initial = Str::upper(Str::substr($farmer->Middle_Name, 0, 1)) . '.';
+                        } else {
+                            $initial = '';
+                        }
+
+                        $fullname = $farmer->First_Name . " " . $initial . " " . $farmer->Surname
+                    @endphp
+                        <option value="{{$farmer->id}}">{{$farmer->RSBSA_No . ' - ' . $fullname}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="px-3">
+                <button type="submit" class="py-2 w-full mt-3 text-white hover:bg-green-500 rounded font-bold bg-green-700">
+                    Accept
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{{-- Poultry --}}
+<div id="showPoultryForm" class="hidden">
+    <div class="h-screen w-screen bg-gray-500/50 fixed top-0 left-0 z-2 flex items-center justify-center">
+        <form method="POST" id="showPoultryFormInputValue" action="{{route('userPoultryInformation.action')}}" class="p-3 w-full gap-2 text-gray-700 grid md:w-2/4 rounded shadow-md bg-white">
+            @csrf
+            @method('patch')
+            
+            <div class="text-[20px] font-semibold w-full flex items-center justify-between px-3 my-2">
+                <p>Poultries</p>
+                <img onclick="showPoultryFormModal()" src="{{asset('images/close.png')}}" class="w-[16px] h-[16px] cursor-pointer" alt="close">
+            </div>
+            <input type="text" name="id" class="hidden">
+            <div class="w-full px-3 flex flex-col gap-1 mt-3">
+                <label for="Action" class="text-[12px] font-semibold mr-1">Action:</label>
+                <div>
+                    <div class="whitespace-nowrap">
+                        <input checked required type="radio" name="Action" id="Transfer" value="Transfer">
+                        <label class="text-gray-400" for="Transfer">Transfer Poultries</label>
+                    </div>
+                    <div class="whitespace-nowrap">
+                        <input required type="radio" name="Action" id="Remove" value="Remove">
+                        <label class="text-gray-400" for="Remove">Remove Poultries</label>
+                    </div>
+                </div>
+            </div>
+            
+
+            <div class="w-full px-3 flex flex-col gap-1">
+                <label for="Quantity" class="text-[12px] font-semibold">Poultries Quantity</label>
+                <input required type="number" name="Quantity" id="Quantity" placeholder="Enter Quantity of Poultries" class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
+            </div>
+
+            <div class="w-full px-3 flex flex-col gap-1">
+                <label for="personal_information_id" class="text-[12px] font-semibold">Owner</label>
+                <select name="personal_information_id" id="personal_information_id" class="w-full border text-gray-700 outline-0 px-2 py-1 shadow-md bg-gray-100">
+                    @foreach($Farmers as $farmer)
+                    
+                    @php
+                        if($personalInformation->RSBSA_No == $farmer->RSBSA_No){
+                            continue;
+                        }
+
+                        $initial = '';
+                        if($farmer->Middle_Name) {
+                            $initial = Str::upper(Str::substr($farmer->Middle_Name, 0, 1)) . '.';
+                        } else {
+                            $initial = '';
+                        }
+
+                        $fullname = $farmer->First_Name . " " . $initial . " " . $farmer->Surname
+                    @endphp
+                        <option value="{{$farmer->id}}">{{$farmer->RSBSA_No . ' - ' . $fullname}}</option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="px-3">
+                <button type="submit" class="py-2 w-full mt-3 text-white hover:bg-green-500 rounded font-bold bg-green-700">
+                    Accept
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
 <script>
     const dropDownTarget = document.getElementById("dropdownTarget")
 
@@ -268,6 +402,42 @@
             }
             else {
                 updateRSBSAForm.classList.add("hidden")
+            }
+        }
+    }
+
+    const showLivestockForm = document.getElementById('showLivestockForm');
+    const livestockForm = document.getElementById('showLivestockFormInputValue');
+
+    const showLivestockFormModal = (livestock) => {
+        if(showLivestockForm) {
+            if(showLivestockForm.classList == 'hidden') { 
+                showLivestockForm.classList.remove("hidden")
+                if (livestockForm && livestock) {
+                    console.log(livestock.id)
+                    livestockForm.id.value = livestock.id;
+                }
+            }
+            else {
+                showLivestockForm.classList.add("hidden")
+            }
+        }
+    }
+
+    const showPoultryForm = document.getElementById('showPoultryForm');
+    const poultryForm = document.getElementById('showPoultryFormInputValue');
+
+    const showPoultryFormModal = (poultry) => {
+        if(showPoultryForm) {
+            if(showPoultryForm.classList == 'hidden') { 
+                showPoultryForm.classList.remove("hidden")
+                if (poultryForm && poultry) {
+                    console.log(poultry.id)
+                    poultryForm.id.value = poultry.id;
+                }
+            }
+            else {
+                showPoultryForm.classList.add("hidden")
             }
         }
     }

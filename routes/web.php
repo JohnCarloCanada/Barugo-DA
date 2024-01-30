@@ -188,6 +188,7 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
         Route::get('/liveStockInformation/{personalInformation}', 'userIndex')->name('userLiveStockInformation.index');
         Route::post('/liveStockInformation/{personalInformation}', 'userStore')->name('userLiveStockInformation.store');
         Route::delete('/liveStockInformation/{livestock}', 'userDestroy')->name('userLiveStockInformation.destroy');
+        Route::patch('/livestockInformation/Action', 'userAction')->name('userLiveStockInformation.action');
     });
 
     Route::controller(MachineryInformationController::class)->group(function() {
@@ -200,6 +201,7 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
         Route::get('/poultryInformation/{personalInformation}', 'userIndex')->name('userPoultryInformation.index');
         Route::post('/poultryInformation/{personalInformation}', 'userStore')->name('userPoultryInformation.store');
         Route::delete('/poultryInformation/{poultry}', 'userDestroy')->name('userPoultryInformation.destroy');
+        Route::patch('/poultryInformation/Action', 'userAction')->name('userPoultryInformation.action');
     });
 
     Route::controller(DogVaccinationinformationController::class)->group(function() {
@@ -217,10 +219,10 @@ Route::prefix('/user')->middleware(['auth', 'verified', 'isUser'])->group(functi
         Route::patch('/profile/update', 'update')->name('userProfile.update');
     });
 
-    Route::controller(UserLivestockTrackerOwnerController::class)->group(function() {
+    /* Route::controller(UserLivestockTrackerOwnerController::class)->group(function() {
         Route::get('/livestock-owner-tracker', 'index')->name('userLivestockOwnerTracker.index');
         Route::put('/livestock-owner-tracker', 'livestockChangeOwner')->name('userLivestockOwnerTracker.changedOwner');
-    });
+    }); */
 
     Route::controller(ExcelExportsController::class)->group(function() {
         Route::get('/download/farmers', 'userDownloadAllFarmersRecord')->name('userDownloadAllFarmersRecord');

@@ -24,6 +24,18 @@ class PoultryInformationController extends Controller
 
         $validated_data = $request->validate($validation_rules);
 
+        $poultries = $personalInformation->poultry()->latest()->get();
+
+        // Create when certain poultry and gender exist
+        foreach ($poultries as $poultry) {
+            if($poultry->Poultry_Type === $validated_data['Poultry_Type']) {
+                $poultry->increment('Quantity', $validated_data['Quantity']);
+
+                activity('Activity Logs')->causedBy(Auth::user())->performedOn($poultry)->createdAt(now())->log('- Added a new livestock.');
+                return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->poultry])->with('success', 'Poultry Successfully Added');
+            }
+        }
+
         $newlyaddedpoultry = Poultry::create([
             'Poultry_Type' => $validated_data['Poultry_Type'],
             'Quantity' => $validated_data['Quantity'],
@@ -41,6 +53,58 @@ class PoultryInformationController extends Controller
 
         activity('Activity Logs')->causedBy(Auth::user())->performedOn($poultry)->createdAt(now())->log('- Delete a poultry.');
         return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->poultry])->with('success', 'Poultry Successfully Deleted');
+    }
+
+    public function userAction(Request $request): RedirectResponse {
+        $findPoultries = Poultry::find($request->id);
+        $personalinformation = $findPoultries->personalinformation;
+
+        if($request->Action == 'Transfer') {
+            $findFarmer = PersonalInformation::find($request->personal_information_id);
+            $poultries = $findFarmer->poultry()->get();
+
+            // Create when certain poultries and gender exist
+            if($poultries) {
+                foreach ($poultries as $poultry) {
+                    if($poultry->Poultry_Type === $findPoultries->Poultry_Type) {
+                        $poultry->increment('Quantity', $request->Quantity);
+
+                        if($findPoultries->Quantity < $request->Quantity) {
+                            $quantity = $findPoultries->Quantity;
+                            $findPoultries->decrement('Quantity', $quantity);
+                        } else {
+                            $findPoultries->decrement('Quantity', $request->Quantity);
+                        }
+
+                        activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Poultries Removed Successfully.');
+                        return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->poultry])->with('success', 'Poultries Removed Successfully');
+                    } 
+                }
+            } 
+
+            Poultry::create([
+                'Poultry_Type' => $findPoultries->Poultry_Type,
+                'Quantity' => $request->Quantity,
+                'personal_information_id' => $request->personal_information_id,
+            ]);
+
+            if($findPoultries->Quantity < $request->Quantity) {
+                $quantity = $findPoultries->Quantity;
+                $findPoultries->decrement('Quantity', $quantity);
+            } else {
+                $findPoultries->decrement('Quantity', $request->Quantity);
+            }
+        } else {
+            if($findPoultries->Quantity < $request->Quantity) {
+                $quantity = $findPoultries->Quantity;
+                $findPoultries->decrement('Quantity', $quantity);
+            } else {
+                $findPoultries->decrement('Quantity', $request->Quantity);
+            }
+        }
+
+        activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Poultries Removed Successfully.');
+        return redirect()->route('user.managedFarmersDetails', ['currentRoute' => 'poultry', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->poultry])->with('success', 'Poultries Removed Successfully');
     }
 
     public function adminIndex(PersonalInformation $personalInformation): View {

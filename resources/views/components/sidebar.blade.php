@@ -58,12 +58,12 @@
                     <p class="hide">Vaccination Records</p>
                 </a>
             </li>
-            <li class="{{$type == 'livestock trackers' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
+            {{-- <li class="{{$type == 'livestock trackers' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
                 <a aria-label="Go to livestock owner trackers" class="{{$type == 'livestock trackers' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="{{route('userLivestockOwnerTracker.index')}}">
                     <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/icons/people.png')}}" alt="">
                     <p class="hide">Livestock Owner Trackers</p>
                 </a>
-            </li>
+            </li> --}}
             {{-- <li class="{{$type == 'notifications' ? 'bg-white' : ''}} w-full text-start rounded-md py-2 px-2">
                 <a aria-label="Go to notifications" class="{{$type == 'notifications' ? 'text-black' : 'text-white'}} text-xs font-bold flex items-center justify-start gap-x-2" href="">
                     <img aria-hidden="true" class="w-5 h-5 object-contain" src="{{asset('images/icons/notification.png')}}" alt="">
