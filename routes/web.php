@@ -95,6 +95,7 @@ Route::prefix('/admin')->middleware(['auth', 'verified', 'isAdmin'])->group(func
         Route::get('/poultryInformation/{personalInformation}', 'adminIndex')->name('adminPoultryInformation.index');
         Route::post('/poultryInformation/{personalInformation}', 'adminStore')->name('adminPoultryInformation.store');
         Route::delete('/poultryInformation/{poultry}', 'adminDestroy')->name('adminPoultryInformation.destroy');
+        Route::patch('/poultryInformation/Action', 'adminAction')->name('adminPoultryInformation.action');
     });
 
     Route::controller(AdminControlPanelController::class)->group(function() {

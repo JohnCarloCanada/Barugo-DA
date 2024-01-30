@@ -107,12 +107,14 @@ class LiveStockInformationController extends Controller
                 foreach ($livestocks as $livestock) {
                     if($livestock->LSAnimals === $findLivestock->LSAnimals && $livestock->Sex_LS === $findLivestock->Sex_LS) {
                         $livestock->increment('quantity', $request->Quantity);
+                        
                         if($findLivestock->quantity < $request->Quantity) {
                             $quantity = $findLivestock->quantity;
                             $findLivestock->decrement('quantity', $quantity);
                         } else {
                             $findLivestock->decrement('quantity', $request->Quantity);
                         }
+                        
                         activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Livestock Removed Successfully.');
                         return redirect()->route('admin.farmerDetails', ['currentRoute' => 'livestock', 'personalInformation' => $personalinformation, 'properties' => $personalinformation->livestock])->with('success', 'Livestock Removed Successfully');
                     } 
