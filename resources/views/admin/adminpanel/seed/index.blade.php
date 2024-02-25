@@ -7,7 +7,7 @@
 
     <section class="w-full min-h-screen overflow-hidden">
         <x-admin.controlPanel>Seed Inventory Panel</x-admin.controlPanel>
-        <nav class="flex justify-start items-center p-3 sm:p-4 shadow-xl">
+        <nav class="flex justify-center sm:justify-start items-center p-3 sm:p-4 shadow-xl">
             <ul class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4">
                 <li><a class=" p-2 font-semibold" href="{{route('adminControlPanelSurvey.survey', ['currentRoute' => 'All'])}}">Survey Questions</a></li>
                 <li><a class=" p-2 font-semibold" href="{{route('adminControlPanelSeason.season')}}">Season</a></li>
@@ -23,7 +23,7 @@
                 @endforeach
             </ul>
             @endif
-            <table class="w-[700px] sm:w-full flex flex-col shadow-2xl">
+            <table class="w-[700px] md:w-full flex flex-col shadow-2xl">
                 <tr class="grid grid-cols-1 py-2 bg-green-700 text-white w-full">
                     <th class="w-full px-3 flex flex-col sm:flex-row gap-3 items-center justify-between relative py-2">
                         <div data-seed-show class="flex items-center gap-3 cursor-pointer">
@@ -36,22 +36,26 @@
                             </form>
                         </div>
                     </th>
-                    <th class="grid grid-cols-6 text-[12px] mt-5">
+                    <th class="grid grid-cols-8 text-[12px] mt-5">
                         <div>Seed Type</div>
                         <div>Seed Variety</div>
                         <div>Company</div>
                         <div>Description</div>
                         <div>Quantity</div>
+                        <div># of Hectare</div>
+                        <div>Bags/Sacks</div>
                         <div>Actions</div>
                     </th>
                 </tr>
                 @foreach ($seeds as $seed)
-                    <tr class="grid py-1 grid-cols-6 w-full odd:bg-gray-400 font-semibold text-sm">
+                    <tr class="grid py-1 grid-cols-8 w-full odd:bg-gray-400 font-semibold text-sm">
                         <td class="text-center">{{$seed->Seed_Type}}</td>
                         <td class="text-center">{{$seed->Seed_Variety}}</td>
                         <td class="text-center">{{$seed->Company}}</td>
                         <td class="text-left @if (!$seed->Description) text-red-600 font-semibold text-line-across @endif">{{$seed->Description ?? 'No Description'}}</td>
                         <td class="text-center">{{$seed->Quantity}}</td>
+                        <td class="text-center">{{$seed->NoHectare}}</td>
+                        <td class="text-center">{{$seed->NoBags}}</td>
                         <td class="text-center flex flex-col md:flex-row items-center justify-center gap-2">
                             <div onclick="showPersonnelEditForm({{$seed}})" class="bg-green-600 font-bold text-white py-1 px-3 rounded-sm text-xs sm:text-sm cursor-pointer">Edit</div>
                             <form class="" action="{{route('seedInventoryDestroy.destroy', ['seedInventory' => $seed])}}" method="post">
@@ -117,7 +121,7 @@
 {{-- SEEDS Edit --}}
 <div id="editSeedsForm" class="hidden" >
     <div class="h-screen w-screen bg-gray-500/50 fixed top-0 left-0 z-2 flex items-center justify-center">
-        <form method="POST" id="editSeedFormInputValue" action="{{route('seedInventoryUpdate.update')}}" class="p-3 w-full gap-2 text-gray-700 grid md:w-2/4 rounded shadow-md bg-white">
+        <form method="POST" id="editSeedFormInputValue" action="{{route('seedInventoryUpdate.update')}}" class="p-3 w-full h-[350px] overflow-y-scroll gap-2 text-gray-700 grid md:w-2/4 rounded shadow-md bg-white">
             @csrf
             @method('put')
             <div class="text-[20px] font-semibold w-full flex items-center justify-between px-3 my-2">
@@ -149,6 +153,14 @@
             <div class="w-full px-3 flex flex-col gap-1">
                 <label for="Quantity" class="text-[12px] font-semibold">Seed Quantity</label>
                 <input type="number" name="Quantity" id="Quantity" placeholder="Enter Quantity..." step="0.01" class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
+            </div>
+            <div class="w-full px-3 flex flex-col gap-1">
+                <label for="NoHectare" class="text-[12px] font-semibold">NoHectare</label>
+                <input type="number" name="NoHectare" id="NoHectare" placeholder="Enter NoHectare..." step="0.01" class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
+            </div>
+            <div class="w-full px-3 flex flex-col gap-1">
+                <label for="Sacks" class="text-[12px] font-semibold">Sacks</label>
+                <input type="number" name="Sacks" id="Sacks" placeholder="Enter Sacks..." step="0.01" class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
             </div>
             <div class="px-3">
                 <button type="submit" class="py-2 w-full mt-3 text-white hover:bg-green-500 rounded font-bold bg-green-700">

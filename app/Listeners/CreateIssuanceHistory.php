@@ -24,6 +24,7 @@ class CreateIssuanceHistory
     public function handle(ClaimedSuccesful $event): void
     {
         //
+        $totalSeedsQuantityToDecrement = Session::get('totalSeedsQuantityToDecrement');
         if(Session::has('error')) {
             return;
         } else {
@@ -31,7 +32,7 @@ class CreateIssuanceHistory
                 'season_id' => $event->season->id,
                 'area_id' => $event->area->id,
                 'Seed_Variety' => $event->request->Seed_Variety,
-                'Quantity' => $event->request->Quantity
+                'Quantity' => $totalSeedsQuantityToDecrement
             ]);
         }
     }

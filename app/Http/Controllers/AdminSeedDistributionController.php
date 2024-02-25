@@ -27,7 +27,7 @@ class AdminSeedDistributionController extends Controller
     public function adminSeedClaiming(Request $request): RedirectResponse {
         $validated_rules = [
             'Seed_Variety' => 'required|string|max:99',
-            'Quantity' => 'required|decimal:0,2',
+            /* 'Quantity' => 'required|decimal:0,2', */
         ];
         $validated_data = $request->validate($validated_rules);
 
@@ -41,8 +41,10 @@ class AdminSeedDistributionController extends Controller
             return redirect()->route('adminSeedDistribution.index')->with('error', Session::get('error'));
         }
 
+        $Quantity = Session::get('totalSeedsQuantityToDecrement');
+
         activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Lot' . $area->Lot_No . ' claimed '. $request->Seed_Variety . '.');
-        return redirect()->route('adminSeedDistribution.index')->with('success', $area->Lot_No . '-' . 'succesfully claimed' . ' ' . $validated_data['Quantity']  . 'x' . ' amount of seeds.');
+        return redirect()->route('adminSeedDistribution.index')->with('success', $area->Lot_No . '-' . 'succesfully claimed' . ' ' . $Quantity  . 'x' . ' amount of seeds.');
     }
 
     public function adminSeedIssuance(Season $season): View {

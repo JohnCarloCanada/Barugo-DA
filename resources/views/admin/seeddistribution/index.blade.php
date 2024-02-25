@@ -84,10 +84,10 @@
                     @endforeach
                 </select>
             </div>
-            <div class="w-full px-3 flex flex-col gap-1">
+            {{-- <div class="w-full px-3 flex flex-col gap-1">
                 <label for="Quantity" class="text-[12px] font-semibold">Seed Quantity</label>
                 <input type="number" name="Quantity" id="Quantity" placeholder="Enter Quantity of Seeds" step="0.01" class="w-full border outline-0 px-2 py-1 shadow-md bg-gray-100">
-            </div>
+            </div> --}}
             <div class="px-3">
                 <button type="submit" class="py-2 w-full mt-3 text-white hover:bg-green-500 rounded font-bold bg-green-700">
                     Claim Seeds

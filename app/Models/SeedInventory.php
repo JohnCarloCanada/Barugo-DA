@@ -20,7 +20,9 @@ class SeedInventory extends Model
         'Seed_Variety',
         'Company',
         'Quantity',
-        'Description'
+        'Description',
+        'NoHectare',
+        'NoBags'
     ];
 
     // Accessor

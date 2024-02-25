@@ -22,7 +22,7 @@ class AreaInformationController extends Controller
         $validation_rules = [
             'Lot_No' => 'nullable|string|max:32',
             'customValue' => 'nullable|string|max:32',
-            'Hectares' => 'required|decimal:0,2',
+            'Hectares' => 'nullable|decimal:0,2',
             'Area_Type' => 'required|string|max:99',
             'Commodity_planted' => 'nullable|string|max:99',
             'Address' => 'required|string|max:255',
@@ -42,6 +42,7 @@ class AreaInformationController extends Controller
             foreach ($areas as $area) {
                 if($area->Area_Type == $validated_data['Area_Type']) {
                     $isClaimed = false;
+                    $Hectare = $firstAreaCreatedExist->Hectares;
     
                     foreach ($areas as $area) {
                         if($area->is_claimed == true) {
@@ -54,7 +55,7 @@ class AreaInformationController extends Controller
     
                     $newlyaddedarea = Area::create([
                         'Lot_No' => $Lot_No,
-                        'Hectares' => $validated_data['Hectares'],
+                        'Hectares' => $Hectare,
                         'Area_Type' => $validated_data['Area_Type'],
                         'Commodity_planted' => $validated_data['Commodity_planted'] ?? 'None',
                         'Address' => $validated_data['Address'],
@@ -124,7 +125,7 @@ class AreaInformationController extends Controller
         $validation_rules = [
             'Lot_No' => 'nullable|string|max:32',
             'customValue' => 'nullable|string|max:32',
-            'Hectares' => 'required|decimal:0,2',
+            'Hectares' => 'nullable|decimal:0,2',
             'Area_Type' => 'required|string|max:99',
             'Commodity_planted' => 'nullable|string|max:99',
             'Address' => 'required|string|max:255',
@@ -144,6 +145,7 @@ class AreaInformationController extends Controller
             foreach ($areas as $area) {
                 if($area->Area_Type == $validated_data['Area_Type']) {
                     $isClaimed = false;
+                    $Hectare = $firstAreaCreatedExist->Hectares;
     
                     foreach ($areas as $area) {
                         if($area->is_claimed == true) {
@@ -152,11 +154,12 @@ class AreaInformationController extends Controller
                             $isClaimed = false;
                         }
                     }
+
                     $Lot_No = $validated_data['Lot_No'] === 'custom' ? $validated_data['customValue'] : $validated_data['Lot_No'];
     
                     $newlyaddedarea = Area::create([
                         'Lot_No' => $Lot_No,
-                        'Hectares' => $validated_data['Hectares'],
+                        'Hectares' => $Hectare,
                         'Area_Type' => $validated_data['Area_Type'],
                         'Commodity_planted' => $validated_data['Commodity_planted'] ?? 'None',
                         'Address' => $validated_data['Address'],
@@ -169,6 +172,7 @@ class AreaInformationController extends Controller
                         'personal_information_id' => $personalInformation->id,
                         'is_claimed' => $isClaimed,
                     ]);
+
                     activity('Activity Logs')->causedBy(Auth::user())->performedOn($newlyaddedarea)->createdAt(now())->log('- Added a new area.');
                     return redirect()->route('admin.farmerDetails', ['currentRoute' => 'area', 'personalInformation' => $personalInformation, 'properties' => $personalInformation->area])->with('success', 'Area Successfully Added');
                 } else {

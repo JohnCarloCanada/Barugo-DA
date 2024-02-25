@@ -111,14 +111,17 @@
     const areaOption = document.getElementById('Lot_No');
 
     let customValue = document.getElementById('customValue');
+    let hectares = document.getElementById('Hectares');
     customValue.required = true;
 
     areaOption.addEventListener('change', () => {
         if(areaOption.value === 'custom') {
             customValue.disabled = false;
+            hectares.disabled = false;
             customValue.required = true;
         } else {
             customValue.disabled = true;
+            hectares.disabled = true;
             customValue.value = "";
             customValue.required = false;
         }

@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('Seed_Type', 24);
             $table->string('Seed_Variety', 99)->unique();
             $table->string('Company', 99);
-            // $table->integer('Quantity', false, true)->default(0);
+            $table->decimal('NoHectare', 14, 2, true)->default(0);
+            $table->decimal('NoBags', 14, 2, true)->default(0);
             $table->decimal('Quantity', 14, 2, true)->default(0);
             $table->timestamps();
         });

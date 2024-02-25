@@ -27,8 +27,9 @@ class UserSeedDistributionController extends Controller
     public function userSeedClaiming(Request $request): RedirectResponse {
         $validated_rules = [
             'Seed_Variety' => 'required|string|max:99',
-            'Quantity' => 'required|decimal:0,2',
+            /* 'Quantity' => 'required|decimal:0,2', */
         ];
+
         $request->validate($validated_rules);
 
         $area = Area::find($request->id);
@@ -40,8 +41,10 @@ class UserSeedDistributionController extends Controller
             return redirect()->route('userSeedDistribution.index')->with('error', Session::get('error'));
         }
 
+        $Quantity = Session::get('totalSeedsQuantityToDecrement');
+
         activity('Activity Logs')->causedBy(Auth::user())->createdAt(now())->log('- Lot' . $area->Lot_No . ' claimed '. $request->Seed_Variety . '.');
-        return redirect()->route('userSeedDistribution.index')->with('success', $area->Lot_No . ' Succesfully Claimed');
+        return redirect()->route('userSeedDistribution.index')->with('success', $area->Lot_No . '-' . 'succesfully claimed' . ' ' . $Quantity  . 'x' . ' amount of seeds.');
     }
 
     public function userShowClaimer(Area $area, Season $season){
